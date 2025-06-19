@@ -1,0 +1,329 @@
+@import 'includes/root+header.scss';
+@import 'includes/components.scss';
+.hero-home {
+    padding-inline: 10px;
+    padding-block: 20px;
+    background-image: url(../Media/image/anton-8q-U8X1zkvI-unsplash\ 1.png);
+    background-size: cover;
+    background-position: center;
+
+    p {
+        span {
+            display: block;
+            padding-block: 10px;
+        }
+span:last-of-type{
+    font-weight: 800;
+}
+        padding-bottom: 20px;
+    }
+
+    a {
+        display: block;
+        padding: 5px;
+        background-color: var(--primary-color);
+        border-radius: 5px;
+      text-align: center;
+        justify-self: center;
+        text-decoration: none;
+        color: var(--light-color);
+        &:hover{
+            background-color: rgb(254, 23, 23);
+        }
+
+    }
+}
+
+#speciality {
+    padding-inline: 10px;
+
+    h2 {
+        padding-block: 15px;
+        color: var(--primary-color);
+        font-size: 3.2rem;
+        text-align: center;
+    }
+
+    article {
+      a{
+        text-decoration: none;
+        color: var(--light-color);
+        font-size: 3.2rem;
+        font-weight: 900;
+        box-shadow: 10px 10px 10px black;
+        background-size: cover;
+        aspect-ratio: 1/0.6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-block: 30px;
+
+      }
+      &:first-of-type {
+        a {
+          background-image: url(../Media/image/vedrana-filipovic-jxqTaXF5WmY-unsplash\ 1.png);
+        }
+      }
+
+      &:nth-of-type(2) {
+        a {
+          background-image: url(../Media/image/anirudh-djo3iNJpaOE-unsplash\ 1.png);
+        }
+      }
+
+      &:nth-of-type(3) {
+        a {
+          background-image: url(../Media/image/fusion-medical-animation-rnr8D3FNUNY-unsplash\ 1.png);
+        }
+        }
+
+      &:last-of-type {
+        a {
+          background-image: url(../Media/image/cdc-MgGTUHINEPg-unsplash\ 1.png);
+        }
+      }
+    }
+}
+#apropos{
+background-image: url(../Media/image/age-barros-GJYouaBTiRc-unsplash\ 1.png);
+background-size: cover;
+text-align: center;
+padding-block: 20px;
+padding-inline: 10px;
+  padding-bottom: 50px;
+h2{
+    padding-block: 20px;
+    color: var(--light-color);
+    font-size: 3.2rem;
+  margin-bottom: 50px;
+}
+figure{
+svg{
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+}
+figcaption{
+    color: var(--light-color);
+font-size: 1.8rem;
+}
+padding-block: 20px;
+}
+}
+
+
+.red-hero-img{
+  padding-left: 10px;
+  display: flex;
+  justify-content: space-between;
+  background: linear-gradient(to right, red 0%, red 70%, transparent 90%);
+  align-items: center;
+  img{
+    z-index: -1;
+  }
+  h1,h2{
+    color: var(--light-color);
+  }
+
+}
+#detail{
+  margin-inline: 10px;
+  h2{
+    font-size: 2rem;
+    color: var(--primary-color);
+    font-weight: 300;
+    margin-block: 15px;
+  }
+  p{
+    font-size: 1.6rem;
+    margin-block: 15px;
+  }
+  article{
+    margin-block: 15px;
+    background-color: rgba(128, 128, 128, 0.07);
+    padding: 26px;
+    box-shadow: 4px 4px 4px black;
+    border-radius: 5px;
+    div{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      h3{
+        color: var(--tertiary-color);
+        font-size: 1.8rem;
+      }
+      p{
+        color: var(--primary-color);
+        font-size: 1.8rem;
+      }
+    }
+  }
+  ul{
+    margin-left: 20px;
+    li{
+font-size: 1.6rem;
+      margin-block: 5px;
+    }
+  }
+  >div{
+    margin-block: 15px;
+    background-color: rgba(128, 128, 128, 0.07);
+    padding: 26px;
+    box-shadow: 4px 4px 4px black;
+    border-radius: 5px;
+  }
+}
+
+
+#specialites{
+    display: flex;
+    flex-direction: column;
+    h1{
+        text-align: center;
+        color: var(--primary-color);
+        padding: 43px;
+        font-size: 3rem;
+        font-weight: 400;
+    }
+article{
+    margin-inline:39px;
+    margin-block: 15px;
+    background-color: rgba(128, 128, 128, 0.07);
+    padding: 26px;
+    box-shadow: 4px 4px 4px black;
+    border-radius: 5px;
+    a{
+      text-decoration: none;
+        display: flex;
+        gap: 10px;
+        h3{
+            font-size: 2rem;
+            color: var(--tertiary-color);
+        }
+    }
+p,h4,li{
+    padding-block: 20px;
+    font-weight: 300;
+}
+p,li{
+    font-size: 1.6rem;
+}
+h4{
+    font-size: 2rem;
+    color: var(--tertiary-color);
+}
+li{
+padding-block: 15px;
+margin-inline: 30px;
+}
+
+}
+}
+
+
+.form{
+  h1{
+    color: var(--primary-color);
+    text-align: center;
+    font-size: 3.2rem;
+  }
+form{
+  margin-block: 23px;
+  padding-block: 25px;
+  border: 1px solid var(--primary-color);
+  margin-inline: 10px;
+  border-radius: 8px;
+  div{
+    display: flex;
+    flex-direction: column;
+    margin-inline: 40px;
+    gap: 10px;
+    margin-block: 10px;
+    font-size: 1.6rem;
+    input, select{
+      padding-block: 10px;
+      border: 1px solid var(--primary-color);
+      border-radius: 8px;
+      font-size: 1.6rem;
+      padding-inline: 10px;
+    }
+  }
+  button{
+    margin-top: 20px;
+    margin-inline: 40px;
+    width: calc(100% - 80px);
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    font-size: 1.6rem;
+    padding-block: 10px;
+    border: none;
+    border-radius: 8px;
+  }
+}
+.white {
+  h1 {
+    color: var(--light-color);
+    font-size: 2rem;
+  }
+}
+#reservation{
+
+  div {
+    p {
+
+      color: grey;
+      font-size: 1.3rem;
+    }
+    div{
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+      label{
+        margin-right: 30px;
+      }
+    }
+  }
+  .notification {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    a {
+      text-decoration: none;
+      text-align: center;
+      border: 1px solid grey;
+      width: 100%;
+      padding-block: 10px;
+      border-radius: 5px;
+      p{
+        font-size: 1.6rem;
+        color: black;
+        text-decoration: none;
+      }
+    }
+  }
+}
+}
+
+.account-home{
+article{
+  h2{
+    color: var(--tertiary-color);
+    font-size: 1.8rem;
+    margin-block: 25px;
+  }
+  p{
+    font-size: 1.6rem;
+    margin-block: 25px;
+  }
+  div{
+    display: flex;
+    justify-content: end;
+  }
+}
+}
+
+
+@import "includes/contactez-nous";
+@import 'includes/footer.scss';

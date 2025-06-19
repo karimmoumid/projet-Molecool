@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue {{ app.user.name }} !{% endblock %}
+
+{% block body %}
+    <main>
+        <section class="hero">
+            <h1>Bienvenue {{ app.user.name }} !</h1>
+        </section>
+        <section class="account-home">
+            <article class="box">
+                <h2>Prise de rendez-vous</h2>
+                <p>Réservez votre séance de prélèvement en ligne et simplifiez vos démarches. Choisissez l'heure qui vous convient et préparez-vous sereinement pour vos analyses, du rendez-vous au rendu des résultats.</p>
+                <div>
+                    <a href="{{ path('app_appointment_add') }}"><img src="/Media/icon/maki_arrow.png" alt="boutton en forme de fleche rouge"></a>                </div>
+            </article>
+            <article class="box">
+                <h2>Nos specialités</h2>
+                <p>Découvrez nos analyses médicales réalisées avec des équipements de pointe, offrant des résultats fiables et précis.
+                    Vous trouverez toutes les informations nécessaires pour comprendre chaque analyse et son rôle essentiel dans la gestion de votre santé.</p>
+                <div>
+                    <a href="{{ path('app_category') }}"><img src="/Media/icon/maki_arrow.png" alt="boutton en forme de fleche rouge"></a>
+                </div>
+            </article>
+            <article class="box">
+                <h2>Foire aux questions</h2>
+                <p>Trouvez ici les réponses aux questions les plus fréquemment posées concernant nos services, analyses et procédures. Si vous ne trouvez pas la réponse que vous cherchez, n'hésitez pas à nous contacter directement.</p>
+                <div>
+                    <a href=""><img src="/Media/icon/maki_arrow.png" alt="boutton en forme de fleche rouge"></a>                </div>
+            </article>
+        </section>
+
+    </main>
+{% endblock %}

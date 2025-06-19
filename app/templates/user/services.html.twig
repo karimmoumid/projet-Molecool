@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Services{% endblock %}
+
+{% block body %}
+    <main>
+        <section class="hero">
+            <h1>Bienvenue {{ app.user.name }} !</h1>
+        </section>
+        <section class="account-home">
+            <article class="box">
+                <h2>Rendez-vous</h2>
+                <ul>
+                    <li><a href="{{ path('app_appointment_add') }}">Ajouter un rendez-vous</a></li>
+                    <li><a href="{{ path('app_appointment') }}">Liste des rendez-vous</a></li>
+                </ul>
+            </article>
+            <article class="box">
+                <h2>Creation d'un compte</h2>
+                <ul>
+                    <li>Creer un compte admin</li>
+                    <li>Creer un compte employer</li>
+                </ul>
+            </article>
+            <article class="box">
+                <h2>Catégories</h2>
+                <ul>
+                    <li><a href="{{ path('app_analysis_new') }}">Ajouter une categories</a></li>
+                    <li><a href="{{ path('app_analysis_list') }}">Liste des categories</a></li>
+                </ul>
+
+            </article>
+            <article class="box">
+                <h2>Analyses</h2>
+                <ul>
+                    <li><a href="{{ path('app_analysis_new') }}">Ajouter une analyse</a></li>
+                    <li><a href="{{ path('app_analysis_list') }}">Liste des analyses</a></li>
+                </ul>
+
+            </article>
+        </section>
+
+    </main>
+{% endblock %}

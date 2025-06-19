@@ -1,0 +1,59 @@
+#contact{
+  padding-inline: 10px;
+  h2{
+    padding-block: 20px;
+    color: var(--primary-color);
+    font-size: 3rem;
+    text-align: center;
+  }
+  li{
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-block: 10px;
+    svg{
+      width: 53px;
+      height: 53px;
+    }
+    span{
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+  }
+  form{
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    padding-inline: 43px;
+    padding-block: 20px;
+    display: flex;
+    flex-direction: column;
+    label{
+      margin-top: 10px;
+      margin-bottom: 7px;
+      font-size: 1.6rem;
+    }
+    input,select,textarea{
+      border: 1px solid var(--primary-color);
+      border-radius: 5px;
+      &::placeholder {
+        padding-inline: 10px;
+        padding-block: 5px;
+      }
+    }
+    select{
+      text-align: center;
+    }
+    textarea{
+      height: 60px;
+    }
+    button{
+      margin-top: 40px;
+      background-color: var(--primary-color);
+      border-radius: 5px;
+      border: 0;
+      color: var(--light-color);
+      padding-block: 10px;
+    }
+    margin-bottom: 20px;
+  }
+}

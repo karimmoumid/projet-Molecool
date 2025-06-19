@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos prochains rendez-vous !{% endblock %}
+
+{% block javascripts %}
+    <script src={{ asset('js/appointment_filter.js')}} defer></script>
+{% endblock %}
+{% block body %}
+    <main class="form">
+        <section class="hero white">
+            <h1>Vos prochains rendez-vous !</h1>
+        </section>
+        <section class="appointment">
+            <form action="">
+                <div>
+                <label for="day">Jours de  rendez-vous</label>
+                    <select name="day" id="day">
+                        <option value="" disabled selected>Sélectionner le jour de votre rendez-vous</option>
+                        {% for day, hour in groupedAppointement %}
+                        <option value="{{ day }}">{{ day }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label for="patient-name">Patients</label>
+                    <select name="patient-name" id="patient-name">
+                        <option value="" disabled selected>Sélectionner le patient</option>
+                        {% for patient in patients %}
+                            <option value="{{ patient.name }}">{{ patient.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button>Avoir tous les rendez-vous</button>
+            </form>
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% for day, hours in groupedAppointement %}
+                <article data-id="{{ day }}">
+                <h2>Rendez-vous pour le jour {{ day }}</h2>
+                {% for hour, appointments in hours %}
+                    <div>
+                        <h3>{{ hour }}</h3>
+                        <ul>
+                            {% if is_granted('ROLE_EMPLOYEE') %}
+                                {% for item in appointments %}
+                                    <li data-name="{{ item.patientName }}" class="patient">
+                                        <div>
+                                        <strong>Patient :</strong> {{ item.patientName }}
+                                        <ul>
+                                            <li><strong>Catégories :</strong></li>
+                                            {% for category in item.appointment.categories %}
+                                                <li>{{ category.name }}</li>
+                                            {% else %}
+                                                <li>Aucune catégorie</li>
+                                            {% endfor %}
+                                        </ul>
+                                        </div>
+                                        <div><a href="{{ path('app_appointment_modify', {id: item.appointment.id} ) }}"><img
+                                                        src="{{ asset('Media/icon/crayon.png') }}" alt=""></a> <form method="post" action="{{ path('app_appointment_delete', {id: item.appointment.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce rendez-vous ?');">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete_appointment' ~ item.appointment.id) }}">
+                                                <button type="submit" >
+                                                    <img src="{{ asset('Media/icon/poubelle.png') }}" alt="Supprimer">
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            {% elseif is_granted('ROLE_PATIENT') %}
+                                {% for appointment in appointments %}
+                                    <li>
+                                        <ul>
+                                            <li><strong>Catégories :</strong></li>
+                                            {% for category in appointment.categories %}
+                                                <li><div>{{ category.name }}</div></li>
+                                            {% else %}
+                                                <li>Aucune catégorie</li>
+                                            {% endfor %}
+                                        </ul>
+                                        <div><a href="{{ path('app_appointment_modify', {id: appointment.id} ) }}"><img
+                                                        src="{{ asset('Media/icon/crayon.png') }}" alt=""></a> <form method="post" action="{{ path('app_appointment_delete', {id: appointment.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce rendez-vous ?');" >
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete_appointment' ~ appointment.id) }}">
+                                                <button type="submit" >
+                                                    <img src="{{ asset('Media/icon/poubelle.png') }}" alt="Supprimer">
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                {% endfor %}
+                </article>
+            {% else %}
+                <p>Aucun rendez-vous trouvé.</p>
+                </article>
+            {% endfor %}
+
+        </section>
+    </main>
+{% endblock %}

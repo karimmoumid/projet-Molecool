@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MessageController!{% endblock %}
+
+{% block body %}
+    <h1>Boîte de réception</h1>
+
+    <ul>
+        {% for conv in conversations %}
+            <li>
+                <a href="{{ path('messages_view_conversation', {
+                    'subject': conv.subject,
+                    'senderId': conv.sender.id,
+                    'recipientId': conv.recipient.id
+                }) }}">
+                    {{ conv.subject ?: 'Sans sujet' }}
+                    (Dernier message: {{ conv.lastDate|date('d/m/Y H:i') }})
+                </a>
+            </li>
+        {% else %}
+            <li>Aucune conversation.</li>
+        {% endfor %}
+    </ul>
+
+
+{% endblock %}

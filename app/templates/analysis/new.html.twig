@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Analysis{% endblock %}
+
+{% block body %}
+    <h1>Create new Analysis</h1>
+
+    {{ include('analysis/_form.html.twig', {'button_label': 'Ajouter'}) }}
+
+{% endblock %}

@@ -1,0 +1,13 @@
+<h3>Nouveau message reçu</h3>
+
+<p>Bonjour {{ recipient.getName() ?: recipient.getEmail() }},</p>
+
+<p>Vous avez reçu un nouveau message de {{ sender.getName() ?: sender.getEmail() }}.</p>
+
+<p><strong>Sujet :</strong> {{ message.subject }}</p>
+
+<p><strong>Message :</strong><br>{{ message.content|nl2br }}</p>
+
+<p>Connectez-vous à votre compte pour répondre.</p>
+
+<p>Bonne journée !</p>

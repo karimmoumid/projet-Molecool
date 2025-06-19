@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Specialitées{% endblock %}
+
+{% block body %}
+    <main>
+        <section id="hero" class="red-hero-img">
+            <h2>Molecool</h2>
+            <img src="/Media/image/louis-reed-pwcKF7L4-no-unsplash 1.png" alt="tips de micropipette">
+        </section>
+        <section id="specialites">
+            <h1>Nos specialitées</h1>
+            {% for category in categories %}
+                <article>
+                    <a href="{{ path('app_analysis', {'id': category.id}) }}">
+                        <img src="/Media/icon/Group (1).png" alt="icon tube de sang">
+                        <h3>{{ category.name }}</h3>
+                    </a>
+                    <p>{{ category.description }}</p>
+                    <h4>Test effectuer :</h4>
+                    <ul>
+                        {% for analyse in category.analysis %}
+                            <li>{{ analyse.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </article>
+            {% endfor %}
+        </section>
+        <section id="contact">
+            <h2 class="contact">Contactez nous</h2>
+            <ul>
+                <li><svg>
+                        <use xlink:href="/Media/icon/sprite.svg#tel"></use>
+                    </svg> <span>+3351234567</span></li>
+                <li><svg>
+                        <use href="/Media/icon/sprite.svg#gps"></use>
+                    </svg><span>123 Centre médicale, rue 43 <br>
+                        11111 Ville</span></li>
+                <li><svg>
+                        <use href="/Media/icon/sprite.svg#agenda"></use>
+                    </svg><span>Lundi-Vendredi : 07:00 - 19:00 <br>
+                        Samedi: 7:00 - 12:00 </span></li>
+            </ul>
+            <form action="">
+                <label for="email">Adresse mail</label>
+                <input type="email" name="email" id="email" placeholder="contact@gmail.com">
+                <label for="contact">Raison de contact</label>
+                <select name="" id="">
+                    <option value="" selected disabled>--Veillez-saisir-votre-raison--</option>
+                    <option value="analyse">Besoin d'information sur une analyse</option>
+                    <option value="connexion">Soucis de connexion</option>
+                    <option value="rdv">Soucis sur la prise de rendez-vous</option>
+                </select>
+                <label for="message">Message</label>
+                <textarea name="message" id="message" placeholder="Message"></textarea>
+                <button type="submit">Envoyer</button>
+            </form>
+        </section>
+    </main>
+{% endblock %}

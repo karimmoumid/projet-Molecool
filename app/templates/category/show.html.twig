@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Analysis{% endblock %}
+
+{% block body %}
+    <h1>Liste des analyses</h1>
+    {% for category in categories %}
+        <ul>
+            <li>
+            <h2>{{ category.name }}</h2>
+                    <div>{{ include('category/_delete_form.html.twig') }}
+                            <a href="{{ path('app_categories_edit', {'id': category.id}) }}"><img src="{{ asset('Media/icon/crayon.png') }}" alt=""></a></div>
+            </li>
+        </ul>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,21 @@
+<h2>Bonjour {{ user.name }},</h2>
+
+<p>Votre rendez-vous a bien été confirmé ! Voici les détails :</p>
+
+<ul>
+    <li>Votre rendez-vous est prévu pour le {{ appointment.dateHour|date('d/m/Y H:i') }}</li>
+
+    <li><strong>Catégories :</strong>
+        <ul>
+            {% for category in appointment.categories %}
+                <li>{{ category.name }}</li>
+            {% else %}
+                <li>Aucune</li>
+            {% endfor %}
+        </ul>
+    </li>
+</ul>
+
+<p>Merci pour votre confiance.</p>
+
+<p>— Centre Médical</p>

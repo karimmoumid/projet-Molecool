@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Molecool{% endblock %}
+
+{% block body %}
+    <main>
+        <section class="hero-home" id="hero">
+            <h1>Molecool : Services Médicaux Avancés : L'expertise au service de votre santé</h1>
+            <p><span>Des tests diagnostiques précis et fiables, grâce à des équipements de pointe et une équipe d'experts.</span>
+
+
+            {% if not app.user %}
+                <span>Si vous souhaitez profiter de nos services et réserver votre séance, veuillez créer votre compte en
+                cliquant sur le bouton ci-dessus.</span></p>
+                <a href="{{ path('app_register') }}">Créer un compte maintenant</a>
+            {% endif %}
+
+        </section>
+        <section id="speciality" >
+            <h2>Nos spécialités</h2>
+
+            <article><a href="{{ path('app_analysis', {id:1}) }}">Biochimie clinique</a></article>
+            <article><a href="{{ path('app_analysis', {id:2}) }}">Hématologie</a></article>
+            <article><a href="{{ path('app_analysis', {id:3}) }}">Biologie moléculaire</a></article>
+            <article><a href="{{ path('app_analysis', {id:4}) }}">Microbiologie</a></article>
+        </section>
+
+        <section id="apropos">
+            <h2>Molecool s'engage à offrir un service de qualité, proche de ses patients</h2>
+            <figure>
+                <svg>
+                    <use xlink:href="Media/icon/sprite.svg#medal"></use>
+                </svg>
+                <figcaption>Compétence & Indépendance</figcaption>
+            </figure>
+            <figure>
+                <svg>
+                    <use xlink:href="Media/icon/sprite.svg#maison"></use>
+                </svg>
+                <figcaption>Service & Proximité</figcaption>
+            </figure>
+            <figure>
+                <svg>
+                    <use xlink:href="Media/icon/sprite.svg#chimie"></use>
+                </svg>
+                <figcaption>Qualité & Innovation</figcaption>
+            </figure>
+            <figure>
+                <svg>
+                    <use xlink:href="Media/icon/sprite.svg#bouclier"></use>
+                </svg>
+                <figcaption>Respect & Engagement</figcaption>
+            </figure>
+        </section>
+        {% if not app.user %}
+        <section id="contact">
+            <h2 class="contact">Contactez nous</h2>
+            <ul>
+                <li><svg>
+                        <use xlink:href="Media/icon/sprite.svg#tel"></use>
+                    </svg> <span>+3351234567</span></li>
+                <li><svg>
+                        <use href="Media/icon/sprite.svg#gps"></use>
+                    </svg><span>123 Centre médicale, rue 43 <br>
+                        11111 Ville</span></li>
+                <li><svg>
+                        <use href="Media/icon/sprite.svg#agenda"></use>
+                    </svg><span>Lundi-Vendredi : 07:00 - 19:00 <br>
+                        Samedi: 7:00 - 12:00 </span></li>
+            </ul>
+            <form action="">
+                <label for="email">Adresse mail</label>
+                <input type="email" name="email" id="email" placeholder="contact@gmail.com">
+                <label for="contact">Raison de contact</label>
+                <select name="" id="">
+                    <option value="" selected disabled>--Veillez-saisir-votre-raison--</option>
+                    <option value="analyse">Besoin d'information sur une analyse</option>
+                    <option value="connexion">Soucis de connexion</option>
+                    <option value="rdv">Soucis sur la prise de rendez-vous</option>
+                </select>
+                <label for="message">Message</label>
+                <textarea name="message" id="message" placeholder="Message"></textarea>
+                <button type="submit">Envoyer</button>
+            </form>
+        </section>
+        {% endif %}
+    </main>
+{% endblock %}

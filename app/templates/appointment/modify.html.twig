@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un {% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
+{% endblock %}
+{% block javascripts %}
+
+    <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+    <script src="{{ asset('js/appointment.js') }}" defer ></script>
+{% endblock %}
+{% block body %}
+    <main class="form">
+        <section class="hero white">
+            <h1>Modification du prélèvement médical du {{ getDate }} à {{ getTime }}</h1>
+        </section>
+        <section id="reservation">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {{ form_start(form) }}
+            {% if form.patient is defined %}
+                {{ form_row(form.patient) }}
+            {% endif %}
+
+            {% if form.socialSecurityNumber is defined %}
+                {{ form_row(form.socialSecurityNumber) }}
+            {% endif %}
+            {{ form_row(form.categories) }}
+            {{ form_row(form.date) }}
+            <div>
+            <label for="time_select">Heure du rendez-vous</label>
+            <select id="time_select">
+                <option value="">Choisissez un créneau</option>
+                {# Options ajoutées dynamiquement par JS #}
+            </select>
+            </div>
+
+            {{ form_widget(form.time) }}
+            <button>Confirmer la réservation</button>
+            <div class="notification">
+                <a href="">
+                    <img src="/Media/image/horloge.png" alt="horloge">
+                    <p>Mes rendez-vous</p>
+                </a>
+                <a href="">
+                    <img src="/Media/image/cloche.png" alt="cloche">
+                    <p>Notifications</p>
+                </a>
+            </div>
+            {{ form_end(form) }}
+        </section>
+
+    </main>
+{% endblock %}
