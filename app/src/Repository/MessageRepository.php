@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Message;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,6 +15,17 @@ class MessageRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Message::class);
+    }
+
+    public function findInboxMessages(User $user)
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.recipient = :user')
+            ->setParameter('user', $user)
+            ->andWhere('m.isResponse = true') // message principal (pas une réponse)
+            ->orderBy('m.modify_at', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

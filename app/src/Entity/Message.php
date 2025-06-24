@@ -33,6 +33,12 @@ class Message
     #[ORM\JoinColumn(nullable: false)]
     private ?User $recipient = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $modify_at = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $isResponse = null;
+
 
     public function getId(): ?int
     {
@@ -95,6 +101,30 @@ class Message
     public function setRecipient(?User $recipient): static
     {
         $this->recipient = $recipient;
+
+        return $this;
+    }
+
+    public function getModifyAt(): ?\DateTimeImmutable
+    {
+        return $this->modify_at;
+    }
+
+    public function setModifyAt(?\DateTimeImmutable $modify_at): static
+    {
+        $this->modify_at = $modify_at;
+
+        return $this;
+    }
+
+    public function isResponse(): ?bool
+    {
+        return $this->isResponse;
+    }
+
+    public function setIsResponse(?bool $isResponse): static
+    {
+        $this->isResponse = $isResponse;
 
         return $this;
     }

@@ -41,6 +41,13 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult();
     }
 
+    public function getUsersByRoleQueryBuilder(string $role)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.roles LIKE :role')
+            ->setParameter('role', '%"'.$role.'"%');
+    }
+
     public function findAdminsAndEmployeesQuery(): \Doctrine\ORM\Query
     {
         return $this->createQueryBuilder('u')
@@ -51,6 +58,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->orderBy('u.name', 'ASC')
             ->getQuery(); // ⬅️ retourne un Query, pas getResult()
     }
+
+    public function getUsersByAdminOrEmployeeRoleQueryBuilder()
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.roles LIKE :admin')
+            ->orWhere('u.roles LIKE :employee')
+            ->setParameter('admin', '%"ROLE_ADMIN"%')
+            ->setParameter('employee', '%"ROLE_EMPLOYEE"%')
+            ->orderBy('u.name', 'ASC');
+    }
+
 
 //    /**
 //     * @return User[] Returns an array of User objects

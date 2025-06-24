@@ -1,35 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MessageController!{% endblock %}
+{% block title %}Envoyer un message{% endblock %}
 
 {% block body %}
-
+<main class="form">
     <h1>Envoyer un message</h1>
 
     {{ form_start(messageForm) }}
+
+    {% if messageForm.patient is defined %}
+        {{ form_row(messageForm.patient) }}
+    {% endif %}
+
+    {% if messageForm.employer is defined %}
+        {{ form_row(messageForm.employer) }}
+    {% endif %}
+
     {{ form_row(messageForm.subject) }}
     {{ form_row(messageForm.content) }}
 
-    {% if is_granted('ROLE_PATIENT') %}
-        <div>
-            <select id="message_form_recipient" name="message_form[recipient]" required="required"><option value="" selected="selected">Choisissez un employer</option>
-                {% for employee in employees %}
-                    <option value="{{ employee.id }}">{{ employee.name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-    {% endif %}
-    {% if is_granted('ROLE_EMPLOYEE') %}
-        <div>
-            <select id="message_form_recipient" name="message_form[recipient]" required="required"><option value="" selected="selected">Choisissez un patient</option>
-                {% for patient in patients %}
-                    <option value="{{ patient.id }}">{{ patient.name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-    {% endif %}
-
     <button type="submit">Envoyer</button>
+
     {{ form_end(messageForm) }}
 
+</main>
 {% endblock %}

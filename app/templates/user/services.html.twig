@@ -15,6 +15,7 @@
                     <li><a href="{{ path('app_appointment') }}">Liste des rendez-vous</a></li>
                 </ul>
             </article>
+            {% if is_granted('ROLE_ADMIN') %}
             <article class="box">
                 <h2>Compte professionnel</h2>
                 <ul>
@@ -39,6 +40,7 @@
                 </ul>
 
             </article>
+            {% endif %}
         </section>
 
     </main>

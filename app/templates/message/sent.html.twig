@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Boîte de réception !{% endblock %}
+{% block title %}Hello MessageController!{% endblock %}
 
 {% block body %}
-    <main>
-    <h1>Boîte de réception</h1>
+    <h1>Messages envoyés</h1>
 
     <ul>
         {% for message in messages %}
@@ -21,5 +20,5 @@
         {% endfor %}
     </ul>
 
-    </main>
+
 {% endblock %}

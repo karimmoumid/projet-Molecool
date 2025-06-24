@@ -3,6 +3,7 @@
 {% block title %}Hello MessageController!{% endblock %}
 
 {% block body %}
+    <main>
     <h1>Message</h1>
 
     <p><strong>Sujet :</strong> {{ message.subject ?: '(sans sujet)' }}</p>
@@ -10,10 +11,17 @@
     <p><strong>À :</strong> {{ message.recipient.name ?: message.recipient.email }}</p>
     <p><strong>Date :</strong> {{ message.createdAt|date('d/m/Y H:i') }}</p>
 
-    <hr>
 
-    <p>{{ message.content|nl2br }}</p>
+    <p>{{ message.content|raw }}</p>
+
+    {{ form_start(form) }}
+
+        {{ form_row(form.reponse) }}
+
+    <button type="submit">Repondre</button>
+
+    {{ form_end(form) }}
 
     <a href="{{ path('messages_inbox') }}">Retour à la boîte de réception</a>
-
+    </main>
 {% endblock %}

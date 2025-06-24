@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class AnalysisController extends AbstractController
 {
@@ -26,6 +27,7 @@ $analyses = $category->getAnalysis();
     }
 
     #[Route('/analyses', name: 'app_analysis_list')]
+    #[IsGranted("ROLE_ADMIN")]
     public function show(CategoryRepository $categoryRepository): Response
     {
         $categories = $categoryRepository->findAll();
@@ -34,6 +36,7 @@ $analyses = $category->getAnalysis();
 
 
     #[Route('/analyse/ajouter', name: 'app_analysis_new', methods: ['GET', 'POST'])]
+    #[IsGranted("ROLE_ADMIN")]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $analysi = new Analysis();
@@ -63,6 +66,7 @@ $analyses = $category->getAnalysis();
     }
 
     #[Route('/analyse/{id}/modifier', name: 'app_analysis_edit', methods: ['GET', 'POST'])]
+    #[IsGranted("ROLE_ADMIN")]
     public function edit(Request $request, Analysis $analysi, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(AnalysisForm::class, $analysi);
