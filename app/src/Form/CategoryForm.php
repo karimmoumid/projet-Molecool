@@ -6,8 +6,10 @@ use App\Entity\Appointment;
 use App\Entity\Category;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Positive;
@@ -33,6 +35,15 @@ class CategoryForm extends AbstractType
                 'constraints' => [
                     new Positive(message: 'Veillez selectionner au moins un équipement'),
                 ]
+            ])
+            ->add('equipements', CollectionType::class, [
+                'mapped' => false,
+                'entry_type' => TextType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'prototype' => true,
+                'label' => false,
             ])
         ;
     }

@@ -4,13 +4,25 @@
 
 {% block body %}
     <main class="form">
-    <h1>Inscription</h1>
+    <h1>
+        {% if role == 'customer' %}
+            Inscription
+        {% endif %}
+        {% if role == 'admin' %}
+            Création d'un compte admin
+        {% endif %}
+        {% if role == 'employee' %}
+            Création d'un compte employer
+        {% endif %}
+    </h1>
 
     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
     {{ form_row(registrationForm.name) }}
-    {{ form_row(registrationForm.social_security_number.number) }}
+        {% if role == 'customer' %}
+            {{ form_row(registrationForm.social_security_number.number) }}
+        {% endif %}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'

@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\RegistrationForm;
 use App\Form\ResetPasswordForm;
 use App\Form\ResetPasswordRequestForm;
 use App\Form\UserForm;
+use App\Repository\UserRepository;
 use App\Service\EmailService;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -119,6 +122,61 @@ final class UserController extends AbstractController
 
         return $this->render('user/reset_password.html.twig', compact('form'));
     }
+
+
+    #[Route('/Comptes_pro', name: 'app_user_pro_list')]
+    #[isGranted('ROLE_ADMIN')]
+    public function list(UserRepository $userRepository, PaginatorInterface $paginator, Request $request): Response
+    {
+        $query = $userRepository->findAdminsAndEmployeesQuery();
+        $users = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            10
+        );
+
+        return $this->render('user/list.html.twig',compact('users'));
+    }
+
+    #[Route('/modifier_le_compte/{id}', name: 'app_user_modify')]
+    #[isGranted('ROLE_ADMIN')]
+    public function modify(User $user,Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $userPasswordHasher): Response
+    {
+        $allowedRoles = ['ROLE_ADMIN', 'ROLE_EMPLOYEE'];
+        if (!in_array($user->getRoles()[0], $allowedRoles, true)) {
+            throw $this->createNotFoundException('Rôle non autorisé');
+        }
+        $form = $this->createForm(RegistrationForm::class, $user, ['is_edit' => true, 'pro' => true]);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $getpassword = $form->get('plainPassword')->getData();
+            if(!empty($getpassword)){
+                $user->setPassword($userPasswordHasher->hashPassword($user, $getpassword));
+            }
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute('app_user_pro_list' );
+        }
+        return $this->render('user/modify.html.twig',compact('form'));
+    }
+    #[Route('/supprimer_le_compte/{id}', name: 'app_user_delete', methods: ['POST'])]
+    #[isGranted('ROLE_ADMIN')]
+    public function delete(User $user, Request $request, EntityManagerInterface $em): Response
+    {
+        // Vérifier le token CSRF pour sécuriser la suppression
+        if ($this->isCsrfTokenValid('delete-user'.$user->getId(), $request->request->get('_token'))) {
+            $em->remove($user);
+            $em->flush();
+
+            $this->addFlash('success', 'Le compte a bien été supprimé.');
+        } else {
+            $this->addFlash('error', 'Token CSRF invalide, suppression annulée.');
+        }
+
+        // Redirection après suppression (ex: vers la liste des utilisateurs)
+        return $this->redirectToRoute('app_user_pro_list');
+    }
+
 
 
 }

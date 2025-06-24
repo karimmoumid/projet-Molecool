@@ -16,17 +16,18 @@
                 </ul>
             </article>
             <article class="box">
-                <h2>Creation d'un compte</h2>
+                <h2>Compte professionnel</h2>
                 <ul>
-                    <li>Creer un compte admin</li>
-                    <li>Creer un compte employer</li>
+                    <li><a href="{{ path('app_user_pro_list') }}">Liste des comptes professionnels </a></li>
+                    <li><a href="{{ path('app_register',{'role':'admin'}) }}">Creer un compte admin</a></li>
+                    <li><a href="{{ path('app_register',{'role':'employee'}) }}">Creer un compte employer</a></li>
                 </ul>
             </article>
             <article class="box">
                 <h2>Catégories</h2>
                 <ul>
-                    <li><a href="{{ path('app_analysis_new') }}">Ajouter une categories</a></li>
-                    <li><a href="{{ path('app_analysis_list') }}">Liste des categories</a></li>
+                    <li><a href="{{ path('app_categories_new') }}">Ajouter une categories</a></li>
+                    <li><a href="{{ path('app_categories_list') }}">Liste des categories</a></li>
                 </ul>
 
             </article>

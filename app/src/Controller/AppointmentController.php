@@ -53,7 +53,7 @@ final class AppointmentController extends AbstractController
                 $groupedAppointement[$day][$hour] = [$appointment];
             }
         }
-        return $this->render('appointment/show.html.twig', compact('groupedAppointement', 'patients'));
+        return $this->render('appointment/index.html.twig', compact('groupedAppointement', 'patients'));
     }
 
     #[Route('/appointment/ajouter', name: 'app_appointment_add')]

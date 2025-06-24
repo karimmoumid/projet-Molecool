@@ -20,7 +20,7 @@ final class CategoryController extends AbstractController
         return $this->render('category/index.html.twig', compact('categories'));
     }
 
-    #[Route('/liste/categories',name: 'app_categories_index', methods: ['GET'])]
+    #[Route('/liste/categories',name: 'app_categories_list', methods: ['GET'])]
     public function show(CategoryRepository $categoryRepository): Response
     {
         return $this->render('category/show.html.twig', [
@@ -34,12 +34,22 @@ final class CategoryController extends AbstractController
         $category = new Category();
         $form = $this->createForm(CategoryForm::class, $category);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            $equipements = $form->get('equipements')->getData();
+            $htmlList = '<ul>';
+
+            foreach ($equipements as $equipement) {
+                $htmlList .= '<li>' . $equipement . '</li>';
+            }
+
+            $htmlList .= '</ul>';
+
+            $category->setEquipment($htmlList);
+
             $entityManager->persist($category);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_categories_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_categories_list', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('category/new.html.twig', [
@@ -55,9 +65,19 @@ final class CategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $equipements = $form->get('equipements')->getData();
+            $htmlList = '<ul>';
+
+            foreach ($equipements as $equipement) {
+                $htmlList .= '<li>' . $equipement . '</li>';
+            }
+            $htmlList .= '</ul>';
+
+            $category->setEquipment($htmlList);
+
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_categories_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_categories_list', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('category/edit.html.twig', [
@@ -74,7 +94,7 @@ final class CategoryController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_categories_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_categories_list', [], Response::HTTP_SEE_OTHER);
     }
 
 

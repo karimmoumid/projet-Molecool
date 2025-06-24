@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de compte{% endblock %}
+
+{% block body %}
+    <main >
+                <h1 >Modification de compte</h1>
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}">
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+                    {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+                    {% for field in form %}
+                        {% if field.vars.name != '_token' %}
+                            <div>
+                                {{ form_label(field) }}
+                                {{ form_widget(field, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(field) }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                    </div>
+                    {{ form_end(form) }}
+    </main>
+{% endblock %}
