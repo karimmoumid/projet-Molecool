@@ -20,14 +20,26 @@ class MessageRepository extends ServiceEntityRepository
     public function findInboxMessages(User $user)
     {
         return $this->createQueryBuilder('m')
-            ->where('m.recipient = :user')
+            ->where('m.recipient = :user AND m.lastSender != :username')
+            ->orWhere('m.sender = :user AND m.lastSender != :username') // message principal (pas une réponse)
             ->setParameter('user', $user)
-            ->andWhere('m.isResponse = true') // message principal (pas une réponse)
+            ->setParameter('username', $user->getName())
             ->orderBy('m.modify_at', 'DESC')
             ->getQuery()
             ->getResult();
     }
 
+    public function findSentMessages(User $user)
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.sender = :user AND m.lastSender = :username')
+            ->orWhere('m.recipient = :user AND m.lastSender = :username') // message principal (pas une réponse)
+            ->setParameter('user', $user)
+            ->setParameter('username', $user->getName())
+            ->orderBy('m.modify_at', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return Message[] Returns an array of Message objects
 //     */

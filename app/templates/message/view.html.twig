@@ -11,12 +11,25 @@
     <p><strong>À :</strong> {{ message.recipient.name ?: message.recipient.email }}</p>
     <p><strong>Date :</strong> {{ message.createdAt|date('d/m/Y H:i') }}</p>
 
-
+<h2>Message :</h2>
     <p>{{ message.content|raw }}</p>
+        <h2>Pièce(s) jointe(s) :</h2>
+        <ul>
+            {% for file in message.files %}
+                <li>
+                    <a href="{{ path('secure_file', { id: file.id }) }}">
+                        {{ file.originalName ?: file.name }}
+                    </a>
+                </li>
+            {% else %}
+                <li>Aucune pièce jointe.</li>
+            {% endfor %}
+        </ul>
 
     {{ form_start(form) }}
 
         {{ form_row(form.reponse) }}
+        {{ form_row(form.files) }}
 
     <button type="submit">Repondre</button>
 

@@ -4,22 +4,27 @@
 
 {% block body %}
     <main>
-    <h1>Boîte de réception</h1>
+        <h1>Boîte de réception</h1>
 
-    <ul>
-        {% for message in messages %}
-            <li>
-                <a href="{{ path('message_view', {
-                    'id': message.id,
-                }) }}">
-                    {{ message.subject ?: 'Sans sujet' }}
-                    (Dernier message: {{ message.modifyAt|date('d/m/Y H:i') }})
-                </a>
-            </li>
-        {% else %}
-            <li>Aucune conversation.</li>
-        {% endfor %}
-    </ul>
+        <nav>
+            <ul>
+                <li><a href="{{ path('messages_sent') }}">Messages envoyés</a></li>
+                <li><a href="{{ path('message_send') }}">Envoyer un nouveau message</a></li>
+            </ul>
+        </nav>
 
+        <ul>
+            {% for message in messages %}
+                <li class="{{ message.isRead ? 'read' : '' }}">
+                    <a href="{{ path('message_view', { 'id': message.id , 'read': 1 }) }}">
+                        {{ message.subject ?: 'Sans sujet' }}
+                        (Dernier message : {{ message.modifyAt|date('d/m/Y H:i') }}) -
+                        {{ message.isRead ? 'lu' : 'non lu' }}
+                    </a>
+                </li>
+            {% else %}
+                <li>Aucune conversation.</li>
+            {% endfor %}
+        </ul>
     </main>
 {% endblock %}

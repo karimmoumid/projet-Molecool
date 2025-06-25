@@ -39,6 +39,23 @@ class Message
     #[ORM\Column(nullable: true)]
     private ?bool $isResponse = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $isRead = null;
+
+    /**
+     * @var Collection<int, File>
+     */
+    #[ORM\OneToMany(targetEntity: File::class, mappedBy: 'message')]
+    private Collection $files;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $lastSender = null;
+
+    public function __construct()
+    {
+        $this->files = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -128,5 +145,68 @@ class Message
 
         return $this;
     }
+
+    public function isRead(): ?bool
+    {
+        return $this->isRead;
+    }
+
+    public function setIsRead(?bool $isRead): static
+    {
+        $this->isRead = $isRead;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, File>
+     */
+    public function getFiles(): Collection
+    {
+        return $this->files;
+    }
+
+    public function addFile(File $file): static
+    {
+        if (!$this->files->contains($file)) {
+            $this->files->add($file);
+            $file->setMessage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFile(File $file): static
+    {
+        if ($this->files->removeElement($file)) {
+            // set the owning side to null (unless already changed)
+            if ($file->getMessage() === $this) {
+                $file->setMessage(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLastSender(): ?string
+    {
+        return $this->lastSender;
+    }
+
+    public function setLastSender(?string $lastSender): static
+    {
+        $this->lastSender = $lastSender;
+
+        return $this;
+    }
+
+    // src/Entity/Message.php
+
+    public function isUserAllowed(User $user): bool
+    {
+        // Par exemple, l’utilisateur est autorisé s’il est l’expéditeur ou le destinataire
+        return $this->getSender() === $user || $this->getRecipient() === $user;
+    }
+
 
 }

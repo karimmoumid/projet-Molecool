@@ -23,6 +23,7 @@
                 <li><a href="../">Accueil</a></li>
                 <li><a href="{{ path('app_category') }}">Nos spécialités</a></li>
                 {% if app.user %}
+                    <li><a href="{{ path('messages_inbox') }}">Messagerie</a></li>
                     {% if is_granted('ROLE_PATIENT') %}
                         <li><a href="{{ path('app_user') }}">Services</a></li>
                         <li><a href="{{ path('app_appointment') }}">Mes rendez-vous</a></li>

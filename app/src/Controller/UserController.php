@@ -27,7 +27,7 @@ final class UserController extends AbstractController
     #[isGranted('ROLE_PATIENT')]
     public function index(): Response
     {
-        return $this->render('user/show.html.twig');
+        return $this->render('user/index.html.twig');
     }
 
     #[Route('/services_employee_admin', name: 'app_user_employee_admin')]

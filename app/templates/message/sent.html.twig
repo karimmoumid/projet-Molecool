@@ -10,6 +10,7 @@
             <li>
                 <a href="{{ path('message_view', {
                     'id': message.id,
+                    'read': 0
                 }) }}">
                     {{ message.subject ?: 'Sans sujet' }}
                     (Dernier message: {{ message.modifyAt|date('d/m/Y H:i') }})
