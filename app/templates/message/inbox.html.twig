@@ -1,30 +1,44 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Boîte de réception !{% endblock %}
-
+{% block javascripts %}
+    <script src="{{ asset('js/message_inbox.js') }}" defer></script>
+{% endblock %}
 {% block body %}
-    <main>
+    <main id="message_inbox">
         <h1>Boîte de réception</h1>
 
-        <nav>
+        <nav class="inbox-nav">
             <ul>
-                <li><a href="{{ path('messages_sent') }}">Messages envoyés</a></li>
-                <li><a href="{{ path('message_send') }}">Envoyer un nouveau message</a></li>
+                <li><a href="{{ path('messages_sent') }}">📤 Messages envoyés</a></li>
+                <li><a href="{{ path('message_send') }}">✉️ Nouveau message</a></li>
+                <li><a href="{{ path('messages_favorite') }}">❤️ Messages favoris</a></li>
             </ul>
         </nav>
 
-        <ul>
-            {% for message in messages %}
-                <li class="{{ message.isRead ? 'read' : '' }}">
-                    <a href="{{ path('message_view', { 'id': message.id , 'read': 1 }) }}">
-                        {{ message.subject ?: 'Sans sujet' }}
-                        (Dernier message : {{ message.modifyAt|date('d/m/Y H:i') }}) -
-                        {{ message.isRead ? 'lu' : 'non lu' }}
-                    </a>
-                </li>
-            {% else %}
-                <li>Aucune conversation.</li>
-            {% endfor %}
-        </ul>
+        <section class="message-list">
+            <ul>
+                {% for message in messages %}
+                    <li class="message-item {{ message.isRead ? 'read' : 'unread' }}" data-message-id="{{ message.id }}">
+                        <a href="{{ path('message_view', { 'id': message.id , 'read': 1 }) }}">
+                            <strong>{{ message.subject ?: 'Sans sujet' }}</strong><br>
+                            <small>Dernier message : {{ message.modifyAt|date('d/m/Y H:i') }}</small>
+                        </a>
+                        <div class="message-meta">
+                            <span class="status">{{ message.isRead ? '📖 Lu' : '📩 Non lu' }}</span>
+
+                            <button class="favorite-toggle" aria-label="Toggle favorite">
+                                {{ message.isFavorite ? '🟢' : '⚪' }}
+                            </button>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="no-message">Aucune conversation.</li>
+                {% endfor %}
+            </ul>
+        </section>
+        <div class="pagination">
+            {{ knp_pagination_render(messages) }}
+        </div>
     </main>
 {% endblock %}

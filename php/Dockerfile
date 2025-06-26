@@ -14,7 +14,7 @@ RUN docker-php-ext-configure gd --with-freetype --with-webp --with-jpeg \
     && docker-php-ext-configure gd \
     && docker-php-ext-configure exif
 
-RUN a2enmod rewrite && a2enmod socache_shmcb
+RUN a2enmod rewrite && a2enmod socache_shmcb && a2enmod ssl
 
 WORKDIR /var/www/html
 

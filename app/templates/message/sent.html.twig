@@ -1,13 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello MessageController!{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/message_inbox.js') }}" defer></script>
+{% endblock %}
 
 {% block body %}
+    <main id="message_sent">
     <h1>Messages envoyés</h1>
 
     <ul>
         {% for message in messages %}
-            <li>
+            <li data-message-id="{{ message.id }}">
                 <a href="{{ path('message_view', {
                     'id': message.id,
                     'read': 0
@@ -15,11 +19,18 @@
                     {{ message.subject ?: 'Sans sujet' }}
                     (Dernier message: {{ message.modifyAt|date('d/m/Y H:i') }})
                 </a>
+                <button class="favorite-toggle">
+                    {{ message.isFavorite ? '🟢' : '⚪' }}
+                </button>
             </li>
         {% else %}
             <li>Aucune conversation.</li>
         {% endfor %}
     </ul>
+        <div class="pagination">
+            {{ knp_pagination_render(messages) }}
+        </div>
 
+    </main>
 
 {% endblock %}

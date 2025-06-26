@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Message;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,7 +18,7 @@ class MessageRepository extends ServiceEntityRepository
         parent::__construct($registry, Message::class);
     }
 
-    public function findInboxMessages(User $user)
+    public function findInboxMessages(User $user): Query
     {
         return $this->createQueryBuilder('m')
             ->where('m.recipient = :user AND m.lastSender != :username')
@@ -25,21 +26,29 @@ class MessageRepository extends ServiceEntityRepository
             ->setParameter('user', $user)
             ->setParameter('username', $user->getName())
             ->orderBy('m.modify_at', 'DESC')
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
     }
 
-    public function findSentMessages(User $user)
+    public function findSentMessages(User $user): Query
     {
         return $this->createQueryBuilder('m')
-            ->where('m.sender = :user AND m.lastSender = :username')
-            ->orWhere('m.recipient = :user AND m.lastSender = :username') // message principal (pas une réponse)
-            ->setParameter('user', $user)
+            ->where('m.lastSender = :username')
             ->setParameter('username', $user->getName())
             ->orderBy('m.modify_at', 'DESC')
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
     }
+    public function getFavoriteMessagesQuery(User $user): Query
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.isFavorite = :fav')
+            ->andWhere('m.sender = :user OR m.recipient = :user')
+            ->setParameter('fav', true)
+            ->setParameter('user', $user)
+            ->orderBy('m.modify_at', 'DESC')
+            ->getQuery();
+    }
+
+
 //    /**
 //     * @return Message[] Returns an array of Message objects
 //     */

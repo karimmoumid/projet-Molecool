@@ -28,35 +28,5 @@
                 <p>{{ category.deadline }}</p>
             </div>
         </section>
-        <section id="contact">
-            <h2 class="contact">Contactez nous</h2>
-            <ul>
-                <li><svg>
-                        <use xlink:href="/Media/icon/sprite.svg#tel"></use>
-                    </svg> <span>+3351234567</span></li>
-                <li><svg>
-                        <use href="/Media/icon/sprite.svg#gps"></use>
-                    </svg><span>123 Centre médicale, rue 43 <br>
-                        11111 Ville</span></li>
-                <li><svg>
-                        <use href="/Media/icon/sprite.svg#agenda"></use>
-                    </svg><span>Lundi-Vendredi : 07:00 - 19:00 <br>
-                        Samedi: 7:00 - 12:00 </span></li>
-            </ul>
-            <form action="">
-                <label for="email">Adresse mail</label>
-                <input type="email" name="email" id="email" placeholder="contact@gmail.com">
-                <label for="contact">Raison de contact</label>
-                <select name="" id="">
-                    <option value="" selected disabled>--Veillez-saisir-votre-raison--</option>
-                    <option value="analyse">Besoin d'information sur une analyse</option>
-                    <option value="connexion">Soucis de connexion</option>
-                    <option value="rdv">Soucis sur la prise de rendez-vous</option>
-                </select>
-                <label for="message">Message</label>
-                <textarea name="message" id="message" placeholder="Message"></textarea>
-                <button type="submit">Envoyer</button>
-            </form>
-        </section>
     </main>
 {% endblock %}

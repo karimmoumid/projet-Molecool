@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Messages favoris{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/message_favoris.js') }}" defer></script>
+{% endblock %}
+
+{% block body %}
+    <h1>Messages favoris</h1>
+
+    <ul>
+        {% for message in messages %}
+            <li class="message-item {{ message.isRead ? 'read' : 'unread' }}" data-message-id="{{ message.id }}">
+                <a href="{{ path('message_view', { 'id': message.id , 'read': 0 }) }}">
+                    <strong>{{ message.subject ?: 'Sans sujet' }}</strong><br>
+                    <small>Dernier message : {{ message.modifyAt|date('d/m/Y H:i') }}</small>
+                </a>
+                <button class="favorite-toggle" aria-label="Toggle favorite">
+                    {{ message.isFavorite ? '🟢' : '⚪' }}
+                </button>
+            </li>
+        {% else %}
+            <li>Aucun message favori trouvé.</li>
+        {% endfor %}
+    </ul>
+
+    <div class="pagination">
+        {{ knp_pagination_render(messages) }}
+    </div>
+{% endblock %}

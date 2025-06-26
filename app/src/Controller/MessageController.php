@@ -11,7 +11,9 @@ use App\Repository\MessageRepository;
 use App\Repository\UserRepository;
 use App\Service\EmailService;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
@@ -23,7 +25,9 @@ class MessageController extends AbstractController
 {
 
     #[Route('/messages/inbox', name: 'messages_inbox')]
-    public function inbox(MessageRepository $messageRepository): Response
+    public function inbox(Request $request,
+                          MessageRepository $messageRepository,
+                          PaginatorInterface $paginator): Response
     {
         $user = $this->getUser();
 
@@ -32,7 +36,12 @@ class MessageController extends AbstractController
             throw $this->createAccessDeniedException('Vous devez être connecté pour voir vos messages.');
         }
 
-        $messages = $messageRepository->findInboxMessages($user);
+        $query = $messageRepository->findInboxMessages($user);
+        $messages = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            10 // Limite par page
+        );
 
         return $this->render('message/inbox.html.twig', [
             'messages' => $messages,
@@ -40,13 +49,39 @@ class MessageController extends AbstractController
     }
 
     #[Route('/messages/envoye', name: 'messages_sent')]
-    public function sent(MessageRepository $messageRepository): Response
+    public function sent(Request $request,
+                         MessageRepository $messageRepository,
+                         PaginatorInterface $paginator): Response
     {
         $user = $this->getUser();
-        $messages = $messageRepository->findSentMessages($user);
+        $query = $messageRepository->findSentMessages($user);
+        $messages = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            10 // Limite par page
+        );
 
         return $this->render('message/sent.html.twig', [
             'messages' => $messages,
+        ]);
+    }
+
+    #[Route('/messages/favoris', name: 'messages_favorite')]
+    public function favorite(Request $request,
+                             MessageRepository $messageRepository,
+                             PaginatorInterface $paginator): Response
+    {
+        $user = $this->getUser();
+        $query = $messageRepository->getFavoriteMessagesQuery($user);
+
+        $messages = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            10 // Limite par page
+        );
+
+        return $this->render('message/favorites.html.twig', [
+            'messages' => $messages
         ]);
     }
 
@@ -105,7 +140,7 @@ class MessageController extends AbstractController
             $emailSender->sender('no-reply@tonsite.com',$message->getRecipient()->getEmail(), 'Nouveau message reçu sur votre compte', 'new_message',[
                 'recipient' => $message->getRecipient(),
                 'sender' => $user,
-                'message' => $message,
+                'message' => $message
             ]);
 
             $this->addFlash('success', 'Message envoyé avec succès.');
@@ -120,14 +155,13 @@ class MessageController extends AbstractController
 
 
     #[Route('/messages/view/{id}/{read}', name: 'message_view', requirements: ['read' => '0|1'])]
-    public function view(bool $read,Message $message, Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
+    public function view(EmailService $emailService,bool $read,Message $message, Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
         $user = $this->getUser();
         // Vérifier que le user est soit sender soit recipient
         if ($message->getSender() !== $user && $message->getRecipient() !== $user) {
             throw $this->createAccessDeniedException('Vous n’êtes pas autorisé à voir ce message.');
         }
-$message->setIsRead(true);
         $form = $this->createForm(AnswerForm::class, $message,[]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -162,12 +196,34 @@ if ($recipient === $user) {
     $message->setContent('<div class="receive"> <p>'. $form->get('reponse')->getData() . '</p> <time datetime="'. $isoDate . '"> Envoyer le : ' . $formattedDate .'</time></div>'.$previewContent);
     $message->setIsResponse(true);
 }
-$em->persist($message);
 $em->flush();
+            switch ($message->getLastSender()) {
+                case $sender->getName():
+                    $emailService->sender('no-reply@tonsite.com',$recipient->getEmail(), 'Nouveau message reçu sur votre compte', 'new_message',[
+                        'recipient' => $message->getRecipient(),
+                        'sender' => $user,
+                        'message' => $message,
+                    ]);
+                    break;
+
+                case $recipient->getName():
+                    $emailService->sender('no-reply@tonsite.com',$sender->getEmail(), 'Nouveau message reçu sur votre compte', 'new_message',[
+                        'recipient' => $message->getRecipient(),
+                        'sender' => $user,
+                        'message' => $message
+                    ]);
+                    break;
+
+                default:
+                    // Code si aucune des conditions ci-dessus n'est remplie
+                    break;
+            }
+
+
 return $this->redirectToRoute('message_view', ['id' => $message->getId(), 'read' => 0]);
         }
         if($read){
-            $em->persist($message);
+            $message->setIsRead(true);
             $em->flush();
         }
         return $this->render('message/view.html.twig', [
@@ -175,4 +231,22 @@ return $this->redirectToRoute('message_view', ['id' => $message->getId(), 'read'
             'form' => $form,
         ]);
     }
+
+
+
+     #[Route('/messages/toggle-favorite/{id}', name: 'message_toggle_favorite', methods: ['POST'])]
+public function toggleFavorite(Message $message, EntityManagerInterface $em): JsonResponse
+    {
+        // Inverse le statut favori
+        $message->setIsFavorite(!$message->isFavorite());
+        $em->flush();
+
+        return new JsonResponse([
+            'success' => true,
+            'isFavorite' => $message->isFavorite(),
+        ]);
+    }
+
+
+
 }

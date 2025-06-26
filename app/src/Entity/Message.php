@@ -51,6 +51,9 @@ class Message
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $lastSender = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $isFavorite = null;
+
     public function __construct()
     {
         $this->files = new ArrayCollection();
@@ -206,6 +209,18 @@ class Message
     {
         // Par exemple, l’utilisateur est autorisé s’il est l’expéditeur ou le destinataire
         return $this->getSender() === $user || $this->getRecipient() === $user;
+    }
+
+    public function isFavorite(): ?bool
+    {
+        return $this->isFavorite;
+    }
+
+    public function setIsFavorite(?bool $isFavorite): static
+    {
+        $this->isFavorite = $isFavorite;
+
+        return $this;
     }
 
 

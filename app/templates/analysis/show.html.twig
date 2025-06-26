@@ -3,9 +3,10 @@
 {% block title %}Analysis{% endblock %}
 
 {% block body %}
+    <main id="analysis_show">
     <h1>Liste des analyses</h1>
     {% for category in categories %}
-        <article>
+        <article class="box">
             <h2>{{ category.name }}</h2>
             <ul>
                 {% for analysi in category.analysis %}
@@ -15,5 +16,5 @@
             </ul>
         </article>
     {% endfor %}
-
+    </main>
 {% endblock %}
