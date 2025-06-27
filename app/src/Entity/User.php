@@ -74,6 +74,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $resetTokenExpired_at = null;
 
+    /**
+     * @var Collection<int, Message>
+     */
+    #[ORM\ManyToMany(targetEntity: Message::class, mappedBy: 'favorite')]
+    private Collection $favorite;
+
 
 
     public function __construct()
@@ -82,6 +88,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->appointments = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->rmessages = new ArrayCollection();
+        $this->favorite = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -317,6 +324,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setResetTokenExpiredAt(?\DateTimeImmutable $resetTokenExpired_at): static
     {
         $this->resetTokenExpired_at = $resetTokenExpired_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getFavorite(): Collection
+    {
+        return $this->favorite;
+    }
+
+    public function addFavorite(Message $favorite): static
+    {
+        if (!$this->favorite->contains($favorite)) {
+            $this->favorite->add($favorite);
+            $favorite->addFavorite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Message $favorite): static
+    {
+        if ($this->favorite->removeElement($favorite)) {
+            $favorite->removeFavorite($this);
+        }
 
         return $this;
     }

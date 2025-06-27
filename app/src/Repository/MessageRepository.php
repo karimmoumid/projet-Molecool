@@ -21,8 +21,8 @@ class MessageRepository extends ServiceEntityRepository
     public function findInboxMessages(User $user): Query
     {
         return $this->createQueryBuilder('m')
-            ->where('m.recipient = :user AND m.lastSender != :username')
-            ->orWhere('m.sender = :user AND m.lastSender != :username') // message principal (pas une réponse)
+            ->where('m.recipient = :user AND m.lastSender != :username AND m.isRecipientDelete = false')
+            ->orWhere('m.sender = :user AND m.lastSender != :username AND m.isSenderDelete = false') // message principal (pas une réponse)
             ->setParameter('user', $user)
             ->setParameter('username', $user->getName())
             ->orderBy('m.modify_at', 'DESC')
@@ -32,17 +32,18 @@ class MessageRepository extends ServiceEntityRepository
     public function findSentMessages(User $user): Query
     {
         return $this->createQueryBuilder('m')
-            ->where('m.lastSender = :username')
+            ->where('m.lastSender = :username AND m.isRecipientDelete = false AND m.recipient = :user')
+            ->orWhere('m.sender = :user AND m.lastSender = :username AND m.isSenderDelete = false')
             ->setParameter('username', $user->getName())
+            ->setParameter('user', $user)
             ->orderBy('m.modify_at', 'DESC')
             ->getQuery();
     }
     public function getFavoriteMessagesQuery(User $user): Query
     {
         return $this->createQueryBuilder('m')
-            ->where('m.isFavorite = :fav')
+            ->where(':user MEMBER OF m.favorite')
             ->andWhere('m.sender = :user OR m.recipient = :user')
-            ->setParameter('fav', true)
             ->setParameter('user', $user)
             ->orderBy('m.modify_at', 'DESC')
             ->getQuery();

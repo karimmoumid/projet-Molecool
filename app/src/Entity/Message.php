@@ -51,12 +51,24 @@ class Message
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $lastSender = null;
 
+
+
     #[ORM\Column(nullable: true)]
-    private ?bool $isFavorite = null;
+    private ?bool $isSenderDelete = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $isRecipientDelete = null;
+
+    /**
+     * @var Collection<int, User>
+     */
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'favorite')]
+    private Collection $favorite;
 
     public function __construct()
     {
         $this->files = new ArrayCollection();
+        $this->favorite = new ArrayCollection();
     }
 
 
@@ -211,14 +223,50 @@ class Message
         return $this->getSender() === $user || $this->getRecipient() === $user;
     }
 
-    public function isFavorite(): ?bool
+    public function isSenderDelete(): ?bool
     {
-        return $this->isFavorite;
+        return $this->isSenderDelete;
     }
 
-    public function setIsFavorite(?bool $isFavorite): static
+    public function setIsSenderDelete(?bool $isSenderDelete): static
     {
-        $this->isFavorite = $isFavorite;
+        $this->isSenderDelete = $isSenderDelete;
+
+        return $this;
+    }
+
+    public function isRecipientDelete(): ?bool
+    {
+        return $this->isRecipientDelete;
+    }
+
+    public function setIsRecipientDelete(?bool $isRecipientDelete): static
+    {
+        $this->isRecipientDelete = $isRecipientDelete;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getFavorite(): Collection
+    {
+        return $this->favorite;
+    }
+
+    public function addFavorite(User $favorite): static
+    {
+        if (!$this->favorite->contains($favorite)) {
+            $this->favorite->add($favorite);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(User $favorite): static
+    {
+        $this->favorite->removeElement($favorite);
 
         return $this;
     }

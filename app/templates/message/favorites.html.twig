@@ -16,7 +16,7 @@
                     <small>Dernier message : {{ message.modifyAt|date('d/m/Y H:i') }}</small>
                 </a>
                 <button class="favorite-toggle" aria-label="Toggle favorite">
-                    {{ message.isFavorite ? '🟢' : '⚪' }}
+                    {{ app.user.favorite.contains(message) ? '❤️' : '🤍' }}
                 </button>
             </li>
         {% else %}

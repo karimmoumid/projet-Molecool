@@ -132,6 +132,8 @@ class MessageController extends AbstractController
             $message->setContent('<div class="send"> <p>'. $content . '</p> <time datetime="'. $isoDate . '"> Envoyer le : ' . $formattedDate .'</time></div>');
             $message->setModifyAt($now);
             $message->setIsRead(false);
+            $message->setIsSenderDelete(false);
+            $message->setIsRecipientDelete(false);
             $em->persist($message);
             $em->flush();
 
@@ -189,6 +191,8 @@ class MessageController extends AbstractController
             $isoDate = $now->format('c');
             $message->setIsRead(false);
             $message->setLastSender($user->getName());
+            $message->setIsSenderDelete(false);
+            $message->setIsRecipientDelete(false);
 if($sender === $user){
 $message->setContent('<div class="send"> <p>'. $form->get('reponse')->getData() . '</p> <time datetime="'. $isoDate . '"> Envoyer le : ' . $formattedDate .'</time></div>'.$previewContent);
 }
@@ -234,18 +238,65 @@ return $this->redirectToRoute('message_view', ['id' => $message->getId(), 'read'
 
 
 
-     #[Route('/messages/toggle-favorite/{id}', name: 'message_toggle_favorite', methods: ['POST'])]
-public function toggleFavorite(Message $message, EntityManagerInterface $em): JsonResponse
+    #[Route('/messages/toggle-favorite/{id}', name: 'message_toggle_favorite', methods: ['POST'])]
+    public function toggleFavorite(Message $message, EntityManagerInterface $em): JsonResponse
     {
-        // Inverse le statut favori
-        $message->setIsFavorite(!$message->isFavorite());
+        $user = $this->getUser();
+        if (!$user) {
+            return new JsonResponse(['success' => false, 'error' => 'Utilisateur non connecté'], 401);
+        }
+
+        // On vérifie si le message est déjà dans les favoris de l'utilisateur
+        if ($user->getFavorite()->contains($message)) {
+            $user->removeFavorite($message);
+            $favori = false;
+        } else {
+            $user->addFavorite($message);
+            $favori = true;
+        }
+
         $em->flush();
 
         return new JsonResponse([
             'success' => true,
-            'isFavorite' => $message->isFavorite(),
+            'isFavorite' => $favori,
         ]);
     }
+
+    #[Route('/message/{id}/delete', name: 'message_delete', methods: ['POST'])]
+    public function delete(Request $request, Message $message, EntityManagerInterface $em): JsonResponse
+    {
+        $user = $this->getUser();
+        $csrfHeader = $request->headers->get('X-CSRF-TOKEN');
+
+        if (!$this->isCsrfTokenValid('delete' . $message->getId(), $csrfHeader)) {
+            return new JsonResponse(['error' => 'Token CSRF invalide'], 403);
+        }
+
+        $isSender = $message->getSender() === $user;
+        $isRecipient = $message->getRecipient() === $user;
+
+        if (!$isSender && !$isRecipient) {
+            return new JsonResponse(['error' => 'Non autorisé'], 403);
+        }
+
+        if ($isSender) {
+            $message->setIsSenderDelete(true);
+        }
+
+        if ($isRecipient) {
+            $message->setIsRecipientDelete(true);
+        }
+
+        if ($message->isSenderDelete() && $message->isRecipientDelete()) {
+            $em->remove($message);
+        }
+
+        $em->flush();
+
+        return new JsonResponse(['success' => true]);
+    }
+
 
 
 

@@ -298,8 +298,4 @@ final class AppointmentController extends AbstractController
     }
 
 
-
-
-
-
 }

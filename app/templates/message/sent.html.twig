@@ -11,7 +11,7 @@
 
     <ul>
         {% for message in messages %}
-            <li data-message-id="{{ message.id }}">
+            <li class="message-item"  data-message-id="{{ message.id }}">
                 <a href="{{ path('message_view', {
                     'id': message.id,
                     'read': 0
@@ -20,8 +20,13 @@
                     (Dernier message: {{ message.modifyAt|date('d/m/Y H:i') }})
                 </a>
                 <button class="favorite-toggle">
-                    {{ message.isFavorite ? '🟢' : '⚪' }}
+                    {{ app.user.favorite.contains(message) ? '❤️' : '🤍' }}
                 </button>
+                <button
+                        class="delete-button"
+                        data-id="{{ message.id }}"
+                        data-csrf="{{ csrf_token('delete' ~ message.id) }}"
+                        aria-label="Supprimer le message">🗑️</button>
             </li>
         {% else %}
             <li>Aucune conversation.</li>

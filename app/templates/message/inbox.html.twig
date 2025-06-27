@@ -28,8 +28,13 @@
                             <span class="status">{{ message.isRead ? '📖 Lu' : '📩 Non lu' }}</span>
 
                             <button class="favorite-toggle" aria-label="Toggle favorite">
-                                {{ message.isFavorite ? '🟢' : '⚪' }}
+                                {{ app.user.favorite.contains(message) ? '❤️' : '🤍' }}
                             </button>
+                            <button
+                                    class="delete-button"
+                                    data-id="{{ message.id }}"
+                                    data-csrf="{{ csrf_token('delete' ~ message.id) }}"
+                                    aria-label="Supprimer le message">🗑️</button>
                         </div>
                     </li>
                 {% else %}
