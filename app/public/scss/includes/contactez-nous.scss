@@ -25,35 +25,44 @@
     border-radius: 5px;
     padding-inline: 43px;
     padding-block: 20px;
+div {
+  div {
     display: flex;
     flex-direction: column;
-    label{
+
+    label {
       margin-top: 10px;
       margin-bottom: 7px;
       font-size: 1.6rem;
     }
-    input,select,textarea{
+
+    input, select, textarea {
       border: 1px solid var(--primary-color);
       border-radius: 5px;
-      &::placeholder {
+      height: 30px;
         padding-inline: 10px;
         padding-block: 5px;
-      }
+
     }
-    select{
-      text-align: center;
-    }
-    textarea{
-      height: 60px;
-    }
-    button{
-      margin-top: 40px;
-      background-color: var(--primary-color);
-      border-radius: 5px;
-      border: 0;
-      color: var(--light-color);
-      padding-block: 10px;
-    }
+  }
+
+  select {
+    text-align: center;
+  }
+
+  textarea {
+    height: 100px !important;
+  }
+
+  button {
+    margin-top: 40px;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    border: 0;
+    color: var(--light-color);
+    padding-block: 10px;
+  }
+}
     margin-bottom: 20px;
   }
 }

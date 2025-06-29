@@ -46,6 +46,7 @@ header ul {
   left: 0%;
   background-color: var(--primary-color);
   padding: 20px;
+  z-index: 1000;
 }
 header ul li {
   cursor: pointer;
@@ -65,6 +66,34 @@ header svg {
   cursor: pointer;
 }
 
+@media (min-width: 1000px) {
+  header ul {
+    display: flex !important;
+    position: relative;
+    gap: 10px;
+    background-color: transparent;
+    padding-right: 0;
+  }
+  header ul li {
+    padding-inline: 5px;
+  }
+  header ul li:hover {
+    background-color: rgb(254, 23, 23);
+    transition: all 0.3s ease;
+    border-radius: 8px;
+  }
+  header ul li:hover a {
+    color: var(--light-color);
+  }
+  header ul li a {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+  header svg {
+    display: none;
+  }
+}
 .box {
   margin-inline: 39px;
   margin-block: 15px;
@@ -99,6 +128,76 @@ header svg {
   color: var(--light-color);
 }
 
+.grid-cards {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+  padding-inline: 10px;
+  padding-block: 20px;
+}
+.grid-cards article {
+  background-color: rgba(128, 128, 128, 0.07);
+  border-radius: 5px;
+  box-shadow: 4px 4px 4px black;
+  padding: 20px;
+  text-align: center;
+}
+.grid-cards article h3 {
+  color: var(--tertiary-color);
+  font-size: clamp(1.6rem, 2vw, 2rem);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.grid-cards article p {
+  font-size: clamp(1.2rem, 1.5vw, 1.6rem);
+  color: black;
+}
+.grid-cards article a {
+  display: inline-block;
+  margin-top: 15px;
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+.grid-cards article a:hover {
+  background-color: rgb(254, 23, 23);
+}
+@media (min-width: 768px) {
+  .grid-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .grid-cards {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .container_responsive_2_4 {
+    font-size: 1.8rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 25px;
+  }
+  .container_responsive_2_4 h1, .container_responsive_2_4 h2 {
+    grid-column: 1/-1;
+  }
+}
+@media (min-width: 1024px) {
+  .container_responsive_2_4 {
+    font-size: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 25px;
+  }
+  .container_responsive_2_4 h1, .container_responsive_2_4 h2 {
+    grid-column: 1/-1;
+  }
+}
+
 .alert {
   padding: var(--alert-padding);
   border-radius: var(--alert-border-radius);
@@ -116,10 +215,166 @@ header svg {
   border-color: var(--danger-border);
 }
 
+.form h1 {
+  color: var(--primary-color);
+  text-align: center;
+  font-size: 3.2rem;
+}
+.form form {
+  margin-block: 23px;
+  padding-block: 25px;
+  border: 1px solid var(--primary-color);
+  margin-inline: 10px;
+  border-radius: 8px;
+}
+.form form div {
+  display: flex;
+  flex-direction: column;
+  margin-inline: 40px;
+  gap: 10px;
+  margin-block: 10px;
+  font-size: 1.6rem;
+}
+.form form div input, .form form div select {
+  padding-block: 10px;
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  font-size: 1.6rem;
+  padding-inline: 10px;
+}
+.form form button {
+  margin-top: 20px;
+  margin-inline: 40px;
+  width: calc(100% - 80px);
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  font-size: 1.6rem;
+  padding-block: 10px;
+  border: none;
+  border-radius: 8px;
+}
+.form .white h1 {
+  color: var(--light-color);
+  font-size: 2rem;
+}
+.form #reservation div p {
+  color: grey;
+  font-size: 1.3rem;
+}
+.form #reservation div div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.form #reservation div div label {
+  margin-right: 30px;
+}
+.form #reservation .notification {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.form #reservation .notification a {
+  text-decoration: none;
+  text-align: center;
+  border: 1px solid grey;
+  width: 100%;
+  padding-block: 10px;
+  border-radius: 5px;
+}
+.form #reservation .notification a p {
+  font-size: 1.6rem;
+  color: black;
+  text-decoration: none;
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  position: relative;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+}
+
+.text-overlay {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: white;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+button.prev,
+button.next {
+  position: absolute;
+  top: 80%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+button.prev {
+  left: 10px;
+}
+
+button.next {
+  right: 10px;
+}
+
+@media (min-width: 750px) {
+  .carousel-slide img {
+    height: 500px;
+  }
+  .text-overlay {
+    padding-inline: 50px;
+  }
+  .text-overlay h2, .text-overlay h1 {
+    font-size: 2.2rem;
+  }
+  .text-overlay p {
+    font-size: 1.6rem;
+  }
+  button.prev,
+  button.next {
+    top: 50%;
+  }
+}
 .hero-home {
   padding-inline: 10px;
   padding-block: 20px;
-  background-image: url(../Media/image/anton-8q-U8X1zkvI-unsplash\ 1.png);
   background-size: cover;
   background-position: center;
 }
@@ -168,6 +423,11 @@ header svg {
   align-items: center;
   justify-content: center;
   margin-block: 30px;
+}
+@media (min-width: 1024px) {
+  #speciality article a {
+    font-size: 2rem;
+  }
 }
 #speciality article:first-of-type a {
   background-image: url(../Media/image/vedrana-filipovic-jxqTaXF5WmY-unsplash\ 1.png);
@@ -315,80 +575,6 @@ header svg {
   margin-inline: 30px;
 }
 
-.form h1 {
-  color: var(--primary-color);
-  text-align: center;
-  font-size: 3.2rem;
-}
-.form form {
-  margin-block: 23px;
-  padding-block: 25px;
-  border: 1px solid var(--primary-color);
-  margin-inline: 10px;
-  border-radius: 8px;
-}
-.form form div {
-  display: flex;
-  flex-direction: column;
-  margin-inline: 40px;
-  gap: 10px;
-  margin-block: 10px;
-  font-size: 1.6rem;
-}
-.form form div input, .form form div select {
-  padding-block: 10px;
-  border: 1px solid var(--primary-color);
-  border-radius: 8px;
-  font-size: 1.6rem;
-  padding-inline: 10px;
-}
-.form form button {
-  margin-top: 20px;
-  margin-inline: 40px;
-  width: calc(100% - 80px);
-  background-color: var(--primary-color);
-  color: var(--light-color);
-  font-size: 1.6rem;
-  padding-block: 10px;
-  border: none;
-  border-radius: 8px;
-}
-.form .white h1 {
-  color: var(--light-color);
-  font-size: 2rem;
-}
-.form #reservation div p {
-  color: grey;
-  font-size: 1.3rem;
-}
-.form #reservation div div {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-}
-.form #reservation div div label {
-  margin-right: 30px;
-}
-.form #reservation .notification {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.form #reservation .notification a {
-  text-decoration: none;
-  text-align: center;
-  border: 1px solid grey;
-  width: 100%;
-  padding-block: 10px;
-  border-radius: 5px;
-}
-.form #reservation .notification a p {
-  font-size: 1.6rem;
-  color: black;
-  text-decoration: none;
-}
-
 .account-home article h2 {
   color: var(--tertiary-color);
   font-size: 1.8rem;
@@ -401,6 +587,92 @@ header svg {
 .account-home article div {
   display: flex;
   justify-content: end;
+}
+
+#service {
+  padding: 20px 10px;
+}
+#service .hero {
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  padding: 20px;
+  text-align: center;
+}
+#service .hero h1 {
+  font-size: 2rem;
+}
+@media (min-width: 768px) {
+  #service .hero h1 {
+    font-size: 2.4rem;
+  }
+}
+@media (min-width: 1024px) {
+  #service .hero h1 {
+    font-size: 2.8rem;
+  }
+}
+#service .account-home {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin-top: 30px;
+}
+@media (min-width: 768px) {
+  #service .account-home {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  #service .account-home {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+#service .account-home article.box {
+  background-color: rgba(128, 128, 128, 0.07);
+  padding: 26px;
+  box-shadow: 4px 4px 4px black;
+  border-radius: 5px;
+}
+#service .account-home article.box h2 {
+  font-size: 1.6rem;
+  color: var(--tertiary-color);
+  margin-bottom: 15px;
+}
+@media (min-width: 768px) {
+  #service .account-home article.box h2 {
+    font-size: 1.8rem;
+  }
+}
+@media (min-width: 1024px) {
+  #service .account-home article.box h2 {
+    font-size: 2rem;
+  }
+}
+#service .account-home article.box ul {
+  list-style: none;
+  padding: 0;
+}
+#service .account-home article.box ul li {
+  margin-bottom: 10px;
+}
+#service .account-home article.box ul li a {
+  text-decoration: none;
+  color: var(--primary-color);
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+#service .account-home article.box ul li a:hover {
+  text-decoration: underline;
+}
+@media (min-width: 768px) {
+  #service .account-home article.box ul li a {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  #service .account-home article.box ul li a {
+    font-size: 1.6rem;
+  }
 }
 
 #contact {
@@ -431,30 +703,31 @@ header svg {
   border-radius: 5px;
   padding-inline: 43px;
   padding-block: 20px;
-  display: flex;
-  flex-direction: column;
   margin-bottom: 20px;
 }
-#contact form label {
+#contact form div div {
+  display: flex;
+  flex-direction: column;
+}
+#contact form div div label {
   margin-top: 10px;
   margin-bottom: 7px;
   font-size: 1.6rem;
 }
-#contact form input, #contact form select, #contact form textarea {
+#contact form div div input, #contact form div div select, #contact form div div textarea {
   border: 1px solid var(--primary-color);
   border-radius: 5px;
-}
-#contact form input::placeholder, #contact form select::placeholder, #contact form textarea::placeholder {
+  height: 30px;
   padding-inline: 10px;
   padding-block: 5px;
 }
-#contact form select {
+#contact form div select {
   text-align: center;
 }
-#contact form textarea {
-  height: 60px;
+#contact form div textarea {
+  height: 100px !important;
 }
-#contact form button {
+#contact form div button {
   margin-top: 40px;
   background-color: var(--primary-color);
   border-radius: 5px;

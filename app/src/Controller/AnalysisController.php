@@ -94,6 +94,7 @@ $analyses = $category->getAnalysis();
     }
 
     #[Route('/analyse/{id}', name: 'app_analysis_delete', methods: ['POST'])]
+    #[IsGranted("ROLE_ADMIN")]
     public function delete(Request $request, Analysis $analysi, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$analysi->getId(), $request->getPayload()->getString('_token'))) {

@@ -3,10 +3,8 @@
 .hero-home {
     padding-inline: 10px;
     padding-block: 20px;
-    background-image: url(../Media/image/anton-8q-U8X1zkvI-unsplash\ 1.png);
     background-size: cover;
     background-position: center;
-
     p {
         span {
             display: block;
@@ -57,8 +55,11 @@ span:last-of-type{
         align-items: center;
         justify-content: center;
         margin-block: 30px;
-
+        @media (min-width: 1024px){
+          font-size: 2rem;
+        }
       }
+
       &:first-of-type {
         a {
           background-image: url(../Media/image/vedrana-filipovic-jxqTaXF5WmY-unsplash\ 1.png);
@@ -221,90 +222,6 @@ margin-inline: 30px;
 }
 
 
-.form{
-  h1{
-    color: var(--primary-color);
-    text-align: center;
-    font-size: 3.2rem;
-  }
-form{
-  margin-block: 23px;
-  padding-block: 25px;
-  border: 1px solid var(--primary-color);
-  margin-inline: 10px;
-  border-radius: 8px;
-  div{
-    display: flex;
-    flex-direction: column;
-    margin-inline: 40px;
-    gap: 10px;
-    margin-block: 10px;
-    font-size: 1.6rem;
-    input, select{
-      padding-block: 10px;
-      border: 1px solid var(--primary-color);
-      border-radius: 8px;
-      font-size: 1.6rem;
-      padding-inline: 10px;
-    }
-  }
-  button{
-    margin-top: 20px;
-    margin-inline: 40px;
-    width: calc(100% - 80px);
-    background-color: var(--primary-color);
-    color: var(--light-color);
-    font-size: 1.6rem;
-    padding-block: 10px;
-    border: none;
-    border-radius: 8px;
-  }
-}
-.white {
-  h1 {
-    color: var(--light-color);
-    font-size: 2rem;
-  }
-}
-#reservation{
-
-  div {
-    p {
-
-      color: grey;
-      font-size: 1.3rem;
-    }
-    div{
-
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 10px;
-      label{
-        margin-right: 30px;
-      }
-    }
-  }
-  .notification {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    a {
-      text-decoration: none;
-      text-align: center;
-      border: 1px solid grey;
-      width: 100%;
-      padding-block: 10px;
-      border-radius: 5px;
-      p{
-        font-size: 1.6rem;
-        color: black;
-        text-decoration: none;
-      }
-    }
-  }
-}
-}
 
 .account-home{
 article{
@@ -322,6 +239,94 @@ article{
     justify-content: end;
   }
 }
+}
+
+
+#service {
+  padding: 20px 10px;
+
+  .hero {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    padding: 20px;
+    text-align: center;
+
+    h1 {
+      font-size: 2rem;
+
+      @media (min-width: 768px) {
+        font-size: 2.4rem;
+      }
+
+      @media (min-width: 1024px) {
+        font-size: 2.8rem;
+      }
+    }
+  }
+
+  .account-home {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 30px;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    article.box {
+      background-color: rgba(128, 128, 128, 0.07);
+      padding: 26px;
+      box-shadow: 4px 4px 4px black;
+      border-radius: 5px;
+
+      h2 {
+        font-size: 1.6rem;
+        color: var(--tertiary-color);
+        margin-bottom: 15px;
+
+        @media (min-width: 768px) {
+          font-size: 1.8rem;
+        }
+
+        @media (min-width: 1024px) {
+          font-size: 2rem;
+        }
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          margin-bottom: 10px;
+
+          a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            font-size: 1.4rem;
+
+            &:hover {
+              text-decoration: underline;
+            }
+
+            @media (min-width: 768px) {
+              font-size: 1.5rem;
+            }
+
+            @media (min-width: 1024px) {
+              font-size: 1.6rem;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 

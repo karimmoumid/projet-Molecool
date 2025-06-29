@@ -161,9 +161,8 @@ class MessageController extends AbstractController
     {
         $user = $this->getUser();
         // Vérifier que le user est soit sender soit recipient
-        if ($message->getSender() !== $user && $message->getRecipient() !== $user) {
-            throw $this->createAccessDeniedException('Vous n’êtes pas autorisé à voir ce message.');
-        }
+        $this->denyAccessUnlessGranted('MESSAGE_VIEW', $message);
+
         $form = $this->createForm(AnswerForm::class, $message,[]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -263,11 +262,12 @@ return $this->redirectToRoute('message_view', ['id' => $message->getId(), 'read'
         ]);
     }
 
-    #[Route('/message/{id}/delete', name: 'message_delete', methods: ['POST'])]
+    #[Route('/messages/{id}/delete', name: 'message_delete', methods: ['POST'])]
     public function delete(Request $request, Message $message, EntityManagerInterface $em): JsonResponse
     {
         $user = $this->getUser();
         $csrfHeader = $request->headers->get('X-CSRF-TOKEN');
+        $this->denyAccessUnlessGranted('MESSAGE_DELETE', $message);
 
         if (!$this->isCsrfTokenValid('delete' . $message->getId(), $csrfHeader)) {
             return new JsonResponse(['error' => 'Token CSRF invalide'], 403);

@@ -38,7 +38,7 @@ const deleteButtons = document.querySelectorAll('.delete-button');
 
             if (!confirm("Voulez-vous vraiment supprimer ce message ?")) return;
 
-            fetch(`/message/${messageId}/delete`, {
+            fetch(`/messages/${messageId}/delete`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

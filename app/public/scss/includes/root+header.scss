@@ -46,6 +46,7 @@
            left: 0%;
            background-color: var(--primary-color);
            padding: 20px;
+          z-index: 1000;
            li{
              cursor: pointer;
             list-style: none;
@@ -68,3 +69,35 @@
           cursor: pointer;
         }
     }
+
+@media (min-width: 1000px){
+header{
+ul{
+  display: flex !important;
+  position: relative;
+gap: 10px;
+  background-color: transparent;
+  padding-right: 0;
+li{
+padding-inline: 5px;
+  &:hover{
+    background-color:rgb(254, 23, 23);
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    a{
+      color: var(--light-color);
+    }
+  }
+  a{
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+}
+}
+svg{
+  display: none;
+}
+}
+
+}

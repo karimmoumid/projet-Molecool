@@ -1,22 +1,72 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Molecool{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/main_index.js') }}" defer></script>
+{% endblock %}
 
 {% block body %}
-    <main>
+    <main class="">
         <section class="hero-home" id="hero">
-            <h1>Molecool : Services Médicaux Avancés : L'expertise au service de votre santé</h1>
-            <p><span>Des tests diagnostiques précis et fiables, grâce à des équipements de pointe et une équipe d'experts.</span>
+            <div class="carousel">
+                <div class="carousel-track">
+                    <article class="carousel-slide">
+                        <img src="{{ asset('Media/image/national-cancer-institute-XknuBmnjbKg-unsplash.jpg') }}" alt="Image 1">
+                        <div class="text-overlay">
+                            <h1>Molecool : Services Médicaux Avancés : L'expertise au service de votre santé</h1>
+                            <p><span>Des tests diagnostiques précis et fiables, grâce à des équipements de pointe et une équipe d'experts.</span>
 
 
-            {% if not app.user %}
-                <span>Si vous souhaitez profiter de nos services et réserver votre séance, veuillez créer votre compte en
+                                {% if not app.user %}
+                                <span>Si vous souhaitez profiter de nos services et réserver votre séance, veuillez créer votre compte en
                 cliquant sur le bouton ci-dessus.</span></p>
-                <a href="{{ path('app_register', {'role':'customer'}) }}">Créer un compte maintenant</a>
-            {% endif %}
+                            <a href="{{ path('app_register', {'role':'customer'}) }}">Créer un compte maintenant</a>
+                            {% endif %}
+                        </div>
+                    </article>
+                    <article class="carousel-slide">
+                        <img src="{{ asset('Media/image/testalize-me-9xHsWmh3m_4-unsplash.jpg') }}" alt="Image 2">
+                        <div class="text-overlay">
+                            <h2>Réservez votre Prélèvement en Ligne</h2>
+                            <p>
+                                <span>Choisissez la date et l'heure qui vous conviennent pour un prélèvement rapide, fiable et encadré par nos professionnels.</span>
+                                {% if not app.user %}
+                                    <span>Connectez-vous ou créez un compte pour accéder à la prise de rendez-vous en ligne.</span>
+                                {% endif %}
+                            </p>
+                            {% if not app.user %}
+                                <a href="{{ path('app_register', {'role':'customer'}) }}">Créer un compte maintenant</a>
+                            {% else %}
+                                <a href="{{ path('app_appointment_add') }}">Prendre rendez-vous</a>
+                            {% endif %}
+                        </div>
+                    </article>
+                    <article class="carousel-slide">
+                        <img src="{{ asset('Media/image/anton-8q-U8X1zkvI-unsplash 1.png') }}" alt="Image 3">
+                        <div class="text-overlay">
+                            <h1>Messagerie Sécurisée</h1>
+                            <p>
+                                <span>Discutez directement avec notre personnel médical pour poser vos questions ou obtenir un accompagnement personnalisé.</span>
+                                <span>Vous pouvez également envoyer vos documents médicaux de façon sécurisée.</span>
+                                {% if not app.user %}
+                                    <span>Créez un compte pour accéder à la messagerie et faciliter vos échanges avec notre équipe.</span>
+                                {% endif %}
+                            </p>
+                            {% if not app.user %}
+                                <a href="{{ path('app_register', {'role':'customer'}) }}">Créer un compte maintenant</a>
+                            {% else %}
+                                <a href="{{ path('messages_inbox') }}">Accéder à la messagerie</a>
+                            {% endif %}
+                        </div>
+                    </article>
+                </div>
+                <button class="prev">‹</button>
+                <button class="next">›</button>
+            </div>
+
 
         </section>
-        <section id="speciality" >
+        <section id="speciality" class="container_responsive_2_4">
             <h2>Nos spécialités</h2>
 
             <article><a href="{{ path('app_analysis', {id:1}) }}">Biochimie clinique</a></article>
@@ -25,7 +75,7 @@
             <article><a href="{{ path('app_analysis', {id:4}) }}">Microbiologie</a></article>
         </section>
 
-        <section id="apropos">
+        <section id="apropos" class="container_responsive_2_4">
             <h2>Molecool s'engage à offrir un service de qualité, proche de ses patients</h2>
             <figure>
                 <svg>
@@ -68,20 +118,12 @@
                     </svg><span>Lundi-Vendredi : 07:00 - 19:00 <br>
                         Samedi: 7:00 - 12:00 </span></li>
             </ul>
-            <form action="">
-                <label for="email">Adresse mail</label>
-                <input type="email" name="email" id="email" placeholder="contact@gmail.com">
-                <label for="contact">Raison de contact</label>
-                <select name="" id="">
-                    <option value="" selected disabled>--Veillez-saisir-votre-raison--</option>
-                    <option value="analyse">Besoin d'information sur une analyse</option>
-                    <option value="connexion">Soucis de connexion</option>
-                    <option value="rdv">Soucis sur la prise de rendez-vous</option>
-                </select>
-                <label for="message">Message</label>
-                <textarea name="message" id="message" placeholder="Message"></textarea>
-                <button type="submit">Envoyer</button>
-            </form>
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {{ form(form) }}
         </section>
         {% endif %}
     </main>

@@ -43,6 +43,9 @@ security:
         - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/employe, roles: ROLE_EMPLOYEE }
         - { path: ^/patient, roles: ROLE_PATIENT }
+        - { path: ^/messages, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/appointment, roles: IS_AUTHENTICATED_FULLY }
+
     role_hierarchy:
         ROLE_ADMIN: [ ROLE_EMPLOYEE, ROLE_USER ]
         ROLE_EMPLOYEE: [ ROLE_USER ]
