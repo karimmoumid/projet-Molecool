@@ -44,13 +44,9 @@
             {{ form_widget(form.time) }}
             <button>Confirmer la réservation</button>
             <div class="notification">
-                <a href="">
+                <a href="{{ path('app_appointment') }}">
                     <img src="/Media/image/horloge.png" alt="horloge">
                     <p>Mes rendez-vous</p>
-                </a>
-                <a href="">
-                    <img src="/Media/image/cloche.png" alt="cloche">
-                    <p>Notifications</p>
                 </a>
             </div>
             {{ form_end(form) }}

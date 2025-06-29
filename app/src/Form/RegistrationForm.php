@@ -36,12 +36,13 @@ class RegistrationForm extends AbstractType
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
+                'label' => 'Mot de passe',
                 'mapped' => false,
                 'required' => !$options['is_edit'],
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => $options['is_edit'] ? [] : [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Mot de passe obligatoire',
                     ]),
                     new Regex(['pattern' => '/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,}$/', 'message' => 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.'])
                 ],
@@ -49,9 +50,10 @@ class RegistrationForm extends AbstractType
         if (!$options['is_edit']) {
             $builder->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
+                'label' => 'J’accepte que mes données personnelles soient utilisées pour la création de mon compte et le traitement de mes demandes, conformément à la politique de confidentialité.',
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Tu devrais accepeter les conditions d\'utilisation',
                     ]),
                 ],
             ]);

@@ -3,15 +3,14 @@
 {% block title %}Analysis{% endblock %}
 
 {% block body %}
+    <main id="category-liste" class="container_responsive_2_4">
     <h1>Liste des analyses</h1>
     {% for category in categories %}
-        <ul>
-            <li>
+        <article class="box">
             <h2>{{ category.name }}</h2>
                     <div>{{ include('category/_delete_form.html.twig') }}
-                            <a href="{{ path('app_categories_edit', {'id': category.id}) }}"><img src="{{ asset('Media/icon/crayon.png') }}" alt=""></a></div>
-            </li>
-        </ul>
+                            <a href="{{ path('app_categories_edit', {'id': category.id}) }}">Modifier <img src="{{ asset('Media/icon/crayon.png') }}" alt=""></a></div>
+        </article>
     {% endfor %}
-
+    </main>
 {% endblock %}

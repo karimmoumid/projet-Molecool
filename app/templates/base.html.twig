@@ -20,7 +20,7 @@
         <a href="/"><img src="/Media/image/logo.png" alt=""></a>
         <div>
             <ul class="hidden">
-                <li><a href="../">Accueil</a></li>
+                <li><a href="{{ path('app_main') }}">Accueil</a></li>
                 <li><a href="{{ path('app_category') }}">Nos spécialités</a></li>
                 {% if app.user %}
                     <li><a href="{{ path('messages_inbox') }}">Messagerie</a></li>

@@ -6,9 +6,10 @@ function showAllAppointments() {
     const appointments = document.querySelectorAll(".appointment article");
     for (let appointment of appointments) {
         appointment.classList.remove('hidden');
+        appointment.classList.remove('hidden_patient');
         const items = appointment.querySelectorAll('li[data-name]');
         for (let item of items) {
-            item.classList.remove('hidden');
+            item.closest('.box').classList.remove('hidden_patient');
         }
     }
 }
@@ -43,18 +44,20 @@ let name = this.value;
 
         for (let item of items){
             if (item.getAttribute('data-name') === name){
-                item.classList.remove('hidden');
+                item.closest('.box').classList.remove('hidden_patient');
                 hasVisiblePatient = true;
             } else {
-                item.classList.add('hidden');
+                item.closest('.box').classList.add('hidden_patient');
             }
         }
 
         // Si aucun patient ne correspond dans cet article, on le cache
         if (hasVisiblePatient){
-            appointment.classList.remove('hidden');
+            appointment.classList.remove('hidden_patient');
+            appointment.classList.remove('hidden_patient')
         }else{
-            appointment.classList.add('hidden');
+            appointment.classList.add('hidden_patient');
+            appointment.classList.add('hidden_patient')
         }
     }
 })

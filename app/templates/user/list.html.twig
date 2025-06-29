@@ -3,7 +3,7 @@
 {% block title %}Liste des comptes professionnels{% endblock %}
 
 {% block body %}
-    <main >
+    <main class="list container_responsive_2_4" id="user_list">
         <h1 class="mb-4">Liste des comptes professionnels</h1>
         {% for label, messages in app.flashes %}
             <div class="alert alert-{{ label }}">
@@ -15,15 +15,15 @@
             </div>
         {% endfor %}
             {% for user in users %}
-                            <article>
+                            <article class="box">
                                 <h2>{{ user.name }}</h2>
                                 <form method="post"
                                       action="{{ path('app_user_delete', {'id': user.id}) }}"
                                       onsubmit="return confirm('Voulez-vous vraiment supprimer ce compte ?');">
                                     <input type="hidden" name="_token" value="{{ csrf_token('delete-user' ~ user.id) }}">
-                                    <button class="btn btn-danger btn-sm" type="submit"><img src="{{ asset('Media/icon/poubelle.png') }}" alt=""></button>
+                                    <button class="btn btn-danger btn-sm" type="submit">Supprimer <img src="{{ asset('Media/icon/poubelle.png') }}" alt=""></button>
                                 </form>
-                                <a href="{{ path('app_user_modify', {'id': user.id}) }}" class="btn btn-primary btn-sm"><img
+                                <a href="{{ path('app_user_modify', {'id': user.id}) }}" class="btn btn-primary btn-sm">Modifier <img
                                             src="{{ asset('Media/icon/crayon.png') }}" alt=""></a>
                             </article>
             {% else %}

@@ -182,19 +182,21 @@ header svg {
     grid-template-columns: 1fr 1fr;
     column-gap: 25px;
   }
+  .container_responsive_2_4 button {
+    font-size: 1.8rem;
+  }
   .container_responsive_2_4 h1, .container_responsive_2_4 h2 {
     grid-column: 1/-1;
   }
 }
 @media (min-width: 1024px) {
   .container_responsive_2_4 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    column-gap: 25px;
   }
-  .container_responsive_2_4 h1, .container_responsive_2_4 h2 {
-    grid-column: 1/-1;
+  .container_responsive_2_4 button {
+    font-size: 1.8rem;
   }
 }
 
@@ -215,6 +217,12 @@ header svg {
   border-color: var(--danger-border);
 }
 
+.form > a {
+  margin-inline: 10px;
+  text-decoration: none;
+  color: var(--tertiary-color);
+  font-size: 1.2rem;
+}
 .form h1 {
   color: var(--primary-color);
   text-align: center;
@@ -235,12 +243,20 @@ header svg {
   margin-block: 10px;
   font-size: 1.6rem;
 }
-.form form div input, .form form div select {
+.form form div input, .form form div select, .form form div textarea {
   padding-block: 10px;
   border: 1px solid var(--primary-color);
   border-radius: 8px;
   font-size: 1.6rem;
   padding-inline: 10px;
+}
+.form form .checkbox {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+}
+.form form .checkbox input {
+  margin-top: 5px;
 }
 .form form button {
   margin-top: 20px;
@@ -253,40 +269,18 @@ header svg {
   border: none;
   border-radius: 8px;
 }
+.form form textarea {
+  height: 100px !important;
+}
+@media (min-width: 768px) {
+  .form form {
+    width: 730px;
+    margin-inline: auto;
+  }
+}
 .form .white h1 {
   color: var(--light-color);
   font-size: 2rem;
-}
-.form #reservation div p {
-  color: grey;
-  font-size: 1.3rem;
-}
-.form #reservation div div {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-}
-.form #reservation div div label {
-  margin-right: 30px;
-}
-.form #reservation .notification {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.form #reservation .notification a {
-  text-decoration: none;
-  text-align: center;
-  border: 1px solid grey;
-  width: 100%;
-  padding-block: 10px;
-  border-radius: 5px;
-}
-.form #reservation .notification a p {
-  font-size: 1.6rem;
-  color: black;
-  text-decoration: none;
 }
 
 .carousel {
@@ -352,6 +346,23 @@ button.prev {
 
 button.next {
   right: 10px;
+}
+
+.link {
+  padding-inline: 5px;
+}
+.link:hover {
+  background-color: rgb(254, 23, 23);
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+.link:hover a {
+  color: var(--light-color) !important;
+}
+.link a {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--primary-color);
 }
 
 @media (min-width: 750px) {
@@ -531,10 +542,6 @@ button.next {
   border-radius: 5px;
 }
 
-#specialites {
-  display: flex;
-  flex-direction: column;
-}
 #specialites h1 {
   text-align: center;
   color: var(--primary-color);
@@ -543,7 +550,7 @@ button.next {
   font-weight: 400;
 }
 #specialites article {
-  margin-inline: 39px;
+  margin-inline: 10px;
   margin-block: 15px;
   background-color: rgba(128, 128, 128, 0.07);
   padding: 26px;
@@ -652,29 +659,167 @@ button.next {
   list-style: none;
   padding: 0;
 }
-#service .account-home article.box ul li {
-  margin-bottom: 10px;
-}
-#service .account-home article.box ul li a {
+#service .account-home article.box ul a {
   text-decoration: none;
+}
+
+#reservation div p {
+  color: grey;
+  font-size: 1.3rem;
+}
+#reservation div div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+#reservation div div label {
+  margin-right: 30px;
+}
+#reservation .notification {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+#reservation .notification a {
+  text-decoration: none;
+  text-align: center;
+  border: 1px solid grey;
+  width: 100%;
+  padding-block: 10px;
+  border-radius: 5px;
+}
+#reservation .notification a p {
+  font-size: 1.6rem;
+  color: black;
+  text-decoration: none;
+}
+
+#appointment_index button a {
+  text-decoration: none;
+  color: var(--light-color);
+}
+#appointment_index .hidden {
+  display: none !important;
+}
+#appointment_index .hidden_patient {
+  display: none !important;
+}
+#appointment_index article {
+  padding: 10px;
+}
+#appointment_index h2 {
   color: var(--primary-color);
-  font-weight: 500;
-  font-size: 1.4rem;
 }
-#service .account-home article.box ul li a:hover {
-  text-decoration: underline;
+@media (min-width: 1025px) {
+  #appointment_index .box {
+    margin: 0;
+    margin-top: 10px;
+  }
 }
-@media (min-width: 768px) {
-  #service .account-home article.box ul li a {
+#appointment_index h3 {
+  color: var(--tertiary-color);
+}
+#appointment_index .titre {
+  list-style-type: none;
+}
+#appointment_index .liste {
+  margin-left: 40px;
+}
+#appointment_index .container {
+  display: flex;
+  justify-content: space-between;
+}
+@media (min-width: 1025px) {
+  #appointment_index .container {
+    margin: 0;
+    margin-top: 10px;
     font-size: 1.5rem;
   }
 }
-@media (min-width: 1024px) {
-  #service .account-home article.box ul li a {
-    font-size: 1.6rem;
+#appointment_index .container div:last-of-type form {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  border: 0;
+}
+#appointment_index .container div:last-of-type form button {
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+}
+
+#user_list, #category-liste, #analysis_show {
+  margin-inline: 10px;
+}
+#user_list h1, #category-liste h1, #analysis_show h1 {
+  color: var(--primary-color);
+}
+#user_list article, #category-liste article, #analysis_show article {
+  margin-inline: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+#user_list article h2, #category-liste article h2, #analysis_show article h2 {
+  color: var(--tertiary-color);
+  grid-column: 1/-1;
+}
+#user_list article form, #user_list article a, #category-liste article form, #category-liste article a, #analysis_show article form, #analysis_show article a {
+  display: block;
+  margin-inline: auto;
+}
+#user_list article a, #category-liste article a, #analysis_show article a {
+  text-decoration: none;
+  color: var(--primary-color);
+  text-align: center;
+}
+#user_list article a img, #category-liste article a img, #analysis_show article a img {
+  position: relative;
+  top: 4px;
+}
+#user_list article button, #category-liste article button, #analysis_show article button {
+  border: 0;
+  background-color: transparent;
+  color: var(--primary-color);
+  cursor: pointer;
+}
+#user_list article div, #category-liste article div, #analysis_show article div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+#user_list ul, #category-liste ul, #analysis_show ul {
+  grid-column: 1/-1;
+}
+#user_list ul li, #category-liste ul li, #analysis_show ul li {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+@media (min-width: 768px) {
+  #user_list ul li h3, #category-liste ul li h3, #analysis_show ul li h3 {
+    font-size: 1.2rem;
   }
 }
 
+@media (min-width: 768px) {
+  #detail > p, #detail > ul, #detail > div {
+    grid-column: 1/-1;
+  }
+}
+@media (min-width: 1024px) {
+  #detail {
+    grid-template-columns: 1fr 1fr;
+  }
+  #specialites {
+    font-size: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
 #contact {
   padding-inline: 10px;
 }
@@ -736,6 +881,15 @@ button.next {
   padding-block: 10px;
 }
 
+@media (min-width: 750px) {
+  #contact {
+    width: 720px;
+    margin-inline: auto;
+    border: 2px solid var(--primary-color);
+    margin-block: 30px;
+    box-shadow: 0 4px 8px grey;
+  }
+}
 footer {
   background-color: var(--primary-color);
   color: var(--light-color);

@@ -4,30 +4,34 @@
 
 {% block body %}
     <main class="form">
-    <h1>
-        {% if role == 'customer' %}
-            Inscription
-        {% endif %}
-        {% if role == 'admin' %}
-            Création d'un compte admin
-        {% endif %}
-        {% if role == 'employee' %}
-            Création d'un compte employer
-        {% endif %}
-    </h1>
 
-    {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
+        <h1>
+            {% if role == 'customer' %}
+                Inscription
+            {% endif %}
+            {% if role == 'admin' %}
+                Création d'un compte admin
+            {% endif %}
+            {% if role == 'employee' %}
+                Création d'un compte employer
+            {% endif %}
+        </h1>
+        {{ form_errors(registrationForm) }}
+
     {{ form_row(registrationForm.name) }}
         {% if role == 'customer' %}
             {{ form_row(registrationForm.social_security_number.number) }}
         {% endif %}
         {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        {{ form_row(registrationForm.plainPassword) }}
+        <div class="checkbox">
+            {{ form_widget(registrationForm.agreeTerms) }}
+            {{ form_label(registrationForm.agreeTerms) }}
+            {{ form_errors(registrationForm.agreeTerms) }}
+        </div>
+
 
         <button type="submit" class="btn">Inscription</button>
     {{ form_end(registrationForm) }}

@@ -1,10 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Analysis{% endblock %}
+{% block title %}Ajouter une analyse{% endblock %}
 
 {% block body %}
-    <h1>Create new Analysis</h1>
+    <main class="form">
+        <a href="{{ path('app_analysis_list') }}">◀ retour à list</a>
+    <h1>Ajouter une analyse</h1>
 
     {{ include('analysis/_form.html.twig', {'button_label': 'Ajouter'}) }}
+    </main>
 
 {% endblock %}

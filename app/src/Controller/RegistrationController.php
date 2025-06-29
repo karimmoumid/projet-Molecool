@@ -48,7 +48,7 @@ class RegistrationController extends AbstractController
                     break;
                 case 'customer':
                 default:
-                    $user->setRoles(['ROLE_CUSTOMER']);
+                    $user->setRoles(['ROLE_PATIENT']);
                     break;
             }
 
