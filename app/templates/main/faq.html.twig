@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Foire aux questions !{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/main_faq.js') }}" defer></script>
+{% endblock %}
+{% block body %}
+    <main id="faq">
+        <section class="faq container_responsive_2_4">
+            <h1>Foire aux questions</h1>
+
+            <article class="box">
+                <p class="faq-question">1. Comment prendre rendez-vous ? ▼</p>
+                <div class="hidden">
+                    <p>Vous pouvez prendre rendez-vous en ligne depuis votre espace personnel ou en appelant le laboratoire.</p>
+                </div>
+            </article>
+
+            <article class="box">
+                <p class="faq-question">2. Quels sont les horaires d’ouverture ? ▼</p>
+                <div class="hidden">
+                    <p>Nous sommes ouverts du lundi au samedi de 8h à 18h.</p>
+                </div>
+            </article>
+
+            <article class="box">
+                <p class="faq-question">3. Faut-il une ordonnance pour faire une analyse ? ▼</p>
+                <div class="hidden">
+                    <p>La plupart des analyses nécessitent une ordonnance. Toutefois, certaines peuvent être réalisées sans.</p>
+                </div>
+            </article>
+
+            <article class="box">
+                <p class="faq-question">4. Quels documents dois-je apporter ? ▼</p>
+                <div class="hidden">
+                    <p>Une pièce d'identité, votre carte vitale, votre ordonnance et votre carte de mutuelle si vous en avez une.</p>
+                </div>
+            </article>
+
+            <article class="box">
+                <p class="faq-question">5. Combien de temps faut-il pour obtenir les résultats ? ▼</p>
+                <div class="hidden">
+                    <p>Les résultats sont disponibles généralement sous 24 à 72 heures, selon l’analyse.</p>
+                </div>
+            </article>
+            <article class="box">
+                <p class="faq-question">7. Puis-je faire les analyses sans être à jeun ? ▼</p>
+                <div class="hidden">
+                    <p>Certaines analyses nécessitent d’être à jeun. Vérifiez votre ordonnance ou contactez-nous pour confirmation.</p>
+                </div>
+            </article>
+
+            <article class="box">
+                <p class="faq-question">8. Quels moyens de paiement acceptez-vous ? ▼</p>
+                <div class="hidden">
+                    <p>Nous acceptons les paiements par carte bancaire, espèces et tiers payant selon les cas.</p>
+                </div>
+            </article>
+        </section>
+
+    </main>
+{% endblock %}

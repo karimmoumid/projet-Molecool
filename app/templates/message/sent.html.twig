@@ -9,6 +9,14 @@
     <main id="message_sent">
     <h1>Messages envoyés</h1>
 
+        <nav class="inbox-nav">
+            <ul>
+                <li><a href="{{ path('messages_inbox') }}">📥 Boite de recéption</a></li>
+                <li><a href="{{ path('message_send') }}">✉️ Nouveau message</a></li>
+                <li><a href="{{ path('messages_favorite') }}">❤️ Messages favoris</a></li>
+            </ul>
+        </nav>
+        <section class="message-list">
     <ul>
         {% for message in messages %}
             <li class="message-item"  data-message-id="{{ message.id }}">
@@ -16,9 +24,15 @@
                     'id': message.id,
                     'read': 0
                 }) }}">
-                    {{ message.subject ?: 'Sans sujet' }}
-                    (Dernier message: {{ message.modifyAt|date('d/m/Y H:i') }})
+                    <p>À : {% if message.sender.name == message.lastsender%}
+                            {{ message.recipient.name }}
+                        {% elseif message.recipient.name == message.lastsender %}
+                            {{ message.sender.name }}
+                        {% endif %}</p>
+                    <p>{{ message.subject ?: 'Sans sujet' }}</p>
+                    <small>(Dernier message: {{ message.modifyAt|date('d/m/Y H:i') }})</small>
                 </a>
+                <div>
                 <button class="favorite-toggle">
                     {{ app.user.favorite.contains(message) ? '❤️' : '🤍' }}
                 </button>
@@ -27,11 +41,13 @@
                         data-id="{{ message.id }}"
                         data-csrf="{{ csrf_token('delete' ~ message.id) }}"
                         aria-label="Supprimer le message">🗑️</button>
+                </div>
             </li>
         {% else %}
             <li>Aucune conversation.</li>
         {% endfor %}
     </ul>
+        </section>
         <div class="pagination">
             {{ knp_pagination_render(messages) }}
         </div>

@@ -129,7 +129,7 @@ class MessageController extends AbstractController
             $isoDate = $now->format('c');
             $message->setCreatedAt($now);
             $content = $form->get('content')->getData();
-            $message->setContent('<div class="send"> <p>'. $content . '</p> <time datetime="'. $isoDate . '"> Envoyer le : ' . $formattedDate .'</time></div>');
+            $message->setContent('<div class="send"> <p>'. htmlspecialchars($content) . '</p> <time datetime="'. $isoDate . '"> Envoyer le : ' . $formattedDate .'</time></div>');
             $message->setModifyAt($now);
             $message->setIsRead(false);
             $message->setIsSenderDelete(false);
@@ -193,10 +193,10 @@ class MessageController extends AbstractController
             $message->setIsSenderDelete(false);
             $message->setIsRecipientDelete(false);
 if($sender === $user){
-$message->setContent('<div class="send"> <p>'. $form->get('reponse')->getData() . '</p> <time datetime="'. $isoDate . '"> Envoyer le : ' . $formattedDate .'</time></div>'.$previewContent);
+$message->setContent('<div class="send"> <p>'. htmlspecialchars($form->get('reponse')->getData()) . '</p> <time datetime="'. $isoDate . '"> Envoyer le : ' . $formattedDate .'</time></div>'.$previewContent);
 }
 if ($recipient === $user) {
-    $message->setContent('<div class="receive"> <p>'. $form->get('reponse')->getData() . '</p> <time datetime="'. $isoDate . '"> Envoyer le : ' . $formattedDate .'</time></div>'.$previewContent);
+    $message->setContent('<div class="receive"> <p>'. htmlspecialchars($form->get('reponse')->getData()) . '</p> <time datetime="'. $isoDate . '"> Envoyer le : ' . $formattedDate .'</time></div>'.$previewContent);
     $message->setIsResponse(true);
 }
 $em->flush();

@@ -3,7 +3,8 @@
 {% block title %}Modification de compte{% endblock %}
 
 {% block body %}
-    <main >
+    <main class="form">
+        <a href="{{ path('app_user_pro_list') }}">◀ retour à list</a>
                 <h1 >Modification de compte</h1>
         {% for label, messages in app.flashes %}
             <div class="alert alert-{{ label }}">

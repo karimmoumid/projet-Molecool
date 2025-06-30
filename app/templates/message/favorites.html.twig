@@ -6,13 +6,22 @@
 {% endblock %}
 
 {% block body %}
+    <main id="message_favorite">
     <h1>Messages favoris</h1>
-
+    <nav class="inbox-nav">
+        <ul>
+            <li><a href="{{ path('messages_inbox') }}">📥 Boite de recéption</a></li>
+            <li><a href="{{ path('message_send') }}">✉️ Nouveau message</a></li>
+            <li><a href="{{ path('messages_sent') }}">📤 Messages envoyés</a></li>
+        </ul>
+    </nav>
+    <section class="message-list">
     <ul>
         {% for message in messages %}
             <li class="message-item {{ message.isRead ? 'read' : 'unread' }}" data-message-id="{{ message.id }}">
                 <a href="{{ path('message_view', { 'id': message.id , 'read': 0 }) }}">
-                    <strong>{{ message.subject ?: 'Sans sujet' }}</strong><br>
+                    <p>De : {{ message.lastsender }}</p>
+                    <p>{{ message.subject ?: 'Sans sujet' }}</p>
                     <small>Dernier message : {{ message.modifyAt|date('d/m/Y H:i') }}</small>
                 </a>
                 <button class="favorite-toggle" aria-label="Toggle favorite">
@@ -23,8 +32,9 @@
             <li>Aucun message favori trouvé.</li>
         {% endfor %}
     </ul>
-
+    </section>
     <div class="pagination">
         {{ knp_pagination_render(messages) }}
     </div>
+    </main>
 {% endblock %}

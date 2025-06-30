@@ -17,7 +17,7 @@ class AnswerForm extends AbstractType
         $builder
             ->add('reponse', TextareaType::class, [
                 'mapped' => false,
-                'label' => 'Répondre',
+                'label' => false,
                 'required' => true
             ])
             ->add('files', FileType::class, [

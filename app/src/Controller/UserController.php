@@ -140,7 +140,7 @@ final class UserController extends AbstractController
 
     #[Route('/modifier_le_compte/{id}', name: 'app_user_modify')]
     #[isGranted('ROLE_ADMIN')]
-    public function modify(User $user,Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $userPasswordHasher): Response
+    public function modify(UserRepository $userRepository,User $user,Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $allowedRoles = ['ROLE_ADMIN', 'ROLE_EMPLOYEE'];
         if (!in_array($user->getRoles()[0], $allowedRoles, true)) {
@@ -153,6 +153,18 @@ final class UserController extends AbstractController
             if(!empty($getpassword)){
                 $user->setPassword($userPasswordHasher->hashPassword($user, $getpassword));
             }
+            $userss = $userRepository->findAll();
+            $email = $form->get('email')->getData();
+            $notUnique = false;
+            foreach ($userss as $users) {
+                if ($users->getEmail() == $email) {
+                    $notUnique = true;
+                }
+            }
+            if ($notUnique) {
+                throw $this->createNotFoundException('l\'email déja existant' );
+            }
+
             $em->persist($user);
             $em->flush();
             return $this->redirectToRoute('app_user_pro_list' );

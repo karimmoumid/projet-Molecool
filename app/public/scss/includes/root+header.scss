@@ -3,7 +3,8 @@
     font-size: 12px;
     --primary-color: rgba(221, 25, 25, 1);
     --secondary-color: rgba(96, 133, 250, 1);
-    --tertiary-color: rgba(39, 134, 152, 1);
+  --tertiary-color-rgb: 39, 134, 152;
+    --tertiary-color: rgba(var(--tertiary-color-rgb), 1);
     --light-color: rgba(252, 252, 252, 1);
   --alert-padding: 1rem;
   --alert-border-radius: 0.375rem;

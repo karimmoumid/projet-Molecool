@@ -31,6 +31,12 @@ final class MainController extends AbstractController
         return $this->render('main/index.html.twig',compact('form'));
     }
 
+    #[Route('/faq', name: 'app_main_faq')]
+    public function faq(): Response
+    {
+        return $this->render('main/faq.html.twig');
+    }
+
 
 
 }

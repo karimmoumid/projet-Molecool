@@ -1,5 +1,26 @@
 @import 'includes/root+header.scss';
 @import 'includes/components.scss';
+@keyframes zoomBackground {
+  from {
+    background-size: 100%;
+  }
+  to {
+    background-size: 120%;
+  }
+}
+
+/* Animation de retour */
+@keyframes unzoomBackground {
+  from {
+    background-size: 120%;
+  }
+  to {
+    background-size: 100%;
+  }
+}
+
+
+
 .hero-home {
     padding-inline: 10px;
     padding-block: 20px;
@@ -55,6 +76,16 @@ span:last-of-type{
         align-items: center;
         justify-content: center;
         margin-block: 30px;
+        transition: all 0.3s ease;
+        &:hover{
+position: relative;
+          bottom: 5px;
+          animation: zoomBackground 0.8s forwards;
+        }
+        &:not(:hover) {
+          animation: unzoomBackground 0.8s forwards;
+        }
+
         @media (min-width: 1024px){
           font-size: 2rem;
         }
@@ -416,7 +447,7 @@ h2{
     grid-template-columns: 1fr 1fr;
     gap: 10px;
 
-    h2, {
+    h2,.alert {
       color: var(--tertiary-color);
       grid-column: 1/-1;
     }
@@ -445,6 +476,7 @@ h2{
     }
 
     div {
+      grid-column: 1/-1;
       display: flex;
       justify-content: space-between;
       gap: 10px;
@@ -467,16 +499,272 @@ h2{
     }
   }
 }
+#message_inbox, #message_sent, #message_favorite{
+  h1{
+    padding-inline: 10px;
+  }
+
+nav{
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background-color: var(--tertiary-color);
+  padding-inline: 10px;
+  ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: 5px;
+    gap: 3px;
+    li{
+      list-style: none;
+      text-align: center;
+
+      a{
+        color: var(--light-color);
+        text-decoration: none;
+
+      }
+    }
+  }
+}
+  .message-list{
+    padding-inline: 10px;
+    li{
+      margin-block: 20px;
+      display: flex;
+      justify-content: space-between;
+      a{
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        flex-grow: 1;
+        color: black;
+      }
+      >div{
+        display: flex;
+        flex-direction: column;
+        div{
+          display: flex;
+          justify-content: space-between;
+
+        }
+      }
+    }
+.unread{
+  background-color: rgba(var(--tertiary-color-rgb), 0.3);
+  padding: 3px;
+  border-radius: 5px;
+
+  p{
+    font-weight: bold;
+  }
+  div p {
+    font-weight: bold;
+  }
+}
+  }
+
+
+}
+
+#message_view{
+  #hero_message_view{
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    padding: 10px;
+  }
+  #content_message_view{
+
+>div{
+  margin-inline: 10px;
+  max-height: 600px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  .receive{
+    margin-block: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--tertiary-color);
+    color: var(--light-color);
+    border-radius: 5px;
+    width: 60%;
+    padding: 5px;
+    p{
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+    time{
+      font-weight: lighter;
+      align-self: flex-end;
+      font-size: 0.8rem;
+    }
+  }
+  .send{
+    align-self: flex-end;
+    margin-block: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    border-radius: 5px;
+    width: 60%;
+    padding: 5px;
+    time{
+      font-weight: lighter;
+      align-self: flex-end;
+      font-size: 0.8rem;
+    }
+  }
+
+  >div:last-of-type{
+    margin-block: 10px;
+p{
+  color: var(--tertiary-color);
+  font-weight: bold;
+}
+  }
+}
+.sender{
+  background-color: var(--primary-color);
+}
+    .recipient{
+      background-color: var(--tertiary-color);
+    }
+form{
+  padding-inline: 15px;
+  padding-block: 5px;
+display: flex;
+>div:last-of-type{
+  flex-grow: 1;
+  >div:first-of-type{
+    position: relative;
+    textarea{
+      background-color: transparent;
+      border: 1px solid var(--light-color);
+      border-radius: 10px;
+      width: 100%;
+      color: var(--light-color);
+      padding-inline: 30px;
+      padding-top: 5px;
+      resize: none;
+    }
+    button{
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: transparent;
+      color: var(--light-color);
+      border: 0;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+  }
+
+}
+
+
+
+  .input-fichier-cache {
+    display: none;
+  }
+
+  .label-piece-jointe {
+    cursor: pointer;
+    font-size: 1.8rem;
+    padding: 5px;
+  }
+
+  .label-piece-jointe:hover {
+    color: #007bff;
+  }
+
+}
+
+  }
+
+
+}
+#faq{
+    padding-inline: 10px;
+  article{
+    margin-inline: 0;
+    >p{
+      color: var(--primary-color);
+      font-weight: bold;
+      cursor: pointer;
+    }
+    div{
+      margin-top: 10px;
+      p{
+        color: var(--tertiary-color);
+      }
+    }
+  }
+
+}
+
+
+
 
 
 
 
 @media (min-width: 768px) {
+  #message_view{
+    font-size: 1.4rem;
+    textarea{
+      font-size: 1.4rem;
+    }
+    #content_message_view{
+      .hidden{
+        display: block;
+        justify-self: center;
+        color: var(--primary-color);
+        font-size: 2rem;
+        padding-block: 15px;
+      }
+      width: 760px;
+      font-size: 1.5rem;
+      border: 2px solid var(--primary-color);
+      margin-inline: auto;
+      margin-block: 20px;
+      border-radius: 8px;
+    }
+
+  }
   #detail{
     >p,>ul,>div{
       grid-column: 1/-1;
     }
   }
+  #message_inbox, #message_sent, #message_favorite{
+    .message-list {
+      li {
+        a {
+          flex-direction: row;
+          gap: 30px;
+          font-size: 1.3rem;
+          align-items: center;
+        }
+        >div{
+          flex-direction: row;
+          gap: 20px;
+          div{
+            gap: 5px;
+          }
+        }
+      }
+    }
+  }
+
+
+
+
 }
 
 
@@ -488,6 +776,27 @@ h2{
     font-size: 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
+  }
+  #message_inbox, #message_sent, #message_favorite{
+    display: grid;
+    grid-template-columns: 0.3fr 1fr;
+    row-gap: 10px;
+    h1{
+      grid-column: 1/-1;
+      font-size: 2.5rem;
+    }
+    nav{
+      border-radius: 5px;
+      margin-left: 10px;
+      height: 100vh;
+      ul{
+        flex-direction: column;
+        padding-block: 10px;
+        font-size: 1.3rem;
+        gap: 20px;
+
+      }
+    }
   }
 }
 

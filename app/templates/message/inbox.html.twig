@@ -17,16 +17,24 @@
         </nav>
 
         <section class="message-list">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
             <ul>
                 {% for message in messages %}
                     <li class="message-item {{ message.isRead ? 'read' : 'unread' }}" data-message-id="{{ message.id }}">
                         <a href="{{ path('message_view', { 'id': message.id , 'read': 1 }) }}">
-                            <strong>{{ message.subject ?: 'Sans sujet' }}</strong><br>
+                            <p>De : {{ message.lastsender }}</p>
+                            <p>Objet : {{ message.subject ?: 'Sans sujet' }}</p>
                             <small>Dernier message : {{ message.modifyAt|date('d/m/Y H:i') }}</small>
                         </a>
                         <div class="message-meta">
-                            <span class="status">{{ message.isRead ? '📖 Lu' : '📩 Non lu' }}</span>
-
+                            <p class="status">{{ message.isRead ? '📖 Lu' : '📩 Non lu' }}</p>
+<div>
                             <button class="favorite-toggle" aria-label="Toggle favorite">
                                 {{ app.user.favorite.contains(message) ? '❤️' : '🤍' }}
                             </button>
@@ -35,6 +43,7 @@
                                     data-id="{{ message.id }}"
                                     data-csrf="{{ csrf_token('delete' ~ message.id) }}"
                                     aria-label="Supprimer le message">🗑️</button>
+</div>
                         </div>
                     </li>
                 {% else %}
