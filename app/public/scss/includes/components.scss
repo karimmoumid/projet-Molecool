@@ -1,298 +1,337 @@
-.box{
-  margin-inline:39px;
-  margin-block: 15px;
-  background-color: rgba(128, 128, 128, 0.07);
-  padding: 26px;
-  box-shadow: 4px 4px 4px black;
-  border-radius: 5px;
-  }
-.button{
-  margin-top: 20px;
-  margin-inline: 40px;
-  width: calc(100% - 80px);
-  background-color: var(--primary-color);
-  color: var(--light-color);
-  font-size: 1.6rem;
-  padding-block: 10px;
-  border: none;
-  border-radius: 8px;
-}
-.hero{
-  padding-block: 25px;
-    padding-left: 10px;
-    display: flex;
-    justify-content: space-between;
-    background-color: var(--primary-color);
-    align-items: center;
-    h1{
-      font-size: 2rem;
-      color: var(--light-color);
-    }
+// Style pour les éléments avec la classe .box
+.box {
+  margin-inline: 39px; // Marge horizontale
+  margin-block: 15px; // Marge verticale
+  background-color: rgba(128, 128, 128, 0.07); // Couleur de fond avec transparence
+  padding: 26px; // Remplissage intérieur
+  box-shadow: 4px 4px 4px black; // Ombre portée
+  border-radius: 5px; // Coins arrondis
 }
 
+// Style pour les éléments avec la classe .button
+.button {
+  margin-top: 20px; // Marge supérieure
+  margin-inline: 40px; // Marge horizontale
+  width: calc(100% - 80px); // Largeur calculée
+  background-color: var(--primary-color); // Couleur de fond
+  color: var(--light-color); // Couleur du texte
+  font-size: 1.6rem; // Taille de la police
+  padding-block: 10px; // Remplissage vertical
+  border: none; // Pas de bordure
+  border-radius: 8px; // Coins arrondis
+}
+
+// Style pour les éléments avec la classe .hero
+.hero {
+  padding-block: 25px; // Remplissage vertical
+  padding-left: 10px; // Remplissage gauche
+  display: flex; // Utilisation de Flexbox
+  justify-content: space-between; // Espacement des éléments enfants
+  background-color: var(--primary-color); // Couleur de fond
+  align-items: center; // Alignement vertical des éléments enfants
+
+  h1 {
+    font-size: 2rem; // Taille de la police
+    color: var(--light-color); // Couleur du texte
+  }
+}
+
+// Style pour les éléments avec la classe .grid-cards
 .grid-cards {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: 1fr;
-  padding-inline: 10px;
-  padding-block: 20px;
+  display: grid; // Utilisation de CSS Grid
+  gap: 20px; // Espacement entre les éléments de la grille
+  grid-template-columns: 1fr; // Une seule colonne par défaut
+  padding-inline: 10px; // Remplissage horizontal
+  padding-block: 20px; // Remplissage vertical
 
   article {
-    background-color: rgba(128, 128, 128, 0.07);
-    border-radius: 5px;
-    box-shadow: 4px 4px 4px black;
-    padding: 20px;
-    text-align: center;
+    background-color: rgba(128, 128, 128, 0.07); // Couleur de fond avec transparence
+    border-radius: 5px; // Coins arrondis
+    box-shadow: 4px 4px 4px black; // Ombre portée
+    padding: 20px; // Remplissage intérieur
+    text-align: center; // Alignement du texte
 
     h3 {
-      color: var(--tertiary-color);
-      font-size: clamp(1.6rem, 2vw, 2rem);
-      font-weight: 700;
-      margin-bottom: 10px;
+      color: var(--tertiary-color); // Couleur du texte
+      font-size: clamp(1.6rem, 2vw, 2rem); // Taille de police responsive
+      font-weight: 700; // Poids de la police
+      margin-bottom: 10px; // Marge inférieure
     }
 
     p {
-      font-size: clamp(1.2rem, 1.5vw, 1.6rem);
-      color: black;
+      font-size: clamp(1.2rem, 1.5vw, 1.6rem); // Taille de police responsive
+      color: black; // Couleur du texte
     }
 
     a {
-      display: inline-block;
-      margin-top: 15px;
-      background-color: var(--primary-color);
-      color: var(--light-color);
-      text-decoration: none;
-      padding: 10px 15px;
-      border-radius: 5px;
+      display: inline-block; // Affichage en ligne
+      margin-top: 15px; // Marge supérieure
+      background-color: var(--primary-color); // Couleur de fond
+      color: var(--light-color); // Couleur du texte
+      text-decoration: none; // Pas de soulignement
+      padding: 10px 15px; // Remplissage intérieur
+      border-radius: 5px; // Coins arrondis
 
       &:hover {
-        background-color: rgb(254, 23, 23);
+        background-color: rgb(254, 23, 23); // Couleur de fond au survol
       }
     }
   }
 
+  // Media Queries pour les écrans de taille moyenne (tablettes)
   @media (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr); // Deux colonnes
   }
 
+  // Media Queries pour les écrans larges (ordinateurs de bureau)
   @media (min-width: 1024px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-.container_responsive_2_4{
-  @media (min-width: 768px) {
-    button{
-      font-size: 1.8rem;
-    }
-    font-size: 1.8rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 25px;
-    h1,h2 {
-      grid-column: 1/-1;
-    }
-
-  }
-
-  @media (min-width: 1024px) {
-    button{
-      font-size: 1.8rem;
-    }
-    font-size: 1.8rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr); // Quatre colonnes
   }
 }
 
+// Style pour les éléments avec la classe .container_responsive_2_4
+.container_responsive_2_4 {
+  // Media Queries pour les écrans de taille moyenne (tablettes)
+  @media (min-width: 768px) {
+    button {
+      font-size: 1.8rem; // Taille de la police
+    }
 
+    font-size: 1.8rem; // Taille de la police
+    display: grid; // Utilisation de CSS Grid
+    grid-template-columns: 1fr 1fr; // Deux colonnes
+    column-gap: 25px; // Espacement entre les colonnes
 
+    h1, h2 {
+      grid-column: 1/-1; // Les éléments h1 et h2 s'étendent sur toute la largeur
+    }
+  }
+
+  // Media Queries pour les écrans larges (ordinateurs de bureau)
+  @media (min-width: 1024px) {
+    button {
+      font-size: 1.8rem; // Taille de la police
+    }
+
+    font-size: 1.8rem; // Taille de la police
+    display: grid; // Utilisation de CSS Grid
+    grid-template-columns: 1fr 1fr 1fr 1fr; // Quatre colonnes
+  }
+}
+
+// Style pour les éléments avec la classe .alert
 .alert {
-  padding: var(--alert-padding);
-  border-radius: var(--alert-border-radius);
-  font-weight: var(--alert-font-weight);
-  border: 1px solid transparent;
+  padding: var(--alert-padding); // Remplissage intérieur
+  border-radius: var(--alert-border-radius); // Coins arrondis
+  font-weight: var(--alert-font-weight); // Poids de la police
+  border: 1px solid transparent; // Bordure transparente
 
   &-success {
-    background-color: var(--success-bg);
-    color: var(--success-text);
-    border-color: var(--success-border);
+    background-color: var(--success-bg); // Couleur de fond pour les alertes de succès
+    color: var(--success-text); // Couleur du texte pour les alertes de succès
+    border-color: var(--success-border); // Couleur de bordure pour les alertes de succès
   }
 
   &-danger {
-    background-color: var(--danger-bg);
-    color: var(--danger-text);
-    border-color: var(--danger-border);
+    background-color: var(--danger-bg); // Couleur de fond pour les alertes de danger
+    color: var(--danger-text); // Couleur du texte pour les alertes de danger
+    border-color: var(--danger-border); // Couleur de bordure pour les alertes de danger
   }
 }
-.form{
-  >a{
-    margin-inline: 10px;
-    text-decoration: none;
-    color: var(--tertiary-color);
-    font-size: 1.2rem;
+
+// Style pour les éléments avec la classe .form
+.form {
+  > a {
+    margin-inline: 10px; // Marge horizontale
+    text-decoration: none; // Pas de soulignement
+    color: var(--tertiary-color); // Couleur du texte
+    font-size: 1.2rem; // Taille de la police
   }
-  h1{
-    color: var(--primary-color);
-    text-align: center;
-    font-size: 3.2rem;
+
+  h1 {
+    color: var(--primary-color); // Couleur du texte
+    text-align: center; // Alignement du texte
+    font-size: 3.2rem; // Taille de la police
   }
-  form{
-    margin-block: 23px;
-    padding-block: 25px;
-    border: 1px solid var(--primary-color);
-    margin-inline: 10px;
-    border-radius: 8px;
-    div{
-      display: flex;
-      flex-direction: column;
-      margin-inline: 40px;
-      gap: 10px;
-      margin-block: 10px;
-      font-size: 1.6rem;
-      input, select, textarea{
-        padding-block: 10px;
-        border: 1px solid var(--primary-color);
-        border-radius: 8px;
-        font-size: 1.6rem;
-        padding-inline: 10px;
+
+  form {
+    margin-block: 23px; // Marge verticale
+    padding-block: 25px; // Remplissage vertical
+    border: 1px solid var(--primary-color); // Bordure
+    margin-inline: 10px; // Marge horizontale
+    border-radius: 8px; // Coins arrondis
+
+    div {
+      display: flex; // Utilisation de Flexbox
+      flex-direction: column; // Direction des éléments enfants
+      margin-inline: 40px; // Marge horizontale
+      gap: 10px; // Espacement entre les éléments enfants
+      margin-block: 10px; // Marge verticale
+      font-size: 1.6rem; // Taille de la police
+
+      input, select, textarea {
+        padding-block: 10px; // Remplissage vertical
+        border: 1px solid var(--primary-color); // Bordure
+        border-radius: 8px; // Coins arrondis
+        font-size: 1.6rem; // Taille de la police
+        padding-inline: 10px; // Remplissage horizontal
       }
     }
-    .checkbox{
-      input{
-        margin-top: 5px;
+
+    .checkbox {
+      input {
+        margin-top: 5px; // Marge supérieure
       }
-      flex-direction: row;
-      align-items: flex-start;
-      gap: 10px;
+
+      flex-direction: row; // Direction des éléments enfants
+      align-items: flex-start; // Alignement vertical des éléments enfants
+      gap: 10px; // Espacement entre les éléments enfants
     }
-    button{
-      margin-top: 20px;
-      margin-inline: 40px;
-      width: calc(100% - 80px);
-      background-color: var(--primary-color);
-      color: var(--light-color);
-      font-size: 1.6rem;
-      padding-block: 10px;
-      border: none;
-      border-radius: 8px;
+
+    button {
+      margin-top: 20px; // Marge supérieure
+      margin-inline: 40px; // Marge horizontale
+      width: calc(100% - 80px); // Largeur calculée
+      background-color: var(--primary-color); // Couleur de fond
+      color: var(--light-color); // Couleur du texte
+      font-size: 1.6rem; // Taille de la police
+      padding-block: 10px; // Remplissage vertical
+      border: none; // Pas de bordure
+      border-radius: 8px; // Coins arrondis
     }
+
     textarea {
-      height: 100px !important;
+      height: 100px !important; // Hauteur fixe
     }
-    @media (min-width: 768px){
-      width: 730px;
-      margin-inline:auto;
+
+    // Media Queries pour les écrans de taille moyenne (tablettes)
+    @media (min-width: 768px) {
+      width: 730px; // Largeur fixe
+      margin-inline: auto; // Marge horizontale automatique
     }
   }
+
   .white {
     h1 {
-      color: var(--light-color);
-      font-size: 2rem;
+      color: var(--light-color); // Couleur du texte
+      font-size: 2rem; // Taille de la police
     }
   }
-
-
 }
 
+// Style pour les éléments avec la classe .carousel
 .carousel {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  border-radius: 10px;
+  position: relative; // Position relative
+  width: 100%; // Largeur complète
+  overflow: hidden; // Masquer le contenu qui dépasse
+  border-radius: 10px; // Coins arrondis
 }
 
+// Style pour les éléments avec la classe .carousel-track
 .carousel-track {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-  width: 100%;
+  display: flex; // Utilisation de Flexbox
+  transition: transform 0.5s ease-in-out; // Transition pour le déplacement
+  width: 100%; // Largeur complète
 }
 
+// Style pour les éléments avec la classe .carousel-slide
 .carousel-slide {
-  min-width: 100%;
-  position: relative;
+  min-width: 100%; // Largeur minimale
+  position: relative; // Position relative
 }
 
+// Style pour les images dans les éléments avec la classe .carousel-slide
 .carousel-slide img {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  display: block;
+  width: 100%; // Largeur complète
+  height: 250px; // Hauteur fixe
+  object-fit: cover; // Redimensionnement de l'image
+  display: block; // Affichage en bloc
 }
 
+// Style pour les éléments avec la classe .text-overlay
 .text-overlay {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin:auto;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  color: white;
-  background: rgba(0,0,0,0.4);
-  padding: 20px;
-  border-radius: 10px;
+  position: absolute; // Position absolue
+  display: flex; // Utilisation de Flexbox
+  flex-direction: column; // Direction des éléments enfants
+  justify-content: center; // Centrage vertical
+  align-items: center; // Centrage horizontal
+  text-align: center; // Alignement du texte
+  margin: auto; // Marge automatique
+  top: 0; // Position en haut
+  left: 0; // Position à gauche
+  right: 0; // Position à droite
+  bottom: 0; // Position en bas
+  color: white; // Couleur du texte
+  background: rgba(0, 0, 0, 0.4); // Couleur de fond avec transparence
+  padding: 20px; // Remplissage intérieur
+  border-radius: 10px; // Coins arrondis
 }
 
-button.prev,
-button.next {
-  position: absolute;
-  top: 80%;
-  transform: translateY(-50%);
-  font-size: 2rem;
-  background: rgba(0,0,0,0.5);
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  z-index: 2;
+// Style pour les boutons avec les classes .prev et .next
+button.prev, button.next {
+  position: absolute; // Position absolue
+  top: 80%; // Position en haut
+  transform: translateY(-50%); // Transformation verticale
+  font-size: 2rem; // Taille de la police
+  background: rgba(0, 0, 0, 0.5); // Couleur de fond avec transparence
+  color: white; // Couleur du texte
+  border: none; // Pas de bordure
+  padding: 10px 15px; // Remplissage intérieur
+  cursor: pointer; // Curseur de la souris
+  z-index: 2; // Position en avant
 }
 
+// Style pour le bouton avec la classe .prev
 button.prev {
-  left: 10px;
+  left: 10px; // Position à gauche
 }
 
+// Style pour le bouton avec la classe .next
 button.next {
-  right: 10px;
+  right: 10px; // Position à droite
 }
 
-.link{
-  padding-inline: 5px;
-  &:hover{
-    background-color:rgb(254, 23, 23);
-    transition: all 0.3s ease;
-    border-radius: 8px;
-    a{
-      color: var(--light-color) !important;
+// Style pour les éléments avec la classe .link
+.link {
+  padding-inline: 5px; // Remplissage horizontal
+
+  &:hover {
+    background-color: rgb(254, 23, 23); // Couleur de fond au survol
+    transition: all 0.3s ease; // Transition pour les effets de survol
+    border-radius: 8px; // Coins arrondis
+
+    a {
+      color: var(--light-color) !important; // Couleur du texte au survol
     }
   }
-  a{
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: var(--primary-color);
+
+  a {
+    font-size: 1.3rem; // Taille de la police
+    font-weight: bold; // Poids de la police
+    color: var(--primary-color); // Couleur du texte
   }
 }
 
-
+// Media Queries pour les écrans de taille moyenne (tablettes)
 @media (min-width: 750px) {
   .carousel-slide img {
-    height: 500px;
-  }
-  .text-overlay{
-    padding-inline: 50px;
-  h2,h1 {
-    font-size: 2.2rem;
-  }
-  }
-  .text-overlay p {
-    font-size: 1.6rem;
-  }
-  button.prev,
-  button.next {
-    top: 50%;
-  }
+    height: 500px; // Hauteur fixe
   }
 
+  .text-overlay {
+    padding-inline: 50px; // Remplissage horizontal
+
+    h2, h1 {
+      font-size: 2.2rem; // Taille de la police
+    }
+  }
+
+  .text-overlay p {
+    font-size: 1.6rem; // Taille de la police
+  }
+
+  button.prev,
+  button.next {
+    top: 50%; // Position en haut
+  }
+}

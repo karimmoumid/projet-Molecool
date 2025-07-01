@@ -37,7 +37,7 @@ class MessageRepository extends ServiceEntityRepository
             ->setParameter('username', $user->getName())
             ->setParameter('user', $user)
             ->orderBy('m.modify_at', 'DESC')
-            ->getQuery();
+            ->getQuery(); // ⬅️ retourne un Query, pas getResult()
     }
     public function getFavoriteMessagesQuery(User $user): Query
     {
@@ -46,7 +46,7 @@ class MessageRepository extends ServiceEntityRepository
             ->andWhere('m.sender = :user OR m.recipient = :user')
             ->setParameter('user', $user)
             ->orderBy('m.modify_at', 'DESC')
-            ->getQuery();
+            ->getQuery(); // ⬅️ retourne un Query, pas getResult()
     }
 
 

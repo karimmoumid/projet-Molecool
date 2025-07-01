@@ -1,79 +1,86 @@
-#contact{
-  padding-inline: 10px;
-  h2{
-    padding-block: 20px;
-    color: var(--primary-color);
-    font-size: 3rem;
-    text-align: center;
+// Style pour la section avec l'ID #contact
+#contact {
+  padding-inline: 10px; // Remplissage horizontal
+
+  h2 {
+    padding-block: 20px; // Remplissage vertical
+    color: var(--primary-color); // Couleur du texte
+    font-size: 3rem; // Taille de la police
+    text-align: center; // Alignement du texte
   }
-  li{
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    margin-block: 10px;
-    svg{
-      width: 53px;
-      height: 53px;
-    }
-    span{
-      font-size: 1.4rem;
-      font-weight: 600;
-    }
-  }
-  form{
-    border: 1px solid var(--primary-color);
-    border-radius: 5px;
-    padding-inline: 43px;
-    padding-block: 20px;
-div {
-  div {
-    display: flex;
-    flex-direction: column;
 
-    label {
-      margin-top: 10px;
-      margin-bottom: 7px;
-      font-size: 1.6rem;
+  li {
+    display: flex; // Utilisation de Flexbox
+    align-items: center; // Alignement vertical des éléments enfants
+    gap: 40px; // Espacement entre les éléments enfants
+    margin-block: 10px; // Marge verticale
+
+    svg {
+      width: 53px; // Largeur
+      height: 53px; // Hauteur
     }
 
-    input, select, textarea {
-      border: 1px solid var(--primary-color);
-      border-radius: 5px;
-      height: 30px;
-        padding-inline: 10px;
-        padding-block: 5px;
-
+    span {
+      font-size: 1.4rem; // Taille de la police
+      font-weight: 600; // Poids de la police
     }
   }
 
-  select {
-    text-align: center;
-  }
+  form {
+    border: 1px solid var(--primary-color); // Bordure
+    border-radius: 5px; // Coins arrondis
+    padding-inline: 43px; // Remplissage horizontal
+    padding-block: 20px; // Remplissage vertical
 
-  textarea {
-    height: 100px !important;
-  }
+    div {
+      div {
+        display: flex; // Utilisation de Flexbox
+        flex-direction: column; // Direction des éléments enfants
 
-  button {
-    margin-top: 40px;
-    background-color: var(--primary-color);
-    border-radius: 5px;
-    border: 0;
-    color: var(--light-color);
-    padding-block: 10px;
+        label {
+          margin-top: 10px; // Marge supérieure
+          margin-bottom: 7px; // Marge inférieure
+          font-size: 1.6rem; // Taille de la police
+        }
+
+        input, select, textarea {
+          border: 1px solid var(--primary-color); // Bordure
+          border-radius: 5px; // Coins arrondis
+          height: 30px; // Hauteur
+          padding-inline: 10px; // Remplissage horizontal
+          padding-block: 5px; // Remplissage vertical
+        }
+      }
+
+      select {
+        text-align: center; // Alignement du texte
+      }
+
+      textarea {
+        height: 100px !important; // Hauteur fixe
+      }
+
+      button {
+        margin-top: 40px; // Marge supérieure
+        background-color: var(--primary-color); // Couleur de fond
+        border-radius: 5px; // Coins arrondis
+        border: 0; // Pas de bordure
+        color: var(--light-color); // Couleur du texte
+        padding-block: 10px; // Remplissage vertical
+      }
+    }
+
+    margin-bottom: 20px; // Marge inférieure
   }
 }
-    margin-bottom: 20px;
-  }
-}
+
+// Media Queries pour les écrans de taille moyenne (tablettes)
 @media (min-width: 750px) {
-#contact{
-  width: 720px;
-  margin-inline: auto;
-  border: 2px solid var(--primary-color);
-  margin-block: 30px;
-  box-shadow: 0 4px 8px grey;
-
-}
-
+  #contact {
+    width: 720px; // Largeur fixe
+    margin-inline: auto; // Marge horizontale automatique
+    border: 2px solid var(--primary-color); // Bordure
+    margin-block: 30px; // Marge verticale
+    box-shadow: 0 4px 8px grey; // Ombre portée
+  }
 }

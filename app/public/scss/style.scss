@@ -1,5 +1,8 @@
+// Importation des fichiers SCSS partiels pour le style de base
 @import 'includes/root+header.scss';
 @import 'includes/components.scss';
+
+// Définition des animations pour le zoom avant et arrière de l'arrière-plan
 @keyframes zoomBackground {
   from {
     background-size: 100%;
@@ -19,185 +22,209 @@
   }
 }
 
-
-
+// Style pour la section hero de la page d'accueil
 .hero-home {
-    padding-inline: 10px;
-    padding-block: 20px;
-    background-size: cover;
-    background-position: center;
-    p {
-        span {
-            display: block;
-            padding-block: 10px;
-        }
-span:last-of-type{
-    font-weight: 800;
-}
-        padding-bottom: 20px;
+  padding-inline: 10px;
+  padding-block: 20px;
+  background-size: cover;
+  background-position: center;
+
+  p {
+    span {
+      display: block;
+      padding-block: 10px;
     }
 
-    a {
-        display: block;
-        padding: 5px;
-        background-color: var(--primary-color);
-        border-radius: 5px;
-      text-align: center;
-        justify-self: center;
-        text-decoration: none;
-        color: var(--light-color);
-        &:hover{
-            background-color: rgb(254, 23, 23);
-        }
-
+    span:last-of-type {
+      font-weight: 800;
     }
+
+    padding-bottom: 20px;
+  }
+
+  a {
+    display: block;
+    padding: 5px;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    text-align: center;
+    justify-self: center;
+    text-decoration: none;
+    color: var(--light-color);
+
+    &:hover {
+      background-color: rgb(254, 23, 23);
+    }
+  }
 }
 
+// Style pour la section des spécialités
 #speciality {
-    padding-inline: 10px;
+  padding-inline: 10px;
 
-    h2 {
-        padding-block: 15px;
-        color: var(--primary-color);
-        font-size: 3.2rem;
-        text-align: center;
-    }
+  h2 {
+    padding-block: 15px;
+    color: var(--primary-color);
+    font-size: 3.2rem;
+    text-align: center;
+  }
 
-    article {
-      a{
-        text-decoration: none;
-        color: var(--light-color);
-        font-size: 3.2rem;
-        font-weight: 900;
-        box-shadow: 10px 10px 10px black;
-        background-size: cover;
-        aspect-ratio: 1/0.6;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-block: 30px;
-        transition: all 0.3s ease;
-        &:hover{
-position: relative;
-          bottom: 5px;
-          animation: zoomBackground 0.8s forwards;
-        }
-        &:not(:hover) {
-          animation: unzoomBackground 0.8s forwards;
-        }
+  article {
+    a {
+      text-decoration: none;
+      color: var(--light-color);
+      font-size: 3.2rem;
+      font-weight: 900;
+      box-shadow: 10px 10px 10px black;
+      background-size: cover;
+      aspect-ratio: 1/0.6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-block: 30px;
+      transition: all 0.3s ease;
 
-        @media (min-width: 1024px){
-          font-size: 2rem;
-        }
+      &:hover {
+        position: relative;
+        bottom: 5px;
+        animation: zoomBackground 0.8s forwards;
       }
 
-      &:first-of-type {
-        a {
-          background-image: url(../Media/image/vedrana-filipovic-jxqTaXF5WmY-unsplash\ 1.png);
-        }
+      &:not(:hover) {
+        animation: unzoomBackground 0.8s forwards;
       }
 
-      &:nth-of-type(2) {
-        a {
-          background-image: url(../Media/image/anirudh-djo3iNJpaOE-unsplash\ 1.png);
-        }
-      }
-
-      &:nth-of-type(3) {
-        a {
-          background-image: url(../Media/image/fusion-medical-animation-rnr8D3FNUNY-unsplash\ 1.png);
-        }
-        }
-
-      &:last-of-type {
-        a {
-          background-image: url(../Media/image/cdc-MgGTUHINEPg-unsplash\ 1.png);
-        }
+      @media (min-width: 1024px) {
+        font-size: 2rem;
       }
     }
+
+    // Styles spécifiques pour chaque article en fonction de leur position
+    &:first-of-type {
+      a {
+        background-image: url(../Media/image/vedrana-filipovic-jxqTaXF5WmY-unsplash\ 1.png);
+      }
+    }
+
+    &:nth-of-type(2) {
+      a {
+        background-image: url(../Media/image/anirudh-djo3iNJpaOE-unsplash\ 1.png);
+      }
+    }
+
+    &:nth-of-type(3) {
+      a {
+        background-image: url(../Media/image/fusion-medical-animation-rnr8D3FNUNY-unsplash\ 1.png);
+      }
+    }
+
+    &:last-of-type {
+      a {
+        background-image: url(../Media/image/cdc-MgGTUHINEPg-unsplash\ 1.png);
+      }
+    }
+  }
 }
-#apropos{
-background-image: url(../Media/image/age-barros-GJYouaBTiRc-unsplash\ 1.png);
-background-size: cover;
-text-align: center;
-padding-block: 20px;
-padding-inline: 10px;
+
+// Style pour la section "À propos"
+#apropos {
+  background-image: url(../Media/image/age-barros-GJYouaBTiRc-unsplash\ 1.png);
+  background-size: cover;
+  text-align: center;
+  padding-block: 20px;
+  padding-inline: 10px;
   padding-bottom: 50px;
-h2{
+
+  h2 {
     padding-block: 20px;
     color: var(--light-color);
     font-size: 3.2rem;
-  margin-bottom: 50px;
-}
-figure{
-svg{
-    width: 150px;
-    height: 150px;
-    margin: 10px;
-}
-figcaption{
-    color: var(--light-color);
-font-size: 1.8rem;
-}
-padding-block: 20px;
-}
+    margin-bottom: 50px;
+  }
+
+  figure {
+    svg {
+      width: 139px;
+      height: 139px;
+      margin: 10px;
+    }
+
+    figcaption {
+      color: var(--light-color);
+      font-size: 1.8rem;
+    }
+
+    padding-block: 20px;
+  }
 }
 
-
-.red-hero-img{
+// Style pour la section avec une image de fond rouge
+.red-hero-img {
   padding-left: 10px;
   display: flex;
   justify-content: space-between;
   background: linear-gradient(to right, red 0%, red 70%, transparent 90%);
   align-items: center;
-  img{
+
+  img {
     z-index: -1;
   }
-  h1,h2{
+
+  h1, h2 {
     color: var(--light-color);
   }
-
 }
-#detail{
+
+// Style pour la section de détails
+#detail {
   margin-inline: 10px;
-  h2{
+
+  h2 {
     font-size: 2rem;
     color: var(--primary-color);
     font-weight: 300;
     margin-block: 15px;
   }
-  p{
+
+  p {
     font-size: 1.6rem;
     margin-block: 15px;
   }
-  article{
+
+  article {
     margin-block: 15px;
     background-color: rgba(128, 128, 128, 0.07);
     padding: 26px;
     box-shadow: 4px 4px 4px black;
     border-radius: 5px;
-    div{
+
+    div {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      h3{
+
+      h3 {
         color: var(--tertiary-color);
         font-size: 1.8rem;
       }
-      p{
+
+      p {
         color: var(--primary-color);
         font-size: 1.8rem;
       }
     }
   }
-  ul{
+
+  ul {
     margin-left: 20px;
-    li{
-font-size: 1.6rem;
+
+    li {
+      font-size: 1.6rem;
       margin-block: 5px;
     }
   }
-  >div{
+
+  > div {
     margin-block: 15px;
     background-color: rgba(128, 128, 128, 0.07);
     padding: 26px;
@@ -206,71 +233,78 @@ font-size: 1.6rem;
   }
 }
 
+// Style pour la section des spécialités
+#specialites {
+  h1 {
+    text-align: center;
+    color: var(--primary-color);
+    padding: 43px;
+    font-size: 3rem;
+    font-weight: 400;
+  }
 
-#specialites{
-    h1{
-        text-align: center;
-        color: var(--primary-color);
-        padding: 43px;
-        font-size: 3rem;
-        font-weight: 400;
-    }
-article{
-    margin-inline:10px;
+  article {
+    margin-inline: 10px;
     margin-block: 15px;
     background-color: rgba(128, 128, 128, 0.07);
     padding: 26px;
     box-shadow: 4px 4px 4px black;
     border-radius: 5px;
-    a{
+
+    a {
       text-decoration: none;
-        display: flex;
-        gap: 10px;
-        h3{
-            font-size: 2rem;
-            color: var(--tertiary-color);
-        }
+      display: flex;
+      gap: 10px;
+
+      h3 {
+        font-size: 2rem;
+        color: var(--tertiary-color);
+      }
     }
-p,h4,li{
-    padding-block: 20px;
-    font-weight: 300;
-}
-p,li{
-    font-size: 1.6rem;
-}
-h4{
-    font-size: 2rem;
-    color: var(--tertiary-color);
-}
-li{
-padding-block: 15px;
-margin-inline: 30px;
-}
 
-}
-}
+    p, h4, li {
+      padding-block: 20px;
+      font-weight: 300;
+    }
 
+    p, li {
+      font-size: 1.6rem;
+    }
 
+    h4 {
+      font-size: 2rem;
+      color: var(--tertiary-color);
+    }
 
-.account-home{
-article{
-  h2{
-    color: var(--tertiary-color);
-    font-size: 1.8rem;
-    margin-block: 25px;
-  }
-  p{
-    font-size: 1.6rem;
-    margin-block: 25px;
-  }
-  div{
-    display: flex;
-    justify-content: end;
+    li {
+      padding-block: 15px;
+      margin-inline: 30px;
+    }
   }
 }
+
+// Style pour la section du compte utilisateur
+.account-home {
+  article {
+    h2 {
+      color: var(--tertiary-color);
+      font-size: 1.8rem;
+      margin-block: 25px;
+    }
+
+    p {
+      font-size: 1.6rem;
+      margin-block: 25px;
+    }
+
+    div {
+      display: flex;
+      justify-content: end;
+    }
+  }
 }
 
-
+// Style pour la section des services
 #service {
   padding: 20px 10px;
 
@@ -330,36 +364,44 @@ article{
       ul {
         list-style: none;
         padding: 0;
-        a{
+
+        a {
           text-decoration: none;
-        }
         }
       }
     }
   }
-#reservation{
+}
 
+// Style pour la section de réservation
+#reservation {
   div {
     p {
-
       color: grey;
       font-size: 1.3rem;
     }
-    div{
 
-      display: flex;
-      flex-direction: row;
+    div {
+      display: grid;
+      grid-template-columns: auto auto auto auto; /* 4 colonnes */
+      gap: 10px 20px; /* 10px ligne, 20px colonne */
       align-items: center;
-      gap: 10px;
-      label{
-        margin-right: 30px;
+      margin-left: 0;
+
+      label {
+        justify-self: start;
+      }
+      input{
+        justify-self: end;
       }
     }
   }
+
   .notification {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
     a {
       text-decoration: none;
       text-align: center;
@@ -367,7 +409,8 @@ article{
       width: 100%;
       padding-block: 10px;
       border-radius: 5px;
-      p{
+
+      p {
         font-size: 1.6rem;
         color: black;
         text-decoration: none;
@@ -375,66 +418,81 @@ article{
     }
   }
 }
-#appointment_index{
-  button{
-    a{
+
+// Style pour la section d'index des rendez-vous
+#appointment_index {
+  button {
+    a {
       text-decoration: none;
       color: var(--light-color);
     }
   }
-  .hidden{
+
+  .hidden {
     display: none !important;
   }
-  .hidden_patient{
+
+  .hidden_patient {
     display: none !important;
   }
-  article{
+
+  article {
     padding: 10px;
   }
-h2{
-  color: var(--primary-color);
-}
-  .box{
-    @media (min-width: 1025px){
+
+  h2 {
+    color: var(--primary-color);
+  }
+
+  .box {
+    @media (min-width: 1025px) {
       margin: 0;
       margin-top: 10px;
     }
   }
-  h3{
+
+  h3 {
     color: var(--tertiary-color);
   }
-  .titre{
-        list-style-type: none;
+
+  .titre {
+    list-style-type: none;
   }
-  .liste{
+
+  .liste {
     margin-left: 40px;
   }
-  .container{
+
+  .container {
     display: flex;
     justify-content: space-between;
-    @media (min-width: 1025px){
+
+    @media (min-width: 1025px) {
       margin: 0;
       margin-top: 10px;
       font-size: 1.5rem;
     }
-    div:last-of-type{
-      form{
+
+    div:last-of-type {
+      form {
         margin: 0;
         padding: 0;
         width: 100%;
         border: 0;
-        button{
+
+        button {
           cursor: pointer;
           margin: 0;
           padding: 0;
           background-color: transparent;
         }
       }
-
     }
   }
 }
-#user_list , #category-liste, #analysis_show {
+
+// Style pour les listes d'utilisateurs, de catégories et l'affichage des analyses
+#user_list, #category-liste, #analysis_show {
   margin-inline: 10px;
 
   h1 {
@@ -447,7 +505,7 @@ h2{
     grid-template-columns: 1fr 1fr;
     gap: 10px;
 
-    h2,.alert {
+    h2, .alert {
       color: var(--tertiary-color);
       grid-column: 1/-1;
     }
@@ -485,6 +543,7 @@ h2{
 
   ul {
     grid-column: 1/-1;
+
     li {
       list-style: none;
       display: flex;
@@ -499,235 +558,253 @@ h2{
     }
   }
 }
-#message_inbox, #message_sent, #message_favorite{
-  h1{
+
+// Style pour les listes de messages (boîte de réception, envoyés, favoris)
+#message_inbox, #message_sent, #message_favorite {
+  h1 {
     padding-inline: 10px;
+    color: var(--light-color);
   }
 
-nav{
-  position: sticky;
-  top: 0;
-  z-index: 500;
-  background-color: var(--tertiary-color);
-  padding-inline: 10px;
-  ul{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-block: 5px;
-    gap: 3px;
-    li{
-      list-style: none;
-      text-align: center;
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 500;
+    background-color: var(--tertiary-color);
+    padding-inline: 10px;
 
-      a{
-        color: var(--light-color);
-        text-decoration: none;
+    ul {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-block: 5px;
+      gap: 3px;
 
+      li {
+        list-style: none;
+        text-align: center;
+
+        a {
+          color: var(--light-color);
+          text-decoration: none;
+        }
       }
     }
   }
-}
-  .message-list{
+
+  .message-list {
     padding-inline: 10px;
-    li{
+
+    li {
       margin-block: 20px;
       display: flex;
       justify-content: space-between;
-      a{
+
+      a {
         display: flex;
         flex-direction: column;
         text-decoration: none;
         flex-grow: 1;
         color: black;
       }
-      >div{
+
+      > div {
         display: flex;
         flex-direction: column;
-        div{
+
+        div {
           display: flex;
           justify-content: space-between;
-
         }
       }
     }
-.unread{
-  background-color: rgba(var(--tertiary-color-rgb), 0.3);
-  padding: 3px;
-  border-radius: 5px;
-
-  p{
-    font-weight: bold;
   }
-  div p {
-    font-weight: bold;
+
+  .unread {
+    background-color: rgba(var(--tertiary-color-rgb), 0.3);
+    padding: 3px;
+    border-radius: 5px;
+
+    p {
+      font-weight: bold;
+    }
+
+    div p {
+      font-weight: bold;
+    }
   }
 }
-  }
 
-
-}
-
-#message_view{
-  #hero_message_view{
+// Style pour la vue d'un message
+#message_view {
+  #hero_message_view {
     background-color: var(--primary-color);
     color: var(--light-color);
     padding: 10px;
   }
-  #content_message_view{
 
->div{
-  margin-inline: 10px;
-  max-height: 600px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  .receive{
-    margin-block: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: var(--tertiary-color);
-    color: var(--light-color);
-    border-radius: 5px;
-    width: 60%;
-    padding: 5px;
-    p{
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-    }
-    time{
-      font-weight: lighter;
-      align-self: flex-end;
-      font-size: 0.8rem;
-    }
-  }
-  .send{
-    align-self: flex-end;
-    margin-block: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: var(--primary-color);
-    color: var(--light-color);
-    border-radius: 5px;
-    width: 60%;
-    padding: 5px;
-    time{
-      font-weight: lighter;
-      align-self: flex-end;
-      font-size: 0.8rem;
-    }
-  }
+  #content_message_view {
+    > div {
+      margin-inline: 10px;
+      max-height: 600px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
 
-  >div:last-of-type{
-    margin-block: 10px;
-p{
-  color: var(--tertiary-color);
-  font-weight: bold;
-}
-  }
-}
-.sender{
-  background-color: var(--primary-color);
-}
-    .recipient{
+      .receive {
+        margin-block: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: var(--tertiary-color);
+        color: var(--light-color);
+        border-radius: 15px;
+        width: 60%;
+        padding: 10px;
+
+        p {
+          word-wrap: break-word;
+          overflow-wrap: break-word;
+        }
+
+        time {
+          font-weight: lighter;
+          align-self: flex-end;
+          font-size: 0.8rem;
+        }
+      }
+
+      .send {
+        align-self: flex-end;
+        margin-block: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: var(--primary-color);
+        color: var(--light-color);
+        border-radius: 15px;
+        width: 60%;
+        padding: 10px;
+
+        time {
+          font-weight: lighter;
+          align-self: flex-end;
+          font-size: 0.8rem;
+        }
+      }
+
+      > div:last-of-type {
+        margin-block: 10px;
+
+        p {
+          color: var(--tertiary-color);
+          font-weight: bold;
+        }
+      }
+    }
+
+    .sender {
+      background-color: var(--primary-color);
+    }
+
+    .recipient {
       background-color: var(--tertiary-color);
     }
-form{
-  padding-inline: 15px;
-  padding-block: 5px;
-display: flex;
->div:last-of-type{
-  flex-grow: 1;
-  >div:first-of-type{
-    position: relative;
-    textarea{
-      background-color: transparent;
-      border: 1px solid var(--light-color);
-      border-radius: 10px;
-      width: 100%;
-      color: var(--light-color);
-      padding-inline: 30px;
-      padding-top: 5px;
-      resize: none;
+
+    form {
+      padding-inline: 15px;
+      padding-block: 5px;
+      display: flex;
+
+      > div:last-of-type {
+        flex-grow: 1;
+
+        > div:first-of-type {
+          position: relative;
+
+          textarea {
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 16px;
+            width: 100%;
+            color: var(--light-color);
+            padding-inline: 30px;
+            padding-top: 5px;
+            resize: none;
+          }
+
+          button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: transparent;
+            color: rgba(255, 255, 255, 0.5);
+            border: 0;
+            cursor: pointer;
+            font-size: 1.5rem;
+          }
+        }
+      }
+
+      .input-fichier-cache {
+        display: none;
+      }
+
+      .label-piece-jointe {
+        cursor: pointer;
+        font-size: 1.8rem;
+        padding: 5px;
+      }
+
+      .label-piece-jointe:hover {
+        color: #007bff;
+      }
     }
-    button{
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: transparent;
-      color: var(--light-color);
-      border: 0;
-      cursor: pointer;
-      font-size: 1.5rem;
-    }
   }
-
 }
 
+// Style pour la section FAQ
+#faq {
+  padding-inline: 10px;
 
-
-  .input-fichier-cache {
-    display: none;
-  }
-
-  .label-piece-jointe {
-    cursor: pointer;
-    font-size: 1.8rem;
-    padding: 5px;
-  }
-
-  .label-piece-jointe:hover {
-    color: #007bff;
-  }
-
-}
-
-  }
-
-
-}
-#faq{
-    padding-inline: 10px;
-  article{
+  article {
     margin-inline: 0;
-    >p{
+
+    > p {
       color: var(--primary-color);
       font-weight: bold;
       cursor: pointer;
     }
-    div{
+
+    div {
       margin-top: 10px;
-      p{
+
+      p {
         color: var(--tertiary-color);
       }
     }
   }
-
 }
 
-
-
-
-
-
-
+// Media Queries pour les écrans de taille moyenne (tablettes)
 @media (min-width: 768px) {
-  #message_view{
+  #message_view {
     font-size: 1.4rem;
-    textarea{
+
+    textarea {
       font-size: 1.4rem;
     }
-    #content_message_view{
-      .hidden{
+
+    #content_message_view {
+      .hidden {
         display: block;
         justify-self: center;
         color: var(--primary-color);
         font-size: 2rem;
         padding-block: 15px;
       }
+
       width: 760px;
       font-size: 1.5rem;
       border: 2px solid var(--primary-color);
@@ -735,14 +812,15 @@ display: flex;
       margin-block: 20px;
       border-radius: 8px;
     }
-
   }
-  #detail{
-    >p,>ul,>div{
+
+  #detail {
+    > p, > ul, > div {
       grid-column: 1/-1;
     }
   }
-  #message_inbox, #message_sent, #message_favorite{
+
+  #message_inbox, #message_sent, #message_favorite {
     .message-list {
       li {
         a {
@@ -751,54 +829,57 @@ display: flex;
           font-size: 1.3rem;
           align-items: center;
         }
-        >div{
+
+        > div {
           flex-direction: row;
           gap: 20px;
-          div{
+
+          div {
             gap: 5px;
           }
         }
       }
     }
   }
-
-
-
-
 }
 
-
+// Media Queries pour les écrans larges (ordinateurs de bureau)
 @media (min-width: 1024px) {
-  #detail{
+  #detail {
     grid-template-columns: 1fr 1fr;
   }
-  #specialites{
+
+  #specialites {
     font-size: 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
-  #message_inbox, #message_sent, #message_favorite{
+
+  #message_inbox, #message_sent, #message_favorite {
     display: grid;
     grid-template-columns: 0.3fr 1fr;
     row-gap: 10px;
-    h1{
+
+    h1 {
       grid-column: 1/-1;
       font-size: 2.5rem;
     }
-    nav{
+
+    nav {
       border-radius: 5px;
       margin-left: 10px;
       height: 100vh;
-      ul{
+
+      ul {
         flex-direction: column;
         padding-block: 10px;
         font-size: 1.3rem;
         gap: 20px;
-
       }
     }
   }
 }
 
+// Importation des fichiers SCSS pour le contact et le pied de page
 @import "includes/contactez-nous";
 @import 'includes/footer.scss';

@@ -1,98 +1,104 @@
+@charset "UTF-8";
+/* Définition des variables globales pour les couleurs et autres propriétés */
 :root {
-  font-family: "Roboto", sans-serif;
-  font-size: 12px;
-  --primary-color: rgba(221, 25, 25, 1);
-  --secondary-color: rgba(96, 133, 250, 1);
-  --tertiary-color-rgb: 39, 134, 152;
-  --tertiary-color: rgba(var(--tertiary-color-rgb), 1);
-  --light-color: rgba(252, 252, 252, 1);
-  --alert-padding: 1rem;
-  --alert-border-radius: 0.375rem;
-  --alert-font-weight: 500;
-  --success-bg: #d4edda;
-  --success-text: #155724;
-  --success-border: #c3e6cb;
-  --danger-bg: #f8d7da;
-  --danger-text: #721c24;
-  --danger-border: #f5c6cb;
+  font-family: "Roboto", sans-serif; /* Police de caractères par défaut */
+  font-size: 12px; /* Taille de police par défaut */
+  --primary-color: rgba(221, 25, 25, 1); /* Couleur primaire */
+  --secondary-color: rgba(96, 133, 250, 1); /* Couleur secondaire */
+  --tertiary-color-rgb: 39, 134, 152; /* Valeurs RGB pour la couleur tertiaire */
+  --tertiary-color: rgba(var(--tertiary-color-rgb), 1); /* Couleur tertiaire */
+  --light-color: rgba(252, 252, 252, 1); /* Couleur claire */
+  --alert-padding: 1rem; /* Remplissage pour les alertes */
+  --alert-border-radius: 0.375rem; /* Rayon de bordure pour les alertes */
+  --alert-font-weight: 500; /* Poids de la police pour les alertes */
+  --success-bg: #d4edda; /* Couleur de fond pour les alertes de succès */
+  --success-text: #155724; /* Couleur du texte pour les alertes de succès */
+  --success-border: #c3e6cb; /* Couleur de bordure pour les alertes de succès */
+  --danger-bg: #f8d7da; /* Couleur de fond pour les alertes de danger */
+  --danger-text: #721c24; /* Couleur du texte pour les alertes de danger */
+  --danger-border: #f5c6cb; /* Couleur de bordure pour les alertes de danger */
 }
 
+/* Réinitialisation des marges et remplissages par défaut pour tous les éléments */
 * {
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
+  box-sizing: border-box; /* Boîte de modèle de boîte */
 }
 
+/* Style pour cacher les éléments */
 .hidden {
   display: none;
 }
 
+/* Style pour l'en-tête */
 header {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  position: relative;
-  align-items: center;
+  display: flex; /* Utilisation de Flexbox */
+  justify-content: space-between; /* Espacement des éléments enfants */
+  padding: 10px; /* Remplissage intérieur */
+  position: relative; /* Position relative */
+  align-items: center; /* Alignement vertical des éléments enfants */
 }
 header a {
-  width: 20%;
+  width: 20%; /* Largeur des liens */
 }
 header a img {
-  width: 100%;
+  width: 100%; /* Largeur complète */
 }
 header ul {
-  position: absolute;
-  top: 100%;
-  right: 0%;
-  left: 0%;
-  background-color: var(--primary-color);
-  padding: 20px;
-  z-index: 1000;
+  position: absolute; /* Position absolue */
+  top: 100%; /* Position en bas du parent */
+  right: 0%; /* Position à droite */
+  left: 0%; /* Position à gauche */
+  background-color: var(--primary-color); /* Couleur de fond */
+  padding: 20px; /* Remplissage intérieur */
+  z-index: 1000; /* Position en avant par rapport aux autres éléments */
 }
 header ul li {
-  cursor: pointer;
-  list-style: none;
-  padding-block: 5px;
+  cursor: pointer; /* Curseur de la souris */
+  list-style: none; /* Pas de style de liste */
+  padding-block: 5px; /* Remplissage vertical */
 }
 header ul li:hover {
-  background-color: rgb(254, 23, 23);
+  background-color: rgb(254, 23, 23); /* Couleur de fond au survol */
 }
 header ul li a {
-  text-decoration: none;
-  color: var(--light-color);
+  text-decoration: none; /* Pas de soulignement */
+  color: var(--light-color); /* Couleur du texte */
 }
 header svg {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
+  width: 20px; /* Largeur */
+  height: 20px; /* Hauteur */
+  cursor: pointer; /* Curseur de la souris */
 }
 
+/* Media Queries pour les écrans larges (ordinateurs de bureau) */
 @media (min-width: 1000px) {
   header ul {
-    display: flex !important;
-    position: relative;
-    gap: 10px;
-    background-color: transparent;
-    padding-right: 0;
+    display: flex !important; /* Utilisation de Flexbox */
+    position: relative; /* Position relative */
+    gap: 10px; /* Espacement entre les éléments enfants */
+    background-color: transparent; /* Couleur de fond transparente */
+    padding-right: 0; /* Pas de remplissage à droite */
   }
   header ul li {
-    padding-inline: 5px;
+    padding-inline: 5px; /* Remplissage horizontal */
   }
   header ul li:hover {
-    background-color: rgb(254, 23, 23);
-    transition: all 0.3s ease;
-    border-radius: 8px;
+    background-color: rgb(254, 23, 23); /* Couleur de fond au survol */
+    transition: all 0.3s ease; /* Transition pour les effets de survol */
+    border-radius: 8px; /* Coins arrondis */
   }
   header ul li:hover a {
-    color: var(--light-color);
+    color: var(--light-color); /* Couleur du texte au survol */
   }
   header ul li a {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: var(--primary-color);
+    font-size: 1.3rem; /* Taille de la police */
+    font-weight: bold; /* Poids de la police */
+    color: var(--primary-color); /* Couleur du texte */
   }
   header svg {
-    display: none;
+    display: none; /* Masquer les icônes SVG */
   }
 }
 .box {
@@ -327,8 +333,7 @@ header svg {
   border-radius: 10px;
 }
 
-button.prev,
-button.next {
+button.prev, button.next {
   position: absolute;
   top: 80%;
   transform: translateY(-50%);
@@ -498,8 +503,8 @@ button.next {
   padding-block: 20px;
 }
 #apropos figure svg {
-  width: 150px;
-  height: 150px;
+  width: 139px;
+  height: 139px;
   margin: 10px;
 }
 #apropos figure figcaption {
@@ -695,13 +700,17 @@ button.next {
   font-size: 1.3rem;
 }
 #reservation div div {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: auto auto auto auto; /* 4 colonnes */
+  gap: 10px 20px; /* 10px ligne, 20px colonne */
   align-items: center;
-  gap: 10px;
+  margin-left: 0;
 }
 #reservation div div label {
-  margin-right: 30px;
+  justify-self: start;
+}
+#reservation div div input {
+  justify-self: end;
 }
 #reservation .notification {
   display: flex;
@@ -835,6 +844,7 @@ button.next {
 
 #message_inbox h1, #message_sent h1, #message_favorite h1 {
   padding-inline: 10px;
+  color: var(--light-color);
 }
 #message_inbox nav, #message_sent nav, #message_favorite nav {
   position: sticky;
@@ -881,15 +891,15 @@ button.next {
   display: flex;
   justify-content: space-between;
 }
-#message_inbox .message-list .unread, #message_sent .message-list .unread, #message_favorite .message-list .unread {
+#message_inbox .unread, #message_sent .unread, #message_favorite .unread {
   background-color: rgba(var(--tertiary-color-rgb), 0.3);
   padding: 3px;
   border-radius: 5px;
 }
-#message_inbox .message-list .unread p, #message_sent .message-list .unread p, #message_favorite .message-list .unread p {
+#message_inbox .unread p, #message_sent .unread p, #message_favorite .unread p {
   font-weight: bold;
 }
-#message_inbox .message-list .unread div p, #message_sent .message-list .unread div p, #message_favorite .message-list .unread div p {
+#message_inbox .unread div p, #message_sent .unread div p, #message_favorite .unread div p {
   font-weight: bold;
 }
 
@@ -912,9 +922,9 @@ button.next {
   justify-content: space-between;
   background-color: var(--tertiary-color);
   color: var(--light-color);
-  border-radius: 5px;
+  border-radius: 15px;
   width: 60%;
-  padding: 5px;
+  padding: 10px;
 }
 #message_view #content_message_view > div .receive p {
   word-wrap: break-word;
@@ -933,9 +943,9 @@ button.next {
   justify-content: space-between;
   background-color: var(--primary-color);
   color: var(--light-color);
-  border-radius: 5px;
+  border-radius: 15px;
   width: 60%;
-  padding: 5px;
+  padding: 10px;
 }
 #message_view #content_message_view > div .send time {
   font-weight: lighter;
@@ -968,8 +978,8 @@ button.next {
 }
 #message_view #content_message_view form > div:last-of-type > div:first-of-type textarea {
   background-color: transparent;
-  border: 1px solid var(--light-color);
-  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 16px;
   width: 100%;
   color: var(--light-color);
   padding-inline: 30px;
@@ -982,7 +992,7 @@ button.next {
   top: 50%;
   transform: translateY(-50%);
   background-color: transparent;
-  color: var(--light-color);
+  color: rgba(255, 255, 255, 0.5);
   border: 0;
   cursor: pointer;
   font-size: 1.5rem;
@@ -1156,36 +1166,39 @@ button.next {
     box-shadow: 0 4px 8px grey;
   }
 }
+/* Style pour le pied de page */
 footer {
-  background-color: var(--primary-color);
-  color: var(--light-color);
-  padding-inline: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-block: 5px;
+  background-color: var(--primary-color); /* Couleur de fond */
+  color: var(--light-color); /* Couleur du texte */
+  padding-inline: 10px; /* Remplissage horizontal */
+  display: flex; /* Utilisation de Flexbox */
+  justify-content: space-between; /* Espacement des éléments enfants */
+  align-items: center; /* Alignement vertical des éléments enfants */
+  padding-block: 5px; /* Remplissage vertical */
 }
 footer h2 {
-  font-size: 1.6rem;
-  font-weight: 800;
+  font-size: 1.6rem; /* Taille de la police */
+  font-weight: 800; /* Poids de la police */
 }
 footer p {
-  font-size: 1.2rem;
-  font-weight: 500;
+  font-size: 1.2rem; /* Taille de la police */
+  font-weight: 500; /* Poids de la police */
 }
 
+/* Style pour le corps de la page */
 body {
-  position: relative;
-  min-height: 100vh;
-  padding-bottom: 30px !important; /* hauteur du footer */
+  position: relative; /* Position relative */
+  min-height: 100vh; /* Hauteur minimale de 100% de la hauteur de la fenêtre */
+  padding-bottom: 30px !important; /* Remplissage inférieur pour éviter que le contenu ne soit caché par le pied de page */
 }
 
+/* Style pour le pied de page en position fixe */
 footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
+  position: fixed; /* Position fixe */
+  bottom: 0; /* Position en bas de la fenêtre */
+  left: 0; /* Position à gauche de la fenêtre */
+  right: 0; /* Position à droite de la fenêtre */
+  z-index: 1000; /* Position en avant par rapport aux autres éléments */
 }
 
 /*# sourceMappingURL=style.css.map */

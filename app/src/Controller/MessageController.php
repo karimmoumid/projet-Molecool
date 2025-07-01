@@ -141,7 +141,7 @@ class MessageController extends AbstractController
 
             // Envoi de l'email automatique
             $emailSender->sender(
-                'no-reply@tonsite.com',
+                'no-reply@molecool.com',
                 $message->getRecipient()->getEmail(),
                 'Nouveau message reçu sur votre compte',
                 'new_message',
@@ -217,7 +217,7 @@ class MessageController extends AbstractController
             switch ($message->getLastSender()) {
                 case $sender->getName():
                     $emailService->sender(
-                        'no-reply@tonsite.com',
+                        'no-reply@molecool.com',
                         $recipient->getEmail(),
                         'Nouveau message reçu sur votre compte',
                         'new_message',
@@ -230,7 +230,7 @@ class MessageController extends AbstractController
                     break;
                 case $recipient->getName():
                     $emailService->sender(
-                        'no-reply@tonsite.com',
+                        'no-reply@molecool.com',
                         $sender->getEmail(),
                         'Nouveau message reçu sur votre compte',
                         'new_message',

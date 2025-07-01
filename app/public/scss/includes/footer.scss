@@ -1,32 +1,36 @@
-footer{
-    background-color: var(--primary-color);
-    color: var(--light-color);
-    padding-inline: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-block: 5px;
-    h2{
-        font-size: 1.6rem;
-        font-weight: 800;
-    }
-    p{
-        font-size: 1.2rem;
-        font-weight: 500;
-    }
-}
-
-
-body {
-    position: relative;
-    min-height: 100vh;
-    padding-bottom: 30px !important; /* hauteur du footer */
-}
-
+/* Style pour le pied de page */
 footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
+    background-color: var(--primary-color); /* Couleur de fond */
+    color: var(--light-color); /* Couleur du texte */
+    padding-inline: 10px; /* Remplissage horizontal */
+    display: flex; /* Utilisation de Flexbox */
+    justify-content: space-between; /* Espacement des éléments enfants */
+    align-items: center; /* Alignement vertical des éléments enfants */
+    padding-block: 5px; /* Remplissage vertical */
+
+    h2 {
+        font-size: 1.6rem; /* Taille de la police */
+        font-weight: 800; /* Poids de la police */
+    }
+
+    p {
+        font-size: 1.2rem; /* Taille de la police */
+        font-weight: 500; /* Poids de la police */
+    }
+}
+
+/* Style pour le corps de la page */
+body {
+    position: relative; /* Position relative */
+    min-height: 100vh; /* Hauteur minimale de 100% de la hauteur de la fenêtre */
+    padding-bottom: 30px !important; /* Remplissage inférieur pour éviter que le contenu ne soit caché par le pied de page */
+}
+
+/* Style pour le pied de page en position fixe */
+footer {
+    position: fixed; /* Position fixe */
+    bottom: 0; /* Position en bas de la fenêtre */
+    left: 0; /* Position à gauche de la fenêtre */
+    right: 0; /* Position à droite de la fenêtre */
+    z-index: 1000; /* Position en avant par rapport aux autres éléments */
 }

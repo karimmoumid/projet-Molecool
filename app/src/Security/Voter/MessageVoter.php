@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Security\Voter;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -8,35 +7,37 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 final class MessageVoter extends Voter
 {
+    // Constantes pour les différentes actions (permissions) que le voter peut évaluer
     public const EDIT = 'MESSAGE_EDIT';
     public const VIEW = 'MESSAGE_VIEW';
-
     public const DELETE = 'MESSAGE_DELETE';
 
+    // Méthode pour déterminer si le voter supporte l'attribut et le sujet donnés
     protected function supports(string $attribute, mixed $subject): bool
     {
-        // replace with your own logic
-        // https://symfony.com/doc/current/security/voters.html
+        // Vérifie si l'attribut est l'un de ceux définis et si le sujet est une instance de Message
         return in_array($attribute, [self::EDIT, self::VIEW, self::DELETE])
             && $subject instanceof \App\Entity\Message;
     }
 
+    // Méthode pour voter sur l'attribut donné
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 
-        // if the user is anonymous, do not grant access
+        // Si l'utilisateur est anonyme, ne pas accorder l'accès
         if (!$user instanceof UserInterface) {
             return false;
         }
 
-        // L’utilisateur doit être soit l'expéditeur soit le destinataire
+        // Vérifie si l'utilisateur est soit l'expéditeur soit le destinataire du message
         $isOwner = $user === $subject->getSender() || $user === $subject->getRecipient();
 
-        // ... (check conditions and return true to grant permission) ...
+        // Évalue l'attribut pour déterminer si l'accès doit être accordé
         switch ($attribute) {
             case self::VIEW:
-                return $isOwner; // Accès si propriétaire (sender ou recipient)
+                // Accorder l'accès si l'utilisateur est le propriétaire (expéditeur ou destinataire)
+                return $isOwner;
             case self::EDIT:
             case self::DELETE:
                 // Par exemple : seul le propriétaire peut modifier ou supprimer
