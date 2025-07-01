@@ -11,44 +11,54 @@
     <script src="{{ asset('js/appointment.js') }}" defer ></script>
 {% endblock %}
 {% block body %}
-    <main id="appointement_add" class="form">
+    <main id="appointement_add" class="form" aria-label="Formulaire de réservation pour prélèvement médical">
         <section class="hero white">
             <h1>Réservation pour prélèvement médical</h1>
         </section>
-        <section id="reservation">
+        <section id="reservation" aria-live="polite" aria-atomic="true">
+            {# Affichage des messages flash d’alerte accessibles #}
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
-                    <div class="alert alert-{{ label }}">
+                    <div class="alert alert-{{ label }}" role="alert">
                         {{ message }}
                     </div>
                 {% endfor %}
             {% endfor %}
             {{ form_start(form) }}
+
+            {# Champ patient s’il est défini #}
             {% if form.patient is defined %}
                 {{ form_row(form.patient) }}
             {% endif %}
 
+            {# Champ numéro de sécurité sociale s’il est défini #}
             {% if form.socialSecurityNumber is defined %}
                 {{ form_row(form.socialSecurityNumber) }}
             {% endif %}
+
             {{ form_row(form.categories) }}
+
             {{ form_row(form.date) }}
+
             <div>
-            <label for="time_select">Heure du rendez-vous</label>
-            <select id="time_select">
-                <option value="">Choisissez un créneau</option>
-                {# Options ajoutées dynamiquement par JS #}
-            </select>
+                <label for="time_select">Heure du rendez-vous</label>
+                <select id="time_select" name="time_select" aria-required="true" aria-describedby="timeHelp">
+                    <option value="">Choisissez un créneau</option>
+                    {# Options ajoutées dynamiquement par JS #}
+                </select>
+                <small id="timeHelp" class="sr-only">Sélectionnez une heure disponible pour le rendez-vous</small>
             </div>
 
             {{ form_widget(form.time) }}
-            <button>Confirmer la réservation</button>
-                <div class="notification">
-                    <a href="{{ path('app_appointment') }}">
-                        <img src="/Media/image/horloge.png" alt="horloge">
-                        <p>Mes rendez-vous</p>
-                    </a>
-                </div>
+
+            <button type="submit" aria-label="Confirmer la réservation">Confirmer la réservation</button>
+
+            <div class="notification">
+                <a href="{{ path('app_appointment') }}" aria-label="Voir mes rendez-vous">
+                    <img src="/Media/image/horloge.png" alt="Icône horloge">
+                    <p>Mes rendez-vous</p>
+                </a>
+            </div>
             {{ form_end(form) }}
         </section>
 

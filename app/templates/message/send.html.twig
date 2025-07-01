@@ -3,26 +3,26 @@
 {% block title %}Envoyer un message{% endblock %}
 
 {% block body %}
-<main class="form">
-    <h1>Envoyer un message</h1>
+    <main class="form" aria-label="Formulaire d'envoi de message">
+        <h1>Envoyer un message</h1>
 
-    {{ form_start(messageForm) }}
+        {{ form_start(messageForm) }}
 
-    {% if messageForm.patient is defined %}
-        {{ form_row(messageForm.patient) }}
-    {% endif %}
+        {% if messageForm.patient is defined %}
+            {{ form_row(messageForm.patient) }}
+        {% endif %}
 
-    {% if messageForm.employer is defined %}
-        {{ form_row(messageForm.employer) }}
-    {% endif %}
+        {% if messageForm.employer is defined %}
+            {{ form_row(messageForm.employer) }}
+        {% endif %}
 
-    {{ form_row(messageForm.subject) }}
-    {{ form_row(messageForm.content) }}
-    {{ form_row(messageForm.files) }}
+        {{ form_row(messageForm.subject) }}
+        {{ form_row(messageForm.content) }}
+        {{ form_row(messageForm.files) }}
 
-    <button type="submit">Envoyer</button>
+        <button type="submit" aria-label="Envoyer le message">Envoyer</button>
 
-    {{ form_end(messageForm) }}
+        {{ form_end(messageForm) }}
 
-</main>
+    </main>
 {% endblock %}

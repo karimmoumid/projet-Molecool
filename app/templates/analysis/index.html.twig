@@ -4,26 +4,37 @@
 
 {% block body %}
     <main>
-        <section id="hero" class="red-hero-img">
+        {# Section d’introduction avec le titre de la catégorie et une image illustrant #}
+        <section id="hero" class="red-hero-img" aria-label="Section d’introduction avec image illustrant la catégorie {{ category.name }}">
             <h1>{{ category.name }}</h1>
-            <img src="/Media/image/testalize-me-igSTmAWAW3s-unsplash%201.png" alt="Tubes dans un automate">
+            {# Image descriptive de tubes dans un automate de laboratoire #}
+            <img src="/Media/image/testalize-me-igSTmAWAW3s-unsplash%201.png" alt="Tubes dans un automate de laboratoire" />
         </section>
-        <section id="detail" class="container_responsive_2_4">
-            <h2>Appercu</h2>
+
+        {# Section détaillant la catégorie, avec un titre lié via aria-labelledby #}
+        <section id="detail" class="container_responsive_2_4" aria-labelledby="detail-title">
+            <h2 id="detail-title">Apperçu</h2>
             <p>{{ category.preview }}</p>
+
             <h2>Tests effectuées</h2>
+            {# Affichage des descriptions des analyses liées, en HTML brut #}
             {% for analysis in analyses %}
                 {{ analysis.description|raw }}
             {% endfor %}
+
             <h2>Equipement</h2>
+            {# Affichage des équipements en HTML brut #}
             {{ category.equipment|raw }}
+
             <h2>Accréditations</h2>
             <ul>
                 <li>COFRAC</li>
                 <li>ISO 9001</li>
                 <li>ISO 15189</li>
             </ul>
-            <div>
+
+            {# Délai du test avec un aria-label pour expliciter la section #}
+            <div aria-label="Délai du test">
                 <h2>Délai du test</h2>
                 <p>{{ category.deadline }}</p>
             </div>

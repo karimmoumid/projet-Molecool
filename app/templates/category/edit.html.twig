@@ -1,20 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier la Categorie{% endblock %}
+{% block title %}Modifier la Catégorie{% endblock %}
 
 {% block javascripts %}
-    <script src={{ asset('js/categories.js')}} defer></script>
+    <script src="{{ asset('js/categories.js') }}" defer></script>
 {% endblock %}
 
 {% block body %}
-    <main class="form" id="category_edit">
-        <a href="{{ path('app_categories_list') }}">◀ retour à list</a>
-    <h1>Modifier la Categorie</h1>
+    <main class="form" id="category_edit" role="main" aria-labelledby="titre-edition-categorie">
+        <a href="{{ path('app_categories_list') }}" class="back-link">◀ Retour à la liste</a>
 
-    {{ include('category/_form.html.twig', {'button_label': 'Modifier'}) }}
+        <h1 id="titre-edition-categorie">Modifier la Catégorie</h1>
 
+        {{ include('category/_form.html.twig', {'button_label': 'Modifier'}) }}
     </main>
 {% endblock %}
+
 {% block template %}
     {{ include('template/categories.html.twig') }}
 {% endblock %}

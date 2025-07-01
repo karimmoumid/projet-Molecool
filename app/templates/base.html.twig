@@ -1,56 +1,78 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-scale=1.0, maximal-scale=1.0">
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-        <script src="/js/header_script.js" defer></script>
-        {% block stylesheets %}
-        {% endblock %}
-        {% block javascripts %}
-        {% endblock %}
-    </head>
-    <body>
-    <header>
-        <a href="/"><img src="/Media/image/logo.png" alt=""></a>
-        <div>
-            <ul class="hidden">
-                <li><a href="{{ path('app_main') }}">Accueil</a></li>
-                <li><a href="{{ path('app_category') }}">Nos spécialités</a></li>
-                {% if app.user %}
-                    <li><a href="{{ path('messages_inbox') }}">Messagerie</a></li>
-                    {% if is_granted('ROLE_PATIENT') %}
-                        <li><a href="{{ path('app_user') }}">Services</a></li>
-                        <li><a href="{{ path('app_appointment') }}">Mes rendez-vous</a></li>
-                    {% endif %}
-                    {% if is_granted('ROLE_EMPLOYEE') %}
-                        <li><a href="{{ path('app_appointment') }}">Liste des rendez-vous</a></li>
-                        <li><a href="{{ path('app_user_employee_admin') }}">Services</a></li>
-                    {% endif %}
-                    <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
-                    {% else %}
-                        <li><a href="{{ path('app_main') }}#contact">Nous contacter</a></li>
-                        <li><a href="{{ path('app_login') }}">Se connecter</a></li>
+<head>
+    {# Meta pour le responsive design  #}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-scale=1.0, maximal-scale=1.0">
+    <meta charset="UTF-8">
+
+    {# Titre de l'onglet #}
+    <title>{% block title %}Welcome!{% endblock %}</title>
+
+    {# Favicon généré en SVG avec le texte "sf" en blanc sur fond noir #}
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+
+    {# Chargement de la police Roboto #}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    {# Fichier CSS principal #}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    {# Script pour le header (burger menu ?) chargé en différé #}
+    <script src="/js/header_script.js" defer></script>
+
+    {% block stylesheets %}{% endblock %}
+    {% block javascripts %}{% endblock %}
+</head>
+<body>
+<header role="banner">
+    {# Logo du site, manque alt : ajouté ici #}
+    <a href="/" aria-label="Page d'accueil Molecool">
+        <img src="/Media/image/logo.png" alt="Logo Molecool">
+    </a>
+
+    <div>
+        {# Menu de navigation principal #}
+        <ul class="hidden" role="navigation" aria-label="Menu principal">
+            <li><a href="{{ path('app_main') }}">Accueil</a></li>
+            <li><a href="{{ path('app_category') }}">Nos spécialités</a></li>
+
+            {% if app.user %}
+                <li><a href="{{ path('messages_inbox') }}">Messagerie</a></li>
+
+                {% if is_granted('ROLE_PATIENT') %}
+                    <li><a href="{{ path('app_user') }}">Services</a></li>
+                    <li><a href="{{ path('app_appointment') }}">Mes rendez-vous</a></li>
                 {% endif %}
 
-            </ul>
-            <svg>
-                <use xlink:href="/Media/icon/sprite.svg#burger"></use>
-            </svg>
-        </div>
-    </header>
-        {% block body %}
-        {% endblock %}
-    <footer>
-        <h2>Molecool</h2>
-        <p>© 2024 Molecool Laboratory. All rights reserved.</p>
-    </footer>
-    {% block template %}
-    {% endblock %}
-    </body>
+                {% if is_granted('ROLE_EMPLOYEE') %}
+                    <li><a href="{{ path('app_appointment') }}">Liste des rendez-vous</a></li>
+                    <li><a href="{{ path('app_user_employee_admin') }}">Services</a></li>
+                {% endif %}
+
+                <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+            {% else %}
+                <li><a href="{{ path('app_main') }}#contact">Nous contacter</a></li>
+                <li><a href="{{ path('app_login') }}">Se connecter</a></li>
+            {% endif %}
+        </ul>
+
+        {# Icône du menu burger #}
+        <svg role="img" aria-label="Menu mobile">
+            <use xlink:href="/Media/icon/sprite.svg#burger"></use>
+        </svg>
+    </div>
+</header>
+
+{# Contenu principal injecté par les autres templates #}
+{% block body %}{% endblock %}
+
+<footer role="contentinfo">
+    <h2>Molecool</h2>
+    <p>© 2024 Molecool Laboratory. All rights reserved.</p>
+</footer>
+
+{% block template %}{% endblock %}
+</body>
 </html>

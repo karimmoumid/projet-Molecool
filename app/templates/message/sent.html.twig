@@ -6,49 +6,51 @@
 {% endblock %}
 
 {% block body %}
-    <main id="message_sent">
-    <h1>Messages envoyés</h1>
+    <main id="message_sent" aria-label="Messages envoyés">
+        <h1>Messages envoyés</h1>
 
-        <nav class="inbox-nav">
+        <nav class="inbox-nav" aria-label="Navigation des messages">
             <ul>
-                <li><a href="{{ path('messages_inbox') }}">📥 Boite de recéption</a></li>
-                <li><a href="{{ path('message_send') }}">✉️ Nouveau message</a></li>
-                <li><a href="{{ path('messages_favorite') }}">❤️ Messages favoris</a></li>
+                <li><a href="{{ path('messages_inbox') }}" aria-label="Aller à la boîte de réception">📥 Boite de recéption</a></li>
+                <li><a href="{{ path('message_send') }}" aria-label="Envoyer un nouveau message">✉️ Nouveau message</a></li>
+                <li><a href="{{ path('messages_favorite') }}" aria-label="Voir les messages favoris">❤️ Messages favoris</a></li>
             </ul>
         </nav>
-        <section class="message-list">
-    <ul>
-        {% for message in messages %}
-            <li class="message-item"  data-message-id="{{ message.id }}">
-                <a href="{{ path('message_view', {
-                    'id': message.id,
-                    'read': 0
-                }) }}">
-                    <p>À : {% if message.sender.name == message.lastsender%}
-                            {{ message.recipient.name }}
-                        {% elseif message.recipient.name == message.lastsender %}
-                            {{ message.sender.name }}
-                        {% endif %}</p>
-                    <p>{{ message.subject ?: 'Sans sujet' }}</p>
-                    <small>(Dernier message: {{ message.modifyAt|date('d/m/Y H:i') }})</small>
-                </a>
-                <div>
-                <button class="favorite-toggle">
-                    {{ app.user.favorite.contains(message) ? '❤️' : '🤍' }}
-                </button>
-                <button
-                        class="delete-button"
-                        data-id="{{ message.id }}"
-                        data-csrf="{{ csrf_token('delete' ~ message.id) }}"
-                        aria-label="Supprimer le message">🗑️</button>
-                </div>
-            </li>
-        {% else %}
-            <li>Aucune conversation.</li>
-        {% endfor %}
-    </ul>
+        <section class="message-list" role="region" aria-live="polite" aria-atomic="true">
+            <ul>
+                {% for message in messages %}
+                    <li class="message-item"  data-message-id="{{ message.id }}">
+                        <a href="{{ path('message_view', {
+                            'id': message.id,
+                            'read': 0
+                        }) }}" aria-label="Voir le message">
+                            <p>À : {% if message.sender.name == message.lastsender %}
+                                    {{ message.recipient.name }}
+                                {% elseif message.recipient.name == message.lastsender %}
+                                    {{ message.sender.name }}
+                                {% endif %}
+                            </p>
+                            <p>{{ message.subject ?: 'Sans sujet' }}</p>
+                            <small>(Dernier message: {{ message.modifyAt|date('d/m/Y H:i') }})</small>
+                        </a>
+                        <div>
+                            <button class="favorite-toggle" aria-label="Basculer le favori">
+                                {{ app.user.favorite.contains(message) ? '❤️' : '🤍' }}
+                            </button>
+                            <button
+                                    class="delete-button"
+                                    data-id="{{ message.id }}"
+                                    data-csrf="{{ csrf_token('delete' ~ message.id) }}"
+                                    aria-label="Supprimer le message">🗑️
+                            </button>
+                        </div>
+                    </li>
+                {% else %}
+                    <li aria-live="polite">Aucune conversation.</li>
+                {% endfor %}
+            </ul>
         </section>
-        <div class="pagination">
+        <div class="pagination" aria-label="Pagination des messages">
             {{ knp_pagination_render(messages) }}
         </div>
 

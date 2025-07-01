@@ -6,62 +6,63 @@
 {% endblock %}
 
 {% block body %}
-    <main id="message_view">
-        <section id="hero_message_view">
-    <h1>Sujet : {{ message.subject ?: '(sans sujet)' }}</h1>
+    <main id="message_view" aria-label="Vue détaillée du message">
+        <section id="hero_message_view" aria-labelledby="message_subject">
+            <h1 id="message_subject">Sujet : {{ message.subject ?: '(sans sujet)' }}</h1>
             <p><strong>De :</strong> {{ message.sender.name ?: message.sender.email }}</p>
             <p><strong>À :</strong> {{ message.recipient.name ?: message.recipient.email }}</p>
             <p><strong>Premier envoi :</strong> {{ message.createdAt|date('d/m/Y H:i') }}</p>
         </section>
 
-<section id="content_message_view">
-    <h2 class="hidden">Discussion :</h2>
-    <div>{{ message.content|raw }}
-        <div>
-        <p>Pièce(s) jointe(s) :</p>
-        <ul>
-            {% for file in message.files %}
-                <li>
-                    <a href="{{ path('secure_file', { id: file.id }) }}">
-                        {{ file.originalName ?: file.name }}
-                    </a>
-                </li>
-            {% else %}
-                <li>Aucune pièce jointe.</li>
-            {% endfor %}
-        </ul>
-        </div>
-    </div>
+        <section id="content_message_view" aria-label="Contenu de la discussion">
+            <h2 class="hidden">Discussion :</h2>
+            <div>{{ message.content|raw }}
+                <div>
+                    <p>Pièce(s) jointe(s) :</p>
+                    <ul>
+                        {% for file in message.files %}
+                            <li>
+                                <a href="{{ path('secure_file', { id: file.id }) }}" aria-label="Télécharger {{ file.originalName ?: file.name }}">
+                                    {{ file.originalName ?: file.name }}
+                                </a>
+                            </li>
+                        {% else %}
+                            <li>Aucune pièce jointe.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
 
-    {{ form_start(form, {
-        attr: {
-            class: app.user.name == message.sender.name
-            ? 'sender'
-            : (app.user.name == message.recipient.name ? 'recipient' : '')
-        }
-    }) }}
+            {{ form_start(form, {
+                attr: {
+                    class: app.user.name == message.sender.name
+                    ? 'sender'
+                    : (app.user.name == message.recipient.name ? 'recipient' : '')
+                }
+            }) }}
 
-    <div class="file-upload">
-        {{ form_row(form.files, {
-            attr: {
-                class: 'input-fichier-cache'
-            },
-            label: false
-        }) }}
+            <div class="file-upload">
+                {{ form_row(form.files, {
+                    attr: {
+                        class: 'input-fichier-cache',
+                        'aria-label': 'Ajouter un fichier en pièce jointe'
+                    },
+                    label: false
+                }) }}
 
-        <label for="answer_form_files" class="label-piece-jointe" title="Ajouter un fichier">
-            🖇️
-        </label>
-    </div>
-    <div>
-        <div>
-    {{ form_row(form.reponse) }}
-    <button type="submit">▶</button>
-        </div>
-        <div id="file-names" class="file-names"></div>
-    </div>
+                <label for="answer_form_files" class="label-piece-jointe" title="Ajouter un fichier" aria-label="Ajouter un fichier en pièce jointe">
+                    🖇️
+                </label>
+            </div>
+            <div>
+                <div>
+                    {{ form_row(form.reponse) }}
+                    <button type="submit" aria-label="Envoyer la réponse">▶</button>
+                </div>
+                <div id="file-names" class="file-names" aria-live="polite" aria-atomic="true"></div>
+            </div>
 
-    {{ form_end(form) }}
-</section>
+            {{ form_end(form) }}
+        </section>
     </main>
 {% endblock %}

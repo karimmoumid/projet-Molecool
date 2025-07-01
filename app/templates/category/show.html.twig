@@ -1,16 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Analysis{% endblock %}
+{# Titre de la page dans l’onglet #}
+{% block title %}Liste des catégories{% endblock %}
 
 {% block body %}
-    <main id="category-liste" class="container_responsive_2_4">
-    <h1>Liste des analyses</h1>
-    {% for category in categories %}
-        <article class="box">
-            <h2>{{ category.name }}</h2>
-                    <div>{{ include('category/_delete_form.html.twig') }}
-                            <a href="{{ path('app_categories_edit', {'id': category.id}) }}">Modifier <img src="{{ asset('Media/icon/crayon.png') }}" alt=""></a></div>
-        </article>
-    {% endfor %}
+    <main id="category-liste" class="container_responsive_2_4" role="main" aria-labelledby="titre-liste-analyses">
+        <h1 id="titre-liste-analyses">Liste des catégories</h1>
+
+        {# Boucle sur toutes les catégories pour afficher leurs noms et actions #}
+        {% for category in categories %}
+            <article class="box" role="region" aria-labelledby="categorie-{{ category.id }}">
+                <h2 id="categorie-{{ category.id }}">{{ category.name }}</h2>
+
+                <div>
+                    {# Inclusion du formulaire de suppression #}
+                    {{ include('category/_delete_form.html.twig') }}
+
+                    {# Lien vers la page de modification avec une icône #}
+                    <a href="{{ path('app_categories_edit', {'id': category.id}) }}" aria-label="Modifier la catégorie {{ category.name }}">
+                        Modifier <img src="{{ asset('Media/icon/crayon.png') }}" alt="Icône crayon pour modifier">
+                    </a>
+                </div>
+            </article>
+        {% endfor %}
     </main>
 {% endblock %}

@@ -3,11 +3,17 @@
 {% block title %}Modification de compte{% endblock %}
 
 {% block body %}
-    <main class="form">
-        <a href="{{ path('app_user_pro_list') }}">◀ retour à list</a>
-                <h1 >Modification de compte</h1>
+    {# Main form container #}
+    <main class="form" aria-label="Formulaire de modification de compte">
+        {# Lien retour vers la liste des comptes professionnels #}
+        <a href="{{ path('app_user_pro_list') }}" aria-label="Retour à la liste des comptes professionnels">◀ Retour à list</a>
+
+        {# Titre principal #}
+        <h1>Modification de compte</h1>
+
+        {# Affichage des messages flash avec rôle alert pour accessibilité #}
         {% for label, messages in app.flashes %}
-            <div class="alert alert-{{ label }}">
+            <div class="alert alert-{{ label }}" role="alert">
                 <ul>
                     {% for message in messages %}
                         <li>{{ message }}</li>
@@ -15,19 +21,32 @@
                 </ul>
             </div>
         {% endfor %}
-                    {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
-                    {% for field in form %}
-                        {% if field.vars.name != '_token' %}
-                            <div>
-                                {{ form_label(field) }}
-                                {{ form_widget(field, {'attr': {'class': 'form-control'}}) }}
-                                {{ form_errors(field) }}
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                    <div class="d-grid mt-4">
-                        <button type="submit" class="btn btn-primary">Mettre à jour</button>
-                    </div>
-                    {{ form_end(form) }}
+
+        {# Début du formulaire, avec classe CSS #}
+        {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+
+        {# Parcours des champs du formulaire sauf _token #}
+        {% for field in form %}
+            {% if field.vars.name != '_token' %}
+                <div>
+                    {# Label du champ #}
+                    {{ form_label(field) }}
+
+                    {# Widget du champ, avec classe CSS et aria-required=true pour accessibilité #}
+                    {{ form_widget(field, {'attr': {'class': 'form-control', 'aria-required': 'true'}}) }}
+
+                    {# Affichage des erreurs pour le champ #}
+                    {{ form_errors(field) }}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        {# Bouton de soumission avec aria-label #}
+        <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-primary" aria-label="Mettre à jour le compte">Mettre à jour</button>
+        </div>
+
+        {# Fin du formulaire #}
+        {{ form_end(form) }}
     </main>
 {% endblock %}

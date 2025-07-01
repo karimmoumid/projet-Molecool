@@ -1,31 +1,44 @@
 {% extends 'base.html.twig' %}
 
+{# Titre de la page affiché dans l'onglet du navigateur #}
 {% block title %}Molecool{% endblock %}
+
+{# Chargement du script JavaScript principal pour la page d'accueil, avec 'defer' pour différer son exécution #}
 {% block javascripts %}
     <script src="{{ asset('js/main_index.js') }}" defer></script>
 {% endblock %}
 
 {% block body %}
-    <main class="">
-        <section class="hero-home" id="hero">
-            <div class="carousel">
+    <main role="main">
+        {# Section principale avec un carrousel d'accueil #}
+        <section class="hero-home" id="hero" aria-label="Bannière d'accueil">
+            <div class="carousel" aria-roledescription="carousel">
                 <div class="carousel-track">
-                    <article class="carousel-slide">
-                        <img src="{{ asset('Media/image/national-cancer-institute-XknuBmnjbKg-unsplash.jpg') }}" alt="Image 1">
+
+                    {# Slide 1 du carrousel #}
+                    <article class="carousel-slide" aria-roledescription="slide" aria-label="Présentation des services">
+                        <img
+                                src="{{ asset('Media/image/national-cancer-institute-XknuBmnjbKg-unsplash.jpg') }}"
+                                alt="Laboratoire moderne avec équipement médical de pointe">
                         <div class="text-overlay">
                             <h1>Molecool : Services Médicaux Avancés : L'expertise au service de votre santé</h1>
-                            <p><span>Des tests diagnostiques précis et fiables, grâce à des équipements de pointe et une équipe d'experts.</span>
-
-
+                            <p>
+                                <span>Des tests diagnostiques précis et fiables, grâce à des équipements de pointe et une équipe d'experts.</span>
                                 {% if not app.user %}
-                                <span>Si vous souhaitez profiter de nos services et réserver votre séance, veuillez créer votre compte en
-                cliquant sur le bouton ci-dessus.</span></p>
-                            <a href="{{ path('app_register', {'role':'customer'}) }}">Créer un compte maintenant</a>
+                                    <span>Si vous souhaitez profiter de nos services et réserver votre séance, veuillez créer votre compte en cliquant sur le bouton ci-dessus.</span>
+                                {% endif %}
+                            </p>
+                            {% if not app.user %}
+                                <a href="{{ path('app_register', {'role':'customer'}) }}" aria-label="Créer un compte client">Créer un compte maintenant</a>
                             {% endif %}
                         </div>
                     </article>
-                    <article class="carousel-slide">
-                        <img src="{{ asset('Media/image/testalize-me-9xHsWmh3m_4-unsplash.jpg') }}" alt="Image 2">
+
+                    {# Slide 2 du carrousel #}
+                    <article class="carousel-slide" aria-roledescription="slide" aria-label="Réservation de prélèvement">
+                        <img
+                                src="{{ asset('Media/image/testalize-me-9xHsWmh3m_4-unsplash.jpg') }}"
+                                alt="Personnel médical réalisant un prélèvement">
                         <div class="text-overlay">
                             <h2>Réservez votre Prélèvement en Ligne</h2>
                             <p>
@@ -35,14 +48,18 @@
                                 {% endif %}
                             </p>
                             {% if not app.user %}
-                                <a href="{{ path('app_register', {'role':'customer'}) }}">Créer un compte maintenant</a>
+                                <a href="{{ path('app_register', {'role':'customer'}) }}" aria-label="Créer un compte pour réserver un prélèvement">Créer un compte maintenant</a>
                             {% else %}
-                                <a href="{{ path('app_appointment_add') }}">Prendre rendez-vous</a>
+                                <a href="{{ path('app_appointment_add') }}" aria-label="Accéder au formulaire de prise de rendez-vous">Prendre rendez-vous</a>
                             {% endif %}
                         </div>
                     </article>
-                    <article class="carousel-slide">
-                        <img src="{{ asset('Media/image/anton-8q-U8X1zkvI-unsplash 1.png') }}" alt="Image 3">
+
+                    {# Slide 3 du carrousel #}
+                    <article class="carousel-slide" aria-roledescription="slide" aria-label="Messagerie sécurisée">
+                        <img
+                                src="{{ asset('Media/image/anton-8q-U8X1zkvI-unsplash 1.png') }}"
+                                alt="Patient échangeant en ligne avec un médecin">
                         <div class="text-overlay">
                             <h1>Messagerie Sécurisée</h1>
                             <p>
@@ -53,78 +70,93 @@
                                 {% endif %}
                             </p>
                             {% if not app.user %}
-                                <a href="{{ path('app_register', {'role':'customer'}) }}">Créer un compte maintenant</a>
+                                <a href="{{ path('app_register', {'role':'customer'}) }}" aria-label="Créer un compte pour accéder à la messagerie">Créer un compte maintenant</a>
                             {% else %}
-                                <a href="{{ path('messages_inbox') }}">Accéder à la messagerie</a>
+                                <a href="{{ path('messages_inbox') }}" aria-label="Accéder à la messagerie sécurisée">Accéder à la messagerie</a>
                             {% endif %}
                         </div>
                     </article>
                 </div>
-                <button class="prev">‹</button>
-                <button class="next">›</button>
+
+                {# Boutons de navigation du carrousel #}
+                <button class="prev" aria-label="Image précédente du carrousel">‹</button>
+                <button class="next" aria-label="Image suivante du carrousel">›</button>
             </div>
-
-
         </section>
-        <section id="speciality" class="container_responsive_2_4">
+
+        {# Section des spécialités médicales proposées #}
+        <section id="speciality" class="container_responsive_2_4" aria-label="Spécialités médicales">
             <h2>Nos spécialités</h2>
-
-            <article><a href="{{ path('app_analysis', {id:1}) }}">Biochimie clinique</a></article>
-            <article><a href="{{ path('app_analysis', {id:2}) }}">Hématologie</a></article>
-            <article><a href="{{ path('app_analysis', {id:3}) }}">Biologie moléculaire</a></article>
-            <article><a href="{{ path('app_analysis', {id:4}) }}">Microbiologie</a></article>
+            <article><a href="{{ path('app_analysis', {id:1}) }}" aria-label="Accéder à la page Biochimie clinique">Biochimie clinique</a></article>
+            <article><a href="{{ path('app_analysis', {id:2}) }}" aria-label="Accéder à la page Hématologie">Hématologie</a></article>
+            <article><a href="{{ path('app_analysis', {id:3}) }}" aria-label="Accéder à la page Biologie moléculaire">Biologie moléculaire</a></article>
+            <article><a href="{{ path('app_analysis', {id:4}) }}" aria-label="Accéder à la page Microbiologie">Microbiologie</a></article>
         </section>
 
-        <section id="apropos" class="container_responsive_2_4">
+        {# Section à propos de l'engagement qualité de Molecool #}
+        <section id="apropos" class="container_responsive_2_4" aria-label="À propos de Molecool">
             <h2>Molecool s'engage à offrir un service de qualité, proche de ses patients</h2>
             <figure>
-                <svg>
+                <svg role="img" aria-label="Compétence & Indépendance">
                     <use xlink:href="Media/icon/sprite.svg#medal"></use>
                 </svg>
                 <figcaption>Compétence & Indépendance</figcaption>
             </figure>
             <figure>
-                <svg>
+                <svg role="img" aria-label="Service & Proximité">
                     <use xlink:href="Media/icon/sprite.svg#maison"></use>
                 </svg>
                 <figcaption>Service & Proximité</figcaption>
             </figure>
             <figure>
-                <svg>
+                <svg role="img" aria-label="Qualité & Innovation">
                     <use xlink:href="Media/icon/sprite.svg#chimie"></use>
                 </svg>
                 <figcaption>Qualité & Innovation</figcaption>
             </figure>
             <figure>
-                <svg>
+                <svg role="img" aria-label="Respect & Engagement">
                     <use xlink:href="Media/icon/sprite.svg#bouclier"></use>
                 </svg>
                 <figcaption>Respect & Engagement</figcaption>
             </figure>
         </section>
+
+        {# Section contact, affichée uniquement si l'utilisateur n'est pas connecté #}
         {% if not app.user %}
-        <section id="contact">
-            <h2 class="contact">Contactez nous</h2>
-            <ul>
-                <li><svg>
-                        <use xlink:href="Media/icon/sprite.svg#tel"></use>
-                    </svg> <span>+3351234567</span></li>
-                <li><svg>
-                        <use href="Media/icon/sprite.svg#gps"></use>
-                    </svg><span>123 Centre médicale, rue 43 <br>
-                        11111 Ville</span></li>
-                <li><svg>
-                        <use href="Media/icon/sprite.svg#agenda"></use>
-                    </svg><span>Lundi-Vendredi : 07:00 - 19:00 <br>
-                        Samedi: 7:00 - 12:00 </span></li>
-            </ul>
-            {% for message in app.flashes('success') %}
-                <div class="alert alert-success">
-                    {{ message }}
-                </div>
-            {% endfor %}
-            {{ form(form) }}
-        </section>
+            <section id="contact" aria-label="Formulaire de contact">
+                <h2 class="contact">Contactez-nous</h2>
+                <ul>
+                    <li>
+                        <svg role="img" aria-label="Téléphone">
+                            <use xlink:href="Media/icon/sprite.svg#tel"></use>
+                        </svg>
+                        <span>+3351234567</span>
+                    </li>
+                    <li>
+                        <svg role="img" aria-label="Adresse">
+                            <use href="Media/icon/sprite.svg#gps"></use>
+                        </svg>
+                        <span>123 Centre médicale, rue 43 <br>11111 Ville</span>
+                    </li>
+                    <li>
+                        <svg role="img" aria-label="Horaires">
+                            <use href="Media/icon/sprite.svg#agenda"></use>
+                        </svg>
+                        <span>Lundi-Vendredi : 07:00 - 19:00 <br>Samedi: 7:00 - 12:00 </span>
+                    </li>
+                </ul>
+
+                {# Affichage des messages flash (succès) #}
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+                {# Formulaire de contact (form est une variable passée depuis le contrôleur) #}
+                {{ form(form) }}
+            </section>
         {% endif %}
     </main>
 {% endblock %}

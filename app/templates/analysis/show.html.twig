@@ -3,18 +3,29 @@
 {% block title %}Analysis{% endblock %}
 
 {% block body %}
-    <main id="analysis_show" class="container_responsive_2_4">
-    <h1>Liste des analyses</h1>
-    {% for category in categories %}
-        <article class="box">
-            <h2>{{ category.name }}</h2>
-            <ul>
-                {% for analysi in category.analysis %}
-                    <li><h3>{{ analysi.name }} </h3> <div>{{ include('analysis/_delete_form.html.twig') }}
-                            <a href="{{ path('app_analysis_edit', {'id': analysi.id}) }}"><img src="{{ asset('Media/icon/crayon.png') }}" alt=""></a></div></li>
-                {% endfor %}
-            </ul>
-        </article>
-    {% endfor %}
+    <main id="analysis_show" class="container_responsive_2_4" aria-label="Liste des analyses par catégorie">
+        <h1>Liste des analyses</h1>
+        {% for category in categories %}
+            <article class="box" aria-labelledby="category-{{ category.id }}-title">
+                {# Titre de la catégorie avec un id pour aria-labelledby #}
+                <h2 id="category-{{ category.id }}-title">{{ category.name }}</h2>
+                <ul>
+                    {% for analysi in category.analysis %}
+                        <li>
+                            {# Nom de l'analyse, mis en h3 pour sous-titre #}
+                            <h3>{{ analysi.name }}</h3>
+                            <div>
+                                {# Formulaire de suppression inclus, sans alt car ce n’est pas une image #}
+                                {{ include('analysis/_delete_form.html.twig') }}
+                                {# Lien de modification avec icône, ajout alt descriptif à l’image #}
+                                <a href="{{ path('app_analysis_edit', {'id': analysi.id}) }}" aria-label="Modifier l’analyse {{ analysi.name }}">
+                                    <img src="{{ asset('Media/icon/crayon.png') }}" alt="Icône crayon pour modifier" />
+                                </a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </article>
+        {% endfor %}
     </main>
 {% endblock %}

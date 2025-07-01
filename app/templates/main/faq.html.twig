@@ -1,62 +1,87 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Foire aux questions !{% endblock %}
+
 {% block javascripts %}
     <script src="{{ asset('js/main_faq.js') }}" defer></script>
 {% endblock %}
-{% block body %}
-    <main id="faq">
-        <section class="faq container_responsive_2_4">
-            <h1>Foire aux questions</h1>
 
-            <article class="box">
-                <p class="faq-question">1. Comment prendre rendez-vous ? ▼</p>
-                <div class="hidden">
+{% block body %}
+    <main id="faq" role="main" aria-labelledby="faq-title">
+        <section class="faq container_responsive_2_4" role="region" aria-label="Foire aux questions">
+            <h1 id="faq-title">Foire aux questions</h1>
+
+            {# FAQ 1 #}
+            <article class="box" role="group" aria-labelledby="q1">
+                <p class="faq-question" id="q1" tabindex="0" aria-expanded="false" aria-controls="a1">
+                    1. Comment prendre rendez-vous ? ▼
+                </p>
+                <div class="hidden" id="a1" role="region" aria-labelledby="q1">
                     <p>Vous pouvez prendre rendez-vous en ligne depuis votre espace personnel ou en appelant le laboratoire.</p>
                 </div>
             </article>
 
-            <article class="box">
-                <p class="faq-question">2. Quels sont les horaires d’ouverture ? ▼</p>
-                <div class="hidden">
+            {# FAQ 2 #}
+            <article class="box" role="group" aria-labelledby="q2">
+                <p class="faq-question" id="q2" tabindex="0" aria-expanded="false" aria-controls="a2">
+                    2. Quels sont les horaires d’ouverture ? ▼
+                </p>
+                <div class="hidden" id="a2" role="region" aria-labelledby="q2">
                     <p>Nous sommes ouverts du lundi au samedi de 8h à 18h.</p>
                 </div>
             </article>
 
-            <article class="box">
-                <p class="faq-question">3. Faut-il une ordonnance pour faire une analyse ? ▼</p>
-                <div class="hidden">
+            {# FAQ 3 #}
+            <article class="box" role="group" aria-labelledby="q3">
+                <p class="faq-question" id="q3" tabindex="0" aria-expanded="false" aria-controls="a3">
+                    3. Faut-il une ordonnance pour faire une analyse ? ▼
+                </p>
+                <div class="hidden" id="a3" role="region" aria-labelledby="q3">
                     <p>La plupart des analyses nécessitent une ordonnance. Toutefois, certaines peuvent être réalisées sans.</p>
                 </div>
             </article>
 
-            <article class="box">
-                <p class="faq-question">4. Quels documents dois-je apporter ? ▼</p>
-                <div class="hidden">
+            {# FAQ 4 #}
+            <article class="box" role="group" aria-labelledby="q4">
+                <p class="faq-question" id="q4" tabindex="0" aria-expanded="false" aria-controls="a4">
+                    4. Quels documents dois-je apporter ? ▼
+                </p>
+                <div class="hidden" id="a4" role="region" aria-labelledby="q4">
                     <p>Une pièce d'identité, votre carte vitale, votre ordonnance et votre carte de mutuelle si vous en avez une.</p>
                 </div>
             </article>
 
-            <article class="box">
-                <p class="faq-question">5. Combien de temps faut-il pour obtenir les résultats ? ▼</p>
-                <div class="hidden">
+            {# FAQ 5 #}
+            <article class="box" role="group" aria-labelledby="q5">
+                <p class="faq-question" id="q5" tabindex="0" aria-expanded="false" aria-controls="a5">
+                    5. Combien de temps faut-il pour obtenir les résultats ? ▼
+                </p>
+                <div class="hidden" id="a5" role="region" aria-labelledby="q5">
                     <p>Les résultats sont disponibles généralement sous 24 à 72 heures, selon l’analyse.</p>
                 </div>
             </article>
-            <article class="box">
-                <p class="faq-question">7. Puis-je faire les analyses sans être à jeun ? ▼</p>
-                <div class="hidden">
+
+
+
+            {# FAQ 6 #}
+            <article class="box" role="group" aria-labelledby="q6">
+                <p class="faq-question" id="q7" tabindex="0" aria-expanded="false" aria-controls="a6">
+                    6. Puis-je faire les analyses sans être à jeun ? ▼
+                </p>
+                <div class="hidden" id="a6" role="region" aria-labelledby="q6">
                     <p>Certaines analyses nécessitent d’être à jeun. Vérifiez votre ordonnance ou contactez-nous pour confirmation.</p>
                 </div>
             </article>
 
-            <article class="box">
-                <p class="faq-question">8. Quels moyens de paiement acceptez-vous ? ▼</p>
-                <div class="hidden">
+            {# FAQ 7 #}
+            <article class="box" role="group" aria-labelledby="q7">
+                <p class="faq-question" id="q7" tabindex="0" aria-expanded="false" aria-controls="a7">
+                    7. Quels moyens de paiement acceptez-vous ? ▼
+                </p>
+                <div class="hidden" id="a7" role="region" aria-labelledby="q7">
                     <p>Nous acceptons les paiements par carte bancaire, espèces et tiers payant selon les cas.</p>
                 </div>
             </article>
         </section>
-
     </main>
 {% endblock %}

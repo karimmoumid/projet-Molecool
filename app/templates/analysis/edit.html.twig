@@ -3,9 +3,13 @@
 {% block title %}Modifier l'analyse{% endblock %}
 
 {% block body %}
-    <main class="form">
-    <a href="{{ path('app_analysis_list') }}">◀ retour à list</a>
-    <h1>Modifier l'analyse</h1>
-    {{ include('analysis/_form.html.twig', {'button_label': 'Mise à jour'}) }}
+    <main class="form" aria-label="Formulaire de modification d'analyse">
+        {# Lien de retour à la liste des analyses avec aria-label explicite #}
+        <a href="{{ path('app_analysis_list') }}" aria-label="Retour à la liste des analyses">◀ Retour à list</a>
+
+        <h1>Modifier l'analyse</h1>
+
+        {# Inclusion du formulaire de modification avec bouton personnalisé #}
+        {{ include('analysis/_form.html.twig', {'button_label': 'Mise à jour'}) }}
     </main>
 {% endblock %}

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use App\Entity\Appointment;
@@ -19,28 +18,33 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class AppointmentController extends AbstractController
 {
+    // Route pour lister les rendez-vous
     #[Route('/appointment', name: 'app_appointment')]
     public function index(AppointmentRepository $appointmentRepository, UserRepository $userRepository): Response
     {
         $user = $this->getUser();
-        $appointments =[];
+        $appointments = [];
         $patients = [];
+
+        // Récupération des rendez-vous et des patients selon le rôle de l'utilisateur
         if($this->isGranted("ROLE_EMPLOYEE")) {
             $appointments = $appointmentRepository->findBy([], ['date_hour' => 'ASC']);
             $patients = array_filter(
                 $userRepository->findAll(),
                 fn($user) => in_array('ROLE_PATIENT', $user->getRoles())
             );
-
         }
+
         if($this->isGranted("ROLE_PATIENT")) {
             $appointments = $appointmentRepository->findBy(['patient' => $user], ['date_hour' => 'ASC']);
         }
 
         $groupedAppointement = [];
+        // Groupement des rendez-vous par jour et par heure
         foreach ($appointments as $appointment) {
             $day = $appointment->getDateHour()->format('d/m/Y');
             $hour = $appointment->getDateHour()->format('H:i');
+
             if($this->isGranted("ROLE_EMPLOYEE")) {
                 $patientName = $appointment->getPatient()->getName();
                 $groupedAppointement[$day][$hour][] = [
@@ -53,9 +57,11 @@ final class AppointmentController extends AbstractController
                 $groupedAppointement[$day][$hour] = [$appointment];
             }
         }
+
         return $this->render('appointment/index.html.twig', compact('groupedAppointement', 'patients'));
     }
 
+    // Route pour ajouter un rendez-vous
     #[Route('/appointment/ajouter', name: 'app_appointment_add')]
     public function add(
         EmailService $emailSender,
@@ -67,10 +73,10 @@ final class AppointmentController extends AbstractController
         Security $security
     ): Response {
         $appointment = new Appointment();
-
         $isEmployee = $security->isGranted('ROLE_EMPLOYEE');
         $isPatient = $security->isGranted('ROLE_PATIENT');
-        // On prépare les patients à afficher dans le select si l'admin est connecté
+
+        // Préparation des patients à afficher dans le select si l'employé est connecté
         $patients = $isEmployee ? $userRepository->findByRole('ROLE_PATIENT') : [];
 
         $form = $this->createForm(AppointmentForm::class, $appointment, [
@@ -86,7 +92,7 @@ final class AppointmentController extends AbstractController
                 $user = $this->getUser();
                 $appointment->setPatient($user);
 
-                // Vérif Sécu Sociale
+                // Vérification du numéro de sécurité sociale
                 $ssnEntered = $form->get('socialSecurityNumber')->getData();
                 $ssn = $socialSecurityNumberRepository->findOneBy(['number' => $ssnEntered]);
 
@@ -102,11 +108,10 @@ final class AppointmentController extends AbstractController
                 return $this->redirectToRoute('app_appointment_add');
             }
 
-            // Date / Heure
+            // Gestion de la date et de l'heure
             $date = $form->get('date')->getData();
             $time = $form->get('time')->getData();
             $now = new \DateTimeImmutable();
-
             $dateTimeString = $date . ' ' . $time;
             $dateTime = \DateTimeImmutable::createFromFormat('d/m/Y H:i', $dateTimeString);
 
@@ -117,17 +122,19 @@ final class AppointmentController extends AbstractController
 
             $appointment->setDateHour($dateTime);
 
-            // Conflits
+            // Vérification des conflits de rendez-vous
             $existingForPatient = $appointmentRepository->findOneBy([
                 'date_hour' => $dateTime,
                 'patient' => $appointment->getPatient()
             ]);
+
             if ($existingForPatient) {
                 $this->addFlash('danger', 'Ce patient a déjà un rendez-vous à cette heure.');
                 return $this->redirectToRoute('app_appointment_add');
             }
 
             $existingAppointments = $appointmentRepository->findBy(['date_hour' => $dateTime]);
+
             if (count($existingAppointments) >= 2) {
                 $this->addFlash('danger', 'Ce créneau est complet.');
                 return $this->redirectToRoute('app_appointment_add');
@@ -136,6 +143,7 @@ final class AppointmentController extends AbstractController
             $em->persist($appointment);
             $em->flush();
 
+            // Envoi d'un email de confirmation
             $emailSender->sender(
                 'no-reply@centre-medical.com',
                 $appointment->getPatient()->getEmail(),
@@ -154,6 +162,7 @@ final class AppointmentController extends AbstractController
         return $this->render('appointment/add.html.twig', compact('form'));
     }
 
+    // Route pour modifier un rendez-vous
     #[Route('/appointment/modifier/{id}', name: 'app_appointment_modify')]
     public function modify(
         Appointment $appointment,
@@ -165,6 +174,7 @@ final class AppointmentController extends AbstractController
         Security $security
     ): Response {
         $now = new \DateTime('now');
+
         if ($now > $appointment->getDateHour()) {
             $this->addFlash('danger', 'Ce rendez-vous est déjà passé et ne peut pas être modifié');
             return $this->redirectToRoute('app_appointment');
@@ -172,7 +182,6 @@ final class AppointmentController extends AbstractController
 
         $isEmployee = $security->isGranted('ROLE_EMPLOYEE');
         $isPatient = $security->isGranted('ROLE_PATIENT');
-
         $patients = $isEmployee ? $userRepository->findByRole('ROLE_PATIENT') : [];
 
         $form = $this->createForm(AppointmentForm::class, $appointment, [
@@ -185,11 +194,9 @@ final class AppointmentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             if ($isPatient) {
                 $user = $this->getUser();
                 $appointment->setPatient($user);
-
                 $ssnEntered = $form->get('socialSecurityNumber')->getData();
                 $ssn = $socialSecurityNumberRepository->findOneBy(['number' => $ssnEntered]);
 
@@ -214,7 +221,7 @@ final class AppointmentController extends AbstractController
 
             $appointment->setDateHour($dateTime);
 
-            // Vérification conflits rendez-vous
+            // Vérification des conflits de rendez-vous
             $existingSamePatient = $appointmentRepository->findOneBy([
                 'date_hour' => $dateTime,
                 'patient' => $appointment->getPatient(),
@@ -226,6 +233,7 @@ final class AppointmentController extends AbstractController
             }
 
             $existingAppointments = $appointmentRepository->findBy(['date_hour' => $dateTime]);
+
             if (count($existingAppointments) >= 2) {
                 $this->addFlash('danger', 'Ce créneau est déjà complet.');
                 return $this->redirectToRoute('app_appointment_modify', ['id' => $appointment->getId()]);
@@ -244,11 +252,11 @@ final class AppointmentController extends AbstractController
         return $this->render('appointment/modify.html.twig', compact('form', 'getDate', 'getTime'));
     }
 
-
+    // Route pour supprimer un rendez-vous
     #[Route('/appointment/supprimer/{id}', name: 'app_appointment_delete', methods: ['POST'])]
     public function delete(Request $request, EntityManagerInterface $em, Appointment $appointment): Response
     {
-        // Vérifier le token CSRF envoyé dans le formulaire (nom du token = 'delete_appointment' + id)
+        // Vérification du token CSRF envoyé dans le formulaire
         if ($this->isCsrfTokenValid('delete_appointment' . $appointment->getId(), $request->request->get('_token'))) {
             $em->remove($appointment);
             $em->flush();
@@ -260,18 +268,18 @@ final class AppointmentController extends AbstractController
         return $this->redirectToRoute('app_appointment');
     }
 
-
-
+    // Route pour obtenir les créneaux disponibles
     #[Route('/api/available-slots', name: 'api_available_slots')]
     public function availableSlots(Request $request, AppointmentRepository $appointmentRepository): JsonResponse
     {
         $date = $request->query->get('date'); // YYYY-MM-DD
+
         if (!$date) {
             return $this->json([], 400);
         }
+
         $today = (new \DateTimeImmutable())->format('Y-m-d');
         $now = new \DateTimeImmutable();
-
         $start = \DateTimeImmutable::createFromFormat('Y-m-d H:i', $date . ' 08:00');
         $end = \DateTimeImmutable::createFromFormat('Y-m-d H:i', $date . ' 18:00');
 
@@ -280,12 +288,16 @@ final class AppointmentController extends AbstractController
         }
 
         $availableSlots = [];
+
+        // Calcul des créneaux disponibles
         for ($time = $start; $time <= $end; $time = $time->modify('+30 minutes')) {
             if ($date === $today && $time <= $now) {
                 continue;
             }
-            // max 2 rendez-vous par créneau
+
+            // Maximum 2 rendez-vous par créneau
             $count = $appointmentRepository->count(['date_hour' => $time]);
+
             if ($count < 2) {
                 $availableSlots[] = [
                     'label' => $time->format('H:i'),
@@ -296,6 +308,4 @@ final class AppointmentController extends AbstractController
 
         return $this->json($availableSlots);
     }
-
-
 }

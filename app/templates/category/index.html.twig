@@ -3,20 +3,25 @@
 {% block title %}Specialitées{% endblock %}
 
 {% block body %}
-    <main>
-        <section id="hero" class="red-hero-img">
+    <main role="main" aria-labelledby="section-specialites">
+        {# Section de présentation avec image d’en-tête #}
+        <section id="hero" class="red-hero-img" role="banner" aria-label="Présentation Molecool">
             <h2>Molecool</h2>
             <img src="/Media/image/louis-reed-pwcKF7L4-no-unsplash 1.png" alt="tips de micropipette">
         </section>
-        <section id="specialites" class="container_responsive_2_4">
-            <h1>Nos specialitées</h1>
+
+        {# Section des spécialités #}
+        <section id="specialites" class="container_responsive_2_4" role="region" aria-labelledby="section-specialites">
+            <h1 id="section-specialites">Nos specialitées</h1>
+
+            {# Boucle sur les catégories de spécialités #}
             {% for category in categories %}
-                <article>
-                    <a href="{{ path('app_analysis', {'id': category.id}) }}">
+                <article role="group" aria-labelledby="category-{{ category.id }}">
+                    <a href="{{ path('app_analysis', {'id': category.id}) }}" aria-describedby="desc-{{ category.id }}">
                         <img src="/Media/icon/Group (1).png" alt="icon tube de sang">
-                        <h3>{{ category.name }}</h3>
+                        <h3 id="category-{{ category.id }}">{{ category.name }}</h3>
                     </a>
-                    <p>{{ category.description }}</p>
+                    <p id="desc-{{ category.id }}">{{ category.description }}</p>
                     <h4>Test effectuer :</h4>
                     <ul>
                         {% for analyse in category.analysis %}

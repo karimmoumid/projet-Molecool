@@ -1,12 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %} Inscription{% endblock %}
 
 {% block body %}
-    <main class="form">
+    {# Formulaire d'inscription #}
+    <main class="form" aria-label="Formulaire d'inscription">
 
+        {{ form_start(registrationForm) }}
 
-    {{ form_start(registrationForm) }}
+        {# Titre dynamique selon le rôle #}
         <h1>
             {% if role == 'customer' %}
                 Inscription
@@ -15,25 +17,37 @@
                 Création d'un compte admin
             {% endif %}
             {% if role == 'employee' %}
-                Création d'un compte employer
+                Création d'un compte employé
             {% endif %}
         </h1>
+
+        {# Affichage des erreurs globales du formulaire #}
         {{ form_errors(registrationForm) }}
 
-    {{ form_row(registrationForm.name) }}
+        {# Champ nom avec label et input, aria-required ajouté #}
+        {{ form_row(registrationForm.name, {'attr': {'aria-required': 'true'}}) }}
+
+        {# Si rôle client, affichage du numéro de sécurité sociale #}
         {% if role == 'customer' %}
-            {{ form_row(registrationForm.social_security_number.number) }}
+            {{ form_row(registrationForm.social_security_number.number, {'attr': {'aria-required': 'true'}}) }}
         {% endif %}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
+
+        {# Champ email #}
+        {{ form_row(registrationForm.email, {'attr': {'aria-required': 'true'}}) }}
+
+        {# Champ mot de passe en clair #}
+        {{ form_row(registrationForm.plainPassword, {'attr': {'aria-required': 'true'}}) }}
+
+        {# Case à cocher pour accepter les conditions, label lié et aria-required #}
         <div class="checkbox">
-            {{ form_widget(registrationForm.agreeTerms) }}
+            {{ form_widget(registrationForm.agreeTerms, {'attr': {'aria-required': 'true'}}) }}
             {{ form_label(registrationForm.agreeTerms) }}
             {{ form_errors(registrationForm.agreeTerms) }}
         </div>
 
+        {# Bouton de soumission avec aria-label explicite #}
+        <button type="submit" class="btn" aria-label="Soumettre le formulaire d'inscription">Inscription</button>
 
-        <button type="submit" class="btn">Inscription</button>
-    {{ form_end(registrationForm) }}
+        {{ form_end(registrationForm) }}
     </main>
 {% endblock %}

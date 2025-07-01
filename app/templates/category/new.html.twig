@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter une catégorie{% endblock %}
+{% block title %}Ajouter une Catégorie{% endblock %}
 
 {% block javascripts %}
-    <script src={{ asset('js/categories.js')}} defer></script>
+    <script src="{{ asset('js/categories.js') }}" defer></script>
 {% endblock %}
 
 {% block body %}
-    <main class="form">
-        <a href="{{ path('app_categories_list') }}">◀ retour à list</a>
-    <h1>Ajouter une catégorie</h1>
+    <main class="form" id="category_add" role="main" aria-labelledby="titre-ajout-categorie">
+        <a href="{{ path('app_categories_list') }}" class="back-link">◀ Retour à la liste</a>
 
-    {{ include('category/_form.html.twig') }}
+        <h1 id="titre-ajout-categorie">Ajouter une Catégorie</h1>
 
-
+        {{ include('category/_form.html.twig') }}
     </main>
 {% endblock %}
+
 {% block template %}
     {{ include('template/categories.html.twig') }}
 {% endblock %}

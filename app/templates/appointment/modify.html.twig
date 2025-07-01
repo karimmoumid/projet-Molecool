@@ -11,14 +11,14 @@
     <script src="{{ asset('js/appointment.js') }}" defer ></script>
 {% endblock %}
 {% block body %}
-    <main class="form">
+    <main class="form" aria-label="Formulaire de modification du prélèvement médical">
         <section class="hero white">
             <h1>Modification du prélèvement médical du {{ getDate }} à {{ getTime }}</h1>
         </section>
-        <section id="reservation">
+        <section id="reservation" aria-live="polite" aria-atomic="true">
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
-                    <div class="alert alert-{{ label }}">
+                    <div class="alert alert-{{ label }}" role="alert">
                         {{ message }}
                     </div>
                 {% endfor %}
@@ -34,18 +34,21 @@
             {{ form_row(form.categories) }}
             {{ form_row(form.date) }}
             <div>
-            <label for="time_select">Heure du rendez-vous</label>
-            <select id="time_select">
-                <option value="">Choisissez un créneau</option>
-                {# Options ajoutées dynamiquement par JS #}
-            </select>
+                <label for="time_select">Heure du rendez-vous</label>
+                <select id="time_select" aria-required="true" aria-describedby="timeHelp">
+                    <option value="">Choisissez un créneau</option>
+                    {# Options ajoutées dynamiquement par JS #}
+                </select>
+                {# L'id timeHelp correspond à une description pour les lecteurs d'écran #}
             </div>
 
             {{ form_widget(form.time) }}
-            <button>Confirmer la réservation</button>
+
+            <button type="submit" aria-label="Confirmer la réservation">Confirmer la réservation</button>
+
             <div class="notification">
-                <a href="{{ path('app_appointment') }}">
-                    <img src="/Media/image/horloge.png" alt="horloge">
+                <a href="{{ path('app_appointment') }}" aria-label="Voir mes rendez-vous">
+                    <img src="/Media/image/horloge.png" alt="Icône horloge">
                     <p>Mes rendez-vous</p>
                 </a>
             </div>

@@ -3,45 +3,66 @@
 {% block title %}Services{% endblock %}
 
 {% block body %}
-    <main id="service">
-        <section class="hero">
-            <h1>Bienvenue {{ app.user.name }} !</h1>
+    <main id="service" role="main" aria-labelledby="section-services">
+        {# Section de bienvenue personnalisée #}
+        <section class="hero" role="region" aria-label="Bienvenue utilisateur connecté">
+            <h1 id="section-services">Bienvenue {{ app.user.name }} !</h1>
         </section>
-        <section class="account-home">
-            <article class="box">
-                <h2>Rendez-vous</h2>
+
+        {# Section principale avec les différents services selon les rôles #}
+        <section class="account-home" role="region" aria-label="Menu des services utilisateur">
+            <article class="box" role="group" aria-labelledby="rdv">
+                <h2 id="rdv">Rendez-vous</h2>
                 <ul>
-                    <li class="link"><a href="{{ path('app_appointment_add') }}">Ajouter un rendez-vous</a></li>
-                    <li class="link"><a href="{{ path('app_appointment') }}">Liste des rendez-vous</a></li>
+                    <li class="link">
+                        <a href="{{ path('app_appointment_add') }}" aria-label="Ajouter un rendez-vous">Ajouter un rendez-vous</a>
+                    </li>
+                    <li class="link">
+                        <a href="{{ path('app_appointment') }}" aria-label="Voir la liste des rendez-vous">Liste des rendez-vous</a>
+                    </li>
                 </ul>
             </article>
+
             {% if is_granted('ROLE_ADMIN') %}
-            <article class="box">
-                <h2>Compte professionnel</h2>
-                <ul>
-                    <li class="link"><a href="{{ path('app_user_pro_list') }}">Liste des comptes professionnels </a></li>
-                    <li class="link"><a href="{{ path('app_register',{'role':'admin'}) }}">Creer un compte admin</a></li>
-                    <li class="link"><a href="{{ path('app_register',{'role':'employee'}) }}">Creer un compte employer</a></li>
-                </ul>
-            </article>
-            <article class="box">
-                <h2>Catégories</h2>
-                <ul>
-                    <li class="link"><a href="{{ path('app_categories_new') }}">Ajouter une categories</a></li>
-                    <li class="link"><a href="{{ path('app_categories_list') }}">Liste des categories</a></li>
-                </ul>
+                <article class="box" role="group" aria-labelledby="compte-pro">
+                    <h2 id="compte-pro">Compte professionnel</h2>
+                    <ul>
+                        <li class="link">
+                            <a href="{{ path('app_user_pro_list') }}" aria-label="Voir la liste des comptes professionnels">Liste des comptes professionnels</a>
+                        </li>
+                        <li class="link">
+                            <a href="{{ path('app_register',{'role':'admin'}) }}" aria-label="Créer un compte administrateur">Creer un compte admin</a>
+                        </li>
+                        <li class="link">
+                            <a href="{{ path('app_register',{'role':'employee'}) }}" aria-label="Créer un compte employé">Creer un compte employer</a>
+                        </li>
+                    </ul>
+                </article>
 
-            </article>
-            <article class="box">
-                <h2>Analyses</h2>
-                <ul>
-                    <li class="link"><a href="{{ path('app_analysis_new') }}">Ajouter une analyse</a></li>
-                    <li class="link"><a href="{{ path('app_analysis_list') }}">Liste des analyses</a></li>
-                </ul>
+                <article class="box" role="group" aria-labelledby="categories">
+                    <h2 id="categories">Catégories</h2>
+                    <ul>
+                        <li class="link">
+                            <a href="{{ path('app_categories_new') }}" aria-label="Ajouter une nouvelle catégorie">Ajouter une categories</a>
+                        </li>
+                        <li class="link">
+                            <a href="{{ path('app_categories_list') }}" aria-label="Voir la liste des catégories">Liste des categories</a>
+                        </li>
+                    </ul>
+                </article>
 
-            </article>
+                <article class="box" role="group" aria-labelledby="analyses">
+                    <h2 id="analyses">Analyses</h2>
+                    <ul>
+                        <li class="link">
+                            <a href="{{ path('app_analysis_new') }}" aria-label="Ajouter une nouvelle analyse">Ajouter une analyse</a>
+                        </li>
+                        <li class="link">
+                            <a href="{{ path('app_analysis_list') }}" aria-label="Voir la liste des analyses">Liste des analyses</a>
+                        </li>
+                    </ul>
+                </article>
             {% endif %}
         </section>
-
     </main>
 {% endblock %}

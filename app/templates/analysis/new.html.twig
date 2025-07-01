@@ -3,11 +3,13 @@
 {% block title %}Ajouter une analyse{% endblock %}
 
 {% block body %}
-    <main class="form">
-        <a href="{{ path('app_analysis_list') }}">◀ retour à list</a>
-    <h1>Ajouter une analyse</h1>
+    <main class="form" aria-label="Formulaire d'ajout d'une analyse">
+        {# Lien de retour à la liste des analyses avec aria-label explicite #}
+        <a href="{{ path('app_analysis_list') }}" aria-label="Retour à la liste des analyses">◀ Retour à list</a>
 
-    {{ include('analysis/_form.html.twig', {'button_label': 'Ajouter'}) }}
+        <h1>Ajouter une analyse</h1>
+
+        {# Inclusion du formulaire d'ajout avec un bouton personnalisé #}
+        {{ include('analysis/_form.html.twig', {'button_label': 'Ajouter'}) }}
     </main>
-
 {% endblock %}

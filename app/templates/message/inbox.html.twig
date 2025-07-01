@@ -5,21 +5,21 @@
     <script src="{{ asset('js/message_inbox.js') }}" defer></script>
 {% endblock %}
 {% block body %}
-    <main id="message_inbox">
+    <main id="message_inbox" aria-label="Boîte de réception des messages">
         <h1>Boîte de réception</h1>
 
-        <nav class="inbox-nav">
+        <nav class="inbox-nav" aria-label="Navigation de la boîte de réception">
             <ul>
-                <li><a href="{{ path('messages_sent') }}">📤 Messages envoyés</a></li>
-                <li><a href="{{ path('message_send') }}">✉️ Nouveau message</a></li>
-                <li><a href="{{ path('messages_favorite') }}">❤️ Messages favoris</a></li>
+                <li><a href="{{ path('messages_sent') }}" aria-label="Voir les messages envoyés">📤 Messages envoyés</a></li>
+                <li><a href="{{ path('message_send') }}" aria-label="Envoyer un nouveau message">✉️ Nouveau message</a></li>
+                <li><a href="{{ path('messages_favorite') }}" aria-label="Voir les messages favoris">❤️ Messages favoris</a></li>
             </ul>
         </nav>
 
-        <section class="message-list">
+        <section class="message-list" aria-live="polite" aria-atomic="true" role="region">
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
-                    <div class="alert alert-{{ label }}">
+                    <div class="alert alert-{{ label }}" role="alert">
                         {{ message }}
                     </div>
                 {% endfor %}
@@ -27,31 +27,35 @@
             <ul>
                 {% for message in messages %}
                     <li class="message-item {{ message.isRead ? 'read' : 'unread' }}" data-message-id="{{ message.id }}">
-                        <a href="{{ path('message_view', { 'id': message.id , 'read': 1 }) }}">
+                        <a href="{{ path('message_view', { 'id': message.id , 'read': 1 }) }}" aria-label="Voir le message de {{ message.lastsender }}">
                             <p>De : {{ message.lastsender }}</p>
                             <p>Objet : {{ message.subject ?: 'Sans sujet' }}</p>
                             <small>Dernier message : {{ message.modifyAt|date('d/m/Y H:i') }}</small>
                         </a>
                         <div class="message-meta">
-                            <p class="status">{{ message.isRead ? '📖 Lu' : '📩 Non lu' }}</p>
-<div>
-                            <button class="favorite-toggle" aria-label="Toggle favorite">
-                                {{ app.user.favorite.contains(message) ? '❤️' : '🤍' }}
-                            </button>
-                            <button
-                                    class="delete-button"
-                                    data-id="{{ message.id }}"
-                                    data-csrf="{{ csrf_token('delete' ~ message.id) }}"
-                                    aria-label="Supprimer le message">🗑️</button>
-</div>
+                            <p class="status" aria-label="{{ message.isRead ? 'Message lu' : 'Message non lu' }}">
+                                {{ message.isRead ? '📖 Lu' : '📩 Non lu' }}
+                            </p>
+                            <div>
+                                <button class="favorite-toggle" aria-label="Basculer le favori">
+                                    {{ app.user.favorite.contains(message) ? '❤️' : '🤍' }}
+                                </button>
+                                <button
+                                        class="delete-button"
+                                        data-id="{{ message.id }}"
+                                        data-csrf="{{ csrf_token('delete' ~ message.id) }}"
+                                        aria-label="Supprimer le message">
+                                    🗑️
+                                </button>
+                            </div>
                         </div>
                     </li>
                 {% else %}
-                    <li class="no-message">Aucune conversation.</li>
+                    <li class="no-message" aria-live="polite">Aucune conversation.</li>
                 {% endfor %}
             </ul>
         </section>
-        <div class="pagination">
+        <div class="pagination" aria-label="Pagination des messages">
             {{ knp_pagination_render(messages) }}
         </div>
     </main>

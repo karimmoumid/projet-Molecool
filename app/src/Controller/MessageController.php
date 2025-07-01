@@ -1,5 +1,4 @@
 <?php
-
 // src/Controller/MessageController.php
 namespace App\Controller;
 
@@ -23,11 +22,9 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class MessageController extends AbstractController
 {
-
+    // Route pour afficher les messages reçus
     #[Route('/messages/inbox', name: 'messages_inbox')]
-    public function inbox(Request $request,
-                          MessageRepository $messageRepository,
-                          PaginatorInterface $paginator): Response
+    public function inbox(Request $request, MessageRepository $messageRepository, PaginatorInterface $paginator): Response
     {
         $user = $this->getUser();
 
@@ -48,10 +45,9 @@ class MessageController extends AbstractController
         ]);
     }
 
+    // Route pour afficher les messages envoyés
     #[Route('/messages/envoye', name: 'messages_sent')]
-    public function sent(Request $request,
-                         MessageRepository $messageRepository,
-                         PaginatorInterface $paginator): Response
+    public function sent(Request $request, MessageRepository $messageRepository, PaginatorInterface $paginator): Response
     {
         $user = $this->getUser();
         $query = $messageRepository->findSentMessages($user);
@@ -66,14 +62,12 @@ class MessageController extends AbstractController
         ]);
     }
 
+    // Route pour afficher les messages favoris
     #[Route('/messages/favoris', name: 'messages_favorite')]
-    public function favorite(Request $request,
-                             MessageRepository $messageRepository,
-                             PaginatorInterface $paginator): Response
+    public function favorite(Request $request, MessageRepository $messageRepository, PaginatorInterface $paginator): Response
     {
         $user = $this->getUser();
         $query = $messageRepository->getFavoriteMessagesQuery($user);
-
         $messages = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
@@ -85,22 +79,26 @@ class MessageController extends AbstractController
         ]);
     }
 
-
-
+    // Route pour envoyer un message
     #[Route('/messages/send', name: 'message_send')]
     public function send(EmailService $emailSender, Request $request, EntityManagerInterface $em, UserRepository $userRepository, SluggerInterface $slugger): Response
     {
         $user = $this->getUser();
         $message = new Message();
+
+        // Création du formulaire en fonction du rôle de l'utilisateur
         if (in_array('ROLE_PATIENT', $user->getRoles())) {
             $form = $this->createForm(MessageForm::class, $message);
-        }else{
-            $form = $this->createForm(MessageForm::class, $message,[
-                'pro'=>true
+        } else {
+            $form = $this->createForm(MessageForm::class, $message, [
+                'pro' => true
             ]);
         }
+
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
+            // Gestion des fichiers joints
             $files = $form->get('files')->getData();
             foreach ($files as $file) {
                 if ($file) {
@@ -108,7 +106,6 @@ class MessageController extends AbstractController
                     $cleanFilename = strtolower($slugger->slug($originalFilename));
                     $newFilename = $cleanFilename . '-' . uniqid() . '.' . $file->guessExtension();
                     $file->move($this->getParameter('secure_uploads_directory'), $newFilename);
-
                     $piece = new File();
                     $piece->setname($newFilename);
                     $piece->setOriginalName($cleanFilename);
@@ -119,34 +116,43 @@ class MessageController extends AbstractController
 
             $message->setSender($user);
             $message->setLastSender($user->getName());
-            if ($form->has('patient') && $form->get('patient')->getData()){
+
+            // Définition du destinataire en fonction du rôle
+            if ($form->has('patient') && $form->get('patient')->getData()) {
                 $message->setRecipient($form->get('patient')->getData());
-            }else{
+            } else {
                 $message->setRecipient($form->get('employer')->getData());
             }
-            $now= new \DateTimeImmutable();
+
+            $now = new \DateTimeImmutable();
             $formattedDate = $now->format('Y-m-d H:i');
             $isoDate = $now->format('c');
             $message->setCreatedAt($now);
+
             $content = $form->get('content')->getData();
-            $message->setContent('<div class="send"> <p>'. htmlspecialchars($content) . '</p> <time datetime="'. $isoDate . '"> Envoyer le : ' . $formattedDate .'</time></div>');
+            $message->setContent('<div class="send"> <p>' . htmlspecialchars($content) . '</p> <time datetime="' . $isoDate . '"> Envoyer le : ' . $formattedDate . '</time></div>');
             $message->setModifyAt($now);
             $message->setIsRead(false);
             $message->setIsSenderDelete(false);
             $message->setIsRecipientDelete(false);
+
             $em->persist($message);
             $em->flush();
 
-
             // Envoi de l'email automatique
-            $emailSender->sender('no-reply@tonsite.com',$message->getRecipient()->getEmail(), 'Nouveau message reçu sur votre compte', 'new_message',[
-                'recipient' => $message->getRecipient(),
-                'sender' => $user,
-                'message' => $message
-            ]);
+            $emailSender->sender(
+                'no-reply@tonsite.com',
+                $message->getRecipient()->getEmail(),
+                'Nouveau message reçu sur votre compte',
+                'new_message',
+                [
+                    'recipient' => $message->getRecipient(),
+                    'sender' => $user,
+                    'message' => $message
+                ]
+            );
 
             $this->addFlash('success', 'Message envoyé avec succès.');
-
             return $this->redirectToRoute('messages_inbox');
         }
 
@@ -155,17 +161,20 @@ class MessageController extends AbstractController
         ]);
     }
 
-
+    // Route pour voir un message et y répondre
     #[Route('/messages/view/{id}/{read}', name: 'message_view', requirements: ['read' => '0|1'])]
-    public function view(EmailService $emailService,bool $read,Message $message, Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
+    public function view(EmailService $emailService, bool $read, Message $message, Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
         $user = $this->getUser();
-        // Vérifier que le user est soit sender soit recipient
+
+        // Vérifier que l'utilisateur est soit l'expéditeur soit le destinataire
         $this->denyAccessUnlessGranted('MESSAGE_VIEW', $message);
 
-        $form = $this->createForm(AnswerForm::class, $message,[]);
+        $form = $this->createForm(AnswerForm::class, $message, []);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
+            // Gestion des fichiers joints
             $files = $form->get('files')->getData();
             foreach ($files as $file) {
                 if ($file) {
@@ -173,7 +182,6 @@ class MessageController extends AbstractController
                     $cleanFilename = strtolower($slugger->slug($originalFilename));
                     $newFilename = $cleanFilename . '-' . uniqid() . '.' . $file->guessExtension();
                     $file->move($this->getParameter('secure_uploads_directory'), $newFilename);
-
                     $piece = new File();
                     $piece->setname($newFilename);
                     $piece->setOriginalName($cleanFilename);
@@ -181,6 +189,7 @@ class MessageController extends AbstractController
                     $message->addFile($piece);
                 }
             }
+
             $now = new \DateTimeImmutable();
             $message->setModifyAt($now);
             $sender = $message->getSender();
@@ -192,51 +201,66 @@ class MessageController extends AbstractController
             $message->setLastSender($user->getName());
             $message->setIsSenderDelete(false);
             $message->setIsRecipientDelete(false);
-if($sender === $user){
-$message->setContent('<div class="send"> <p>'. htmlspecialchars($form->get('reponse')->getData()) . '</p> <time datetime="'. $isoDate . '"> Envoyer le : ' . $formattedDate .'</time></div>'.$previewContent);
-}
-if ($recipient === $user) {
-    $message->setContent('<div class="receive"> <p>'. htmlspecialchars($form->get('reponse')->getData()) . '</p> <time datetime="'. $isoDate . '"> Envoyer le : ' . $formattedDate .'</time></div>'.$previewContent);
-    $message->setIsResponse(true);
-}
-$em->flush();
+
+            if ($sender === $user) {
+                $message->setContent('<div class="send"> <p>' . htmlspecialchars($form->get('reponse')->getData()) . '</p> <time datetime="' . $isoDate . '"> Envoyer le : ' . $formattedDate . '</time></div>' . $previewContent);
+            }
+
+            if ($recipient === $user) {
+                $message->setContent('<div class="receive"> <p>' . htmlspecialchars($form->get('reponse')->getData()) . '</p> <time datetime="' . $isoDate . '"> Envoyer le : ' . $formattedDate . '</time></div>' . $previewContent);
+                $message->setIsResponse(true);
+            }
+
+            $em->flush();
+
+            // Envoi d'un email de notification
             switch ($message->getLastSender()) {
                 case $sender->getName():
-                    $emailService->sender('no-reply@tonsite.com',$recipient->getEmail(), 'Nouveau message reçu sur votre compte', 'new_message',[
-                        'recipient' => $message->getRecipient(),
-                        'sender' => $user,
-                        'message' => $message,
-                    ]);
+                    $emailService->sender(
+                        'no-reply@tonsite.com',
+                        $recipient->getEmail(),
+                        'Nouveau message reçu sur votre compte',
+                        'new_message',
+                        [
+                            'recipient' => $message->getRecipient(),
+                            'sender' => $user,
+                            'message' => $message,
+                        ]
+                    );
                     break;
-
                 case $recipient->getName():
-                    $emailService->sender('no-reply@tonsite.com',$sender->getEmail(), 'Nouveau message reçu sur votre compte', 'new_message',[
-                        'recipient' => $message->getRecipient(),
-                        'sender' => $user,
-                        'message' => $message
-                    ]);
+                    $emailService->sender(
+                        'no-reply@tonsite.com',
+                        $sender->getEmail(),
+                        'Nouveau message reçu sur votre compte',
+                        'new_message',
+                        [
+                            'recipient' => $message->getRecipient(),
+                            'sender' => $user,
+                            'message' => $message
+                        ]
+                    );
                     break;
-
                 default:
                     // Code si aucune des conditions ci-dessus n'est remplie
                     break;
             }
 
-
-return $this->redirectToRoute('message_view', ['id' => $message->getId(), 'read' => 0]);
+            return $this->redirectToRoute('message_view', ['id' => $message->getId(), 'read' => 0]);
         }
-        if($read){
+
+        if ($read) {
             $message->setIsRead(true);
             $em->flush();
         }
+
         return $this->render('message/view.html.twig', [
             'message' => $message,
             'form' => $form,
         ]);
     }
 
-
-
+    // Route pour ajouter/supprimer un message des favoris
     #[Route('/messages/toggle-favorite/{id}', name: 'message_toggle_favorite', methods: ['POST'])]
     public function toggleFavorite(Message $message, EntityManagerInterface $em): JsonResponse
     {
@@ -255,13 +279,13 @@ return $this->redirectToRoute('message_view', ['id' => $message->getId(), 'read'
         }
 
         $em->flush();
-
         return new JsonResponse([
             'success' => true,
             'isFavorite' => $favori,
         ]);
     }
 
+    // Route pour supprimer un message
     #[Route('/messages/{id}/delete', name: 'message_delete', methods: ['POST'])]
     public function delete(Request $request, Message $message, EntityManagerInterface $em): JsonResponse
     {
@@ -293,11 +317,6 @@ return $this->redirectToRoute('message_view', ['id' => $message->getId(), 'read'
         }
 
         $em->flush();
-
         return new JsonResponse(['success' => true]);
     }
-
-
-
-
 }
