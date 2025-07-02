@@ -22,7 +22,7 @@
                         <a href="{{ path('message_view', { 'id': message.id , 'read': 0 }) }}" aria-label="Voir le message">
                             <p>De : {{ message.lastsender }}</p>
                             <p>{{ message.subject ?: 'Sans sujet' }}</p>
-                            <small>Dernier message : {{ message.modifyAt|date('d/m/Y H:i') }}</small>
+                            <small>Dernier message : {{ message.modifyAt|date('d/m/Y à H:i') }}</small>
                         </a>
                         <button class="favorite-toggle" aria-label="Basculer le favori">
                             {{ app.user.favorite.contains(message) ? '❤️' : '🤍' }}

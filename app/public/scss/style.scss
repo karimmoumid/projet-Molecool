@@ -445,7 +445,7 @@
   }
 
   .box {
-    @media (min-width: 1025px) {
+    @media (min-width: 1024px) {
       margin: 0;
       margin-top: 10px;
     }
@@ -823,6 +823,11 @@
   #message_inbox, #message_sent, #message_favorite {
     .message-list {
       li {
+        padding-block: 5px;
+        &:hover{
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          border-radius: 5px;
+        }
         a {
           flex-direction: row;
           gap: 30px;

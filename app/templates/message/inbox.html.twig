@@ -30,7 +30,7 @@
                         <a href="{{ path('message_view', { 'id': message.id , 'read': 1 }) }}" aria-label="Voir le message de {{ message.lastsender }}">
                             <p>De : {{ message.lastsender }}</p>
                             <p>Objet : {{ message.subject ?: 'Sans sujet' }}</p>
-                            <small>Dernier message : {{ message.modifyAt|date('d/m/Y H:i') }}</small>
+                            <small>Dernier message : {{ message.modifyAt|date('d/m/Y à H:i') }}</small>
                         </a>
                         <div class="message-meta">
                             <p class="status" aria-label="{{ message.isRead ? 'Message lu' : 'Message non lu' }}">

@@ -747,7 +747,7 @@ button.next {
 #appointment_index h2 {
   color: var(--primary-color);
 }
-@media (min-width: 1025px) {
+@media (min-width: 1024px) {
   #appointment_index .box {
     margin: 0;
     margin-top: 10px;
@@ -1051,6 +1051,13 @@ button.next {
   }
   #detail > p, #detail > ul, #detail > div {
     grid-column: 1/-1;
+  }
+  #message_inbox .message-list li, #message_sent .message-list li, #message_favorite .message-list li {
+    padding-block: 5px;
+  }
+  #message_inbox .message-list li:hover, #message_sent .message-list li:hover, #message_favorite .message-list li:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
   }
   #message_inbox .message-list li a, #message_sent .message-list li a, #message_favorite .message-list li a {
     flex-direction: row;

@@ -11,7 +11,7 @@
             <h1 id="message_subject">Sujet : {{ message.subject ?: '(sans sujet)' }}</h1>
             <p><strong>De :</strong> {{ message.sender.name ?: message.sender.email }}</p>
             <p><strong>À :</strong> {{ message.recipient.name ?: message.recipient.email }}</p>
-            <p><strong>Premier envoi :</strong> {{ message.createdAt|date('d/m/Y H:i') }}</p>
+            <p><strong>Premier envoi :</strong> {{ message.createdAt|date('d/m/Y à H:i') }}</p>
         </section>
 
         <section id="content_message_view" aria-label="Contenu de la discussion">
