@@ -51,4 +51,13 @@ final class MainController extends AbstractController
         // Affichage de la page FAQ
         return $this->render('main/faq.html.twig');
     }
+
+    #[Route('/mentions_legal', name: 'app_main_legal')]
+    public function legal(): Response
+    {
+        // Affichage de la page FAQ
+        return $this->render('main/mention_legal.html.twig');
+    }
+
+
 }

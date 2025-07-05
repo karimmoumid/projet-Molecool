@@ -1,0 +1,229 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mentions légales et Politique de confidentialité - Molecool{% endblock %}
+
+{% block body %}
+    <main class="container_responsive_2_4" role="main" aria-labelledby="mentions-legales-title" id="mention_legal">
+
+
+        <h1 id="mentions-legales-title">Mentions légales et Politique de confidentialité</h1>
+
+        <div class="last-update">
+            <p>Dernière mise à jour : {{ "now"|date("d/m/Y") }}</p>
+        </div>
+
+        <h2 id="mentions-legales">Mentions légales</h2>
+
+        <article class="box">
+            <h3>Éditeur du site</h3>
+            <p><strong>Molecool Laboratory</strong><br>
+                Laboratoire d'analyses médicales<br>
+                123 Centre médical, rue 43<br>
+                11111 Ville, France</p>
+
+            <p><strong>Téléphone :</strong> +33 5 12 34 56 7<br>
+                <strong>Email :</strong> contact@molecool-laboratory.fr</p>
+
+            <p><strong>Directeur de publication :</strong> Dr. [Nom du responsable]<br>
+                <strong>Responsable de la rédaction :</strong> [Nom du responsable]</p>
+        </article>
+
+        <article class="box">
+            <h3>Hébergement</h3>
+            <p>Ce site web est hébergé par :</p>
+            <p><strong>[Nom de l'hébergeur]</strong><br>
+                [Adresse de l'hébergeur]<br>
+                Téléphone : [Numéro de téléphone]</p>
+        </article>
+
+        <article class="box">
+            <h3>Propriété intellectuelle</h3>
+            <p>L'ensemble de ce site relève de la législation française et internationale sur le droit d'auteur et la propriété intellectuelle. Tous les droits de reproduction sont réservés, y compris pour les documents téléchargeables et les représentations iconographiques et photographiques.</p>
+
+            <p>La reproduction de tout ou partie de ce site sur un support électronique quel qu'il soit est formellement interdite sauf autorisation expresse du directeur de la publication.</p>
+        </article>
+
+        <h2 id="politique-confidentialite">Politique de confidentialité (RGPD)</h2>
+
+        <article class="box">
+            <h3>Engagement de protection des données</h3>
+            <p><strong>Conformément au Règlement Général sur la Protection des Données (RGPD)</strong>, Molecool Laboratory s'engage à protéger et respecter votre vie privée.</p>
+        </article>
+
+        <article class="box">
+            <h3>Responsable du traitement</h3>
+            <p>Le responsable du traitement des données personnelles est :</p>
+            <p><strong>Molecool Laboratory</strong><br>
+                123 Centre médical, rue 43<br>
+                11111 Ville, France<br>
+                Email : dpo@molecool-laboratory.fr</p>
+        </article>
+
+        <article class="box">
+            <h3>Données collectées</h3>
+            <p>Dans le cadre de l'utilisation de notre plateforme, nous collectons les données suivantes :</p>
+            <ul>
+                <li><strong>Données d'identification :</strong> nom, prénom, adresse email</li>
+                <li><strong>Données de santé :</strong> numéro de sécurité sociale (pour les patients uniquement)</li>
+                <li><strong>Données de connexion :</strong> adresse IP, logs de connexion, données de navigation</li>
+                <li><strong>Données de messagerie :</strong> contenu des messages échangés via la messagerie sécurisée</li>
+                <li><strong>Données de rendez-vous :</strong> créneaux réservés, historique des consultations</li>
+                <li><strong>Fichiers joints :</strong> documents médicaux transmis via la messagerie</li>
+            </ul>
+        </article>
+
+        <article class="box">
+            <h3>Finalités du traitement</h3>
+            <p>Vos données personnelles sont traitées pour les finalités suivantes :</p>
+            <ul>
+                <li>Gestion des comptes utilisateurs et authentification</li>
+                <li>Prise de rendez-vous et gestion du planning</li>
+                <li>Communication via la messagerie sécurisée</li>
+                <li>Amélioration de la qualité de nos services</li>
+                <li>Respect des obligations légales et réglementaires</li>
+                <li>Sécurisation de la plateforme et prévention des fraudes</li>
+            </ul>
+        </article>
+
+        <article class="box">
+            <h3>Base légale du traitement</h3>
+            <p>Le traitement de vos données personnelles repose sur :</p>
+            <ul>
+                <li><strong>Votre consentement</strong> pour l'utilisation de la plateforme et la messagerie</li>
+                <li><strong>L'exécution du contrat</strong> pour la gestion des rendez-vous et des services</li>
+                <li><strong>L'obligation légale</strong> pour la conservation de certaines données médicales</li>
+                <li><strong>L'intérêt légitime</strong> pour la sécurisation et l'amélioration de nos services</li>
+            </ul>
+        </article>
+
+        <article class="box">
+            <h3>Destinataires des données</h3>
+            <p>Vos données personnelles sont destinées :</p>
+            <ul>
+                <li>Au personnel autorisé de Molecool Laboratory</li>
+                <li>Aux sous-traitants techniques (hébergement, maintenance)</li>
+                <li>Aux autorités compétentes en cas d'obligation légale</li>
+            </ul>
+            <p>Aucune donnée n'est transmise à des tiers à des fins commerciales.</p>
+        </article>
+
+        <article class="box">
+            <h3>Durée de conservation</h3>
+            <p>Vos données sont conservées pendant les durées suivantes :</p>
+            <ul>
+                <li><strong>Données de compte :</strong> pendant toute la durée d'utilisation du service + 3 ans</li>
+                <li><strong>Données de santé :</strong> conformément à la réglementation médicale (20 ans minimum)</li>
+                <li><strong>Données de messagerie :</strong> 5 ans à compter du dernier échange</li>
+                <li><strong>Logs de connexion :</strong> 12 mois maximum</li>
+            </ul>
+        </article>
+
+        <article class="box">
+            <h3>Sécurité des données</h3>
+            <p>Molecool Laboratory met en œuvre toutes les mesures techniques et organisationnelles appropriées pour assurer la sécurité de vos données :</p>
+            <ul>
+                <li>Chiffrement des données sensibles</li>
+                <li>Authentification renforcée</li>
+                <li>Accès restreint et tracé</li>
+                <li>Sauvegardes régulières et sécurisées</li>
+                <li>Formation du personnel à la protection des données</li>
+            </ul>
+        </article>
+
+        <h2 id="vos-droits">Vos droits</h2>
+
+        <article class="box">
+            <h3>Droits RGPD</h3>
+            <p>Conformément au RGPD, vous disposez des droits suivants :</p>
+            <ul>
+                <li><strong>Droit d'accès :</strong> obtenir une copie de vos données personnelles</li>
+                <li><strong>Droit de rectification :</strong> corriger vos données inexactes ou incomplètes</li>
+                <li><strong>Droit à l'effacement :</strong> demander la suppression de vos données</li>
+                <li><strong>Droit à la limitation :</strong> restreindre le traitement de vos données</li>
+                <li><strong>Droit à la portabilité :</strong> récupérer vos données dans un format structuré</li>
+                <li><strong>Droit d'opposition :</strong> vous opposer au traitement de vos données</li>
+                <li><strong>Droit de retrait du consentement :</strong> retirer votre consentement à tout moment</li>
+            </ul>
+        </article>
+
+        <article class="box">
+            <h3>Exercer vos droits</h3>
+            <p><strong>Pour exercer vos droits :</strong><br>
+                Contactez-nous à l'adresse : dpo@molecool-laboratory.fr<br>
+                Ou par courrier postal à l'adresse mentionnée ci-dessus.</p>
+
+            <p><strong>Délai de réponse :</strong> 1 mois maximum à compter de la réception de votre demande.</p>
+        </article>
+
+        <article class="box">
+            <h3>Droit de réclamation</h3>
+            <p>Si vous estimez que le traitement de vos données personnelles constitue une violation du RGPD, vous avez le droit d'introduire une réclamation auprès de la CNIL :</p>
+            <p><strong>Commission Nationale de l'Informatique et des Libertés (CNIL)</strong><br>
+                3 Place de Fontenoy - TSA 80715<br>
+                75334 PARIS CEDEX 07<br>
+                Téléphone : 01 53 73 22 22<br>
+                Site web : <a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a></p>
+        </article>
+
+        <h2 id="cookies">Politique des cookies</h2>
+
+        <article class="box">
+            <h3>Qu'est-ce qu'un cookie ?</h3>
+            <p>Un cookie est un petit fichier texte déposé sur votre terminal lors de la visite d'un site web. Il permet au site de reconnaître votre navigateur et de mémoriser certaines informations.</p>
+        </article>
+
+        <article class="box">
+            <h3>Cookies utilisés</h3>
+            <p>Notre site utilise les types de cookies suivants :</p>
+            <ul>
+                <li><strong>Cookies essentiels :</strong> nécessaires au fonctionnement du site (session, authentification)</li>
+                <li><strong>Cookies de performance :</strong> amélioration de l'expérience utilisateur</li>
+                <li><strong>Cookies de sécurité :</strong> protection contre les attaques et fraudes</li>
+            </ul>
+            <p>Nous n'utilisons pas de cookies publicitaires ou de tracking à des fins commerciales.</p>
+        </article>
+
+        <article class="box">
+            <h3>Gestion des cookies</h3>
+            <p>Vous pouvez configurer votre navigateur pour :</p>
+            <ul>
+                <li>Accepter ou refuser tous les cookies</li>
+                <li>Être alerté lors du dépôt d'un cookie</li>
+                <li>Supprimer les cookies enregistrés</li>
+            </ul>
+            <p><strong>Attention :</strong> la désactivation de certains cookies peut altérer le fonctionnement du site.</p>
+        </article>
+
+        <h2 id="contact-dpo">Contact et réclamations</h2>
+
+        <article class="box">
+            <h3>Délégué à la Protection des Données (DPO)</h3>
+            <p>Pour toute question relative à la protection de vos données personnelles :</p>
+            <p><strong>Email :</strong> dpo@molecool-laboratory.fr<br>
+                <strong>Courrier :</strong><br>
+                Délégué à la Protection des Données<br>
+                Molecool Laboratory<br>
+                123 Centre médical, rue 43<br>
+                11111 Ville, France</p>
+        </article>
+
+        <article class="box">
+            <h3>Mise à jour de la politique</h3>
+            <p>Cette politique de confidentialité peut être mise à jour pour refléter les changements dans nos pratiques ou pour respecter les évolutions légales. La date de dernière mise à jour est indiquée en haut de cette page.</p>
+            <p>En cas de modification substantielle, nous vous informerons par email ou via un message sur la plateforme.</p>
+        </article>
+
+        <h2 id="dispositions-finales">Dispositions finales</h2>
+
+        <article class="box">
+            <h3>Droit applicable</h3>
+            <p>Les présentes mentions légales et la politique de confidentialité sont régies par le droit français. Tout litige sera soumis aux tribunaux compétents de [Ville].</p>
+        </article>
+
+        <article class="box">
+            <h3>Acceptation</h3>
+            <p>L'utilisation de ce site web implique l'acceptation pleine et entière des présentes mentions légales et de la politique de confidentialité.</p>
+        </article>
+
+    </main>
+{% endblock %}
